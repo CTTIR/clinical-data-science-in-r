@@ -1,0 +1,386 @@
+# Bayes, small samples and the 3Rs {#sec-b16}
+
+```{r}
+#| label: setup-b16
+#| include: false
+source("../R/style.R")
+set.seed(1616)
+```
+
+::: {.callout-note appearance="simple" icon=false}
+## At a glance
+
+**Guiding question:** What uncertainty remains even when an event rate looks striking?\
+**For:** preclinical researchers, doctoral students, members of animal welfare bodies and reviewers of small
+experiments ·
+**Prerequisites:** proportions and denominators (@sec-b03), the difference between describing and explaining
+(@sec-b02)\
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) and
+[W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html) ·
+**Data:** synthetic, fictitious animals (generated in the chapter) ·
+**Core reading time:** about 10 minutes
+:::
+
+## Case and decision {#sec-b16-case}
+
+A fictitious preclinical group has tested a new bone substitute material in a critical-size femoral defect model in
+rats. Ten animals were operated on; one died on the second day after surgery; in seven of the nine animals evaluated
+at week 8, the defect was bridged by bone. There was no control group. The draft abstract reads: "The material led
+to bony bridging in 78% of animals and is therefore effective." The group leader has to decide two things before the
+manuscript goes out and before the next application to the competent authority: what the abstract may claim, and
+which experiment – if any – should come next. All animals and results are *synthetic*. The chapter separates three
+questions that the draft merges: how large the bridging rate is, whether the material caused it, and whether another
+experiment on animals is justified.
+
+## Core reading {#sec-b16-core}
+
+::: {.callout-important appearance="simple" icon=false}
+**Core reading** · recommended for W5 and W6 · about 10 minutes · ends before ‘Lab’
+:::
+
+```{r}
+#| label: b16-core-run
+#| include: false
+#| ref.label: !expr c("b16-data", "b16-baseline", "b16-posterior", "b16-effect")
+```
+
+**Origin and denominator first.** The independent unit is the animal [@lazic2018n]. Ten were operated on; one
+died before the end point; nine were evaluated; seven were bridged. The draft reports 7/9 =
+`r cdsr_percent(x_bridged / n_evaluated)`. If the animal that died is counted as a failure, the rate is 7/10 =
+`r cdsr_percent(x_bridged / n_operated)`. Both numbers are correct; they answer different questions, and the report
+must say which one it uses and why. A short table that lists all ten animals with their status is the clearest way to
+show both. Reporting the excluded animal is not optional: the ARRIVE guidelines list
+inclusion and exclusion criteria among the "Essential 10" items [@percie2020arrive].
+
+**A frequentist baseline.** The exact (Clopper–Pearson) 95% confidence interval for 7 of 9 runs from
+`r cdsr_percent(cp_interval[1])` to `r cdsr_percent(cp_interval[2])` [@clopper1934use]. With nine animals, "78%" is
+compatible with a rate below one half and with a rate close to one.
+
+**Prior, likelihood and posterior.** Bayesian analysis asks a slightly different question: given the data, how
+plausible is each possible bridging rate p? It combines three parts. The *likelihood* says how probable 7 bridged out
+of 9 is for each value of p (a binomial model). The *prior* states what was considered plausible before the
+experiment. The *posterior* is the updated belief: prior × likelihood, rescaled. For a binomial outcome and a Beta
+prior, the posterior is again a Beta distribution: Beta(a, b) becomes Beta(a + 7, b + 2). Its quantiles come from
+`qbeta()` without simulation [@spiegelhalter2004bayesian]. The prior parameters can be read as imaginary animals
+observed beforehand: Beta(1, 1) adds one bridged and one unbridged animal, Beta(3, 7) adds three and seven. With only
+nine real animals, ten imaginary ones carry real weight.
+
+Two priors are plausible here (both *assumptions*). A *flat* prior, Beta(1, 1), treats every rate between 0 and 1 as
+equally plausible. A *sceptical* prior, Beta(3, 7), expresses the expectation that the material performs about as
+well as an untreated defect in this model, assumed here to bridge in about 30% of animals, and gives this expectation
+the weight of ten animals. @fig-b16-posteriors and @tbl-b16-posteriors show the result.
+
+```{r}
+#| label: fig-b16-posteriors
+#| echo: false
+#| fig-cap: "Prior (dashed) and posterior (solid) densities of the bridging rate for two priors, after 7 bridged of 9 evaluated animals (*synthetic*, n = 9 animals, 10 operated). Horizontal bars: 95% posterior intervals; grey bar: exact 95% confidence interval."
+#| fig-alt: "Line chart of densities over the bridging rate from 0 to 1. The flat prior is a horizontal dashed line; its posterior peaks near 0.8 and spans roughly 0.44 to 0.93. The sceptical prior is a dashed curve peaking near 0.25; its posterior peaks near 0.53 and spans roughly 0.31 to 0.74. Below the curves, three horizontal bars show the two posterior intervals and the wider exact confidence interval from 0.40 to 0.97."
+#| fig-height: 4.4
+library(ggplot2)
+grid_p <- seq(0.001, 0.999, by = 0.002)
+dens <- do.call(rbind, lapply(seq_len(nrow(priors)), function(i) rbind(
+  data.frame(p = grid_p, density = dbeta(grid_p, priors$a[i], priors$b[i]), prior = priors$label[i], kind = "prior"),
+  data.frame(p = grid_p, density = dbeta(grid_p, posterior$a_post[i], posterior$b_post[i]), prior = priors$label[i],
+             kind = "posterior"))))
+bars <- data.frame(label = c(priors$label, "exact confidence interval"),
+                   lower = c(posterior$lower, cp_interval[1]), upper = c(posterior$upper, cp_interval[2]),
+                   y = c(-0.35, -0.7, -1.05))
+ggplot(dens, aes(p, density, colour = prior, linetype = kind)) +
+  geom_line(linewidth = 1) +
+  geom_segment(data = bars[1:2, ], aes(x = lower, xend = upper, y = y, yend = y, colour = label),
+               inherit.aes = FALSE, linewidth = 2.2) +
+  geom_segment(data = bars[3, ], aes(x = lower, xend = upper, y = y, yend = y), inherit.aes = FALSE,
+               colour = cdsr_colours[["grey"]], linewidth = 2.2) +
+  scale_colour_manual(values = setNames(unname(cdsr_colours[c("blue", "orange")]), priors$label)) +
+  scale_linetype_manual(values = c(prior = cdsr_linetypes[[2]], posterior = cdsr_linetypes[[1]])) +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Bridging rate under the new material", y = "Density", colour = "Prior", linetype = NULL,
+       caption = "Bars from top: flat-prior posterior, sceptical-prior posterior, exact (Clopper–Pearson) interval.") +
+  theme_cdsr()
+```
+
+```{r}
+#| label: tbl-b16-posteriors
+#| echo: false
+#| tbl-cap: "Posterior summaries of the bridging rate for 7 of 9 animals (*synthetic*) under two priors (*assumptions*), computed analytically with `qbeta()` and `pbeta()`."
+knitr::kable(posterior_table, align = "lllrr")
+```
+
+With the flat prior, the posterior mean is `r cdsr_percent(posterior$mean[1])`, the 95% interval runs from
+`r cdsr_percent(posterior$lower[1])` to `r cdsr_percent(posterior$upper[1])`, and the probability that the rate
+exceeds one half is `r cdsr_number(posterior$p_above_half[1], 2)`. With the sceptical prior, the mean falls to
+`r cdsr_percent(posterior$mean[2])` and that probability to `r cdsr_number(posterior$p_above_half[2], 2)`. Nine
+animals are not enough to make the prior irrelevant. Reporting both analyses, with the prior chosen before the data
+were seen, is more informative than reporting either alone. Note the difference in meaning: a posterior interval is
+a statement about the rate, given the model and the prior; the confidence interval is a statement about how often the
+procedure would cover the true rate in repeated experiments. With small samples the two can differ noticeably.
+
+**The most important assumption.** **Every interval in this chapter describes the bridging rate under the new
+material in this model and this laboratory. None of them says what the rate would have been without the material.**
+An effect is a comparison: rate with the material minus rate without it. The second rate was not observed. If an
+untreated defect bridged in 20% of animals, the posterior probability that the material does better is
+above 0.999; at 50%, it is `r cdsr_number(p_beats_control[2], 2)`; at 70%, it is
+`r cdsr_number(p_beats_control[3], 2)` (flat prior). The data cannot choose between these scenarios, so the claim "is
+effective" has no support from this experiment. A historical rate from another publication is no substitute for a
+concurrent, randomised control: animals, surgeons, housing and assessment differ.
+
+**What the next experiment needs.** A defensible next step answers the question that this experiment could not:
+does the material change the bridging rate? That requires a concurrent control group in the same model and
+laboratory, random allocation of animals to groups, outcome assessment by a person who does not know the group, an
+end point and a sample size fixed before the first operation, and a report of every animal. It also requires a
+criterion, agreed in advance, under which the experiment is *not* run – for example when the number of animals that
+can be justified cannot answer the question with reasonable probability. The lab computes both.
+
+**Planning versus reporting.** Two frameworks apply, at different moments. The 3Rs – replacement, reduction and
+refinement – govern whether and how an experiment is done [@nc3rs3rs]. In the European Union they are binding on
+Member States through Article 4 of Directive 2010/63/EU on the protection of animals used for scientific purposes
+[@eu2010animals]. The ARRIVE guidelines 2.0 govern how a
+completed study is reported [@percie2020arrive]. Good reporting cannot repair a design without a control group, and a
+well-planned design is of little use if the report omits the excluded animal.
+
+**Question for the workshop.** Write one sentence for the abstract that is true for these data and that a sceptical
+reader would accept. Which word in the draft sentence has to go first?
+
+## Lab {#sec-b16-lab}
+
+The lab uses base R only (plus **ggplot2** for the figure above) and runs in under a second.
+
+### Step 1: the data with their origin
+
+```{r}
+#| label: b16-data
+animals <- data.frame(
+  animal = sprintf("R%02d", 1:10),                                  # fictitious rats
+  died_before_end_point = c(FALSE, TRUE, rep(FALSE, 8)),            # R02 died on day 2 after surgery
+  bridged_week8 = c(TRUE, NA, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE))  # NA: not evaluable
+n_operated <- nrow(animals)
+n_evaluated <- sum(!animals$died_before_end_point)
+x_bridged <- sum(animals$bridged_week8, na.rm = TRUE)
+stopifnot(n_operated == 10, n_evaluated == 9, x_bridged == 7,
+          all(is.na(animals$bridged_week8) == animals$died_before_end_point))  # no evaluation without an animal
+```
+
+### Step 2: the frequentist baseline
+
+```{r}
+#| label: b16-baseline
+cp_interval <- binom.test(x_bridged, n_evaluated)$conf.int            # exact Clopper–Pearson interval
+cp_interval_operated <- binom.test(x_bridged, n_operated)$conf.int    # death counted as failure
+round(rbind(evaluated_7_of_9 = cp_interval, operated_7_of_10 = cp_interval_operated), 3)
+```
+
+### Step 3: two priors and their posteriors
+
+```{r}
+#| label: b16-posterior
+priors <- data.frame(label = c("flat Beta(1, 1)", "sceptical Beta(3, 7)"), a = c(1, 3), b = c(1, 7),
+                     rationale = c("every rate equally plausible",
+                                   "about 30%, as assumed for untreated defects; weight of 10 animals"))
+posterior_of <- function(x, n, a, b) {                     # conjugate update Beta(a, b) -> Beta(a + x, b + n - x)
+  a_post <- a + x
+  b_post <- b + n - x
+  data.frame(a_post = a_post, b_post = b_post, mean = a_post / (a_post + b_post),
+             lower = qbeta(0.025, a_post, b_post), upper = qbeta(0.975, a_post, b_post),
+             p_above_half = 1 - pbeta(0.5, a_post, b_post))
+}
+posterior <- do.call(rbind, Map(posterior_of, x_bridged, n_evaluated, priors$a, priors$b))
+prior_interval <- qbeta(c(0.025, 0.975), 3, 7)            # what the sceptical prior allowed beforehand
+posterior_table <- data.frame(
+  Prior = priors$label, Rationale = priors$rationale,
+  Posterior = sprintf("Beta(%d, %d)", posterior$a_post, posterior$b_post),
+  `Mean and 95% interval` = sprintf("%s (%s to %s)", cdsr_percent(posterior$mean), cdsr_percent(posterior$lower),
+                                    cdsr_percent(posterior$upper)),
+  `P(rate > 50%)` = cdsr_number(posterior$p_above_half, 2), check.names = FALSE)
+posterior[, -(1:2)] |> round(3)
+stopifnot(
+  posterior$a_post == c(8, 10), posterior$b_post == c(3, 9),
+  abs(posterior$lower - c(0.444, 0.308)) < 0.001, abs(posterior$upper - c(0.933, 0.740)) < 0.001,
+  posterior$upper[2] < posterior$upper[1],                 # the sceptical prior pulls the interval down
+  cp_interval[2] - cp_interval[1] > posterior$upper[1] - posterior$lower[1])  # exact interval is the widest
+```
+
+The sceptical prior on its own allowed rates from `r cdsr_percent(prior_interval[1])` to
+`r cdsr_percent(prior_interval[2])`. Its posterior is a compromise between this expectation and the data; with nine
+animals, neither dominates.
+
+### Step 4: event rate is not effect
+
+```{r}
+#| label: b16-effect
+control_rates <- c(0.2, 0.5, 0.7)                          # hypothetical rates without the material (not observed)
+p_beats_control <- 1 - pbeta(control_rates, posterior$a_post[1], posterior$b_post[1])
+data.frame(assumed_control_rate = control_rates, P_material_better = round(p_beats_control, 3))
+stopifnot(p_beats_control[1] > 0.999, p_beats_control[3] < 0.7)   # the answer depends on what was not measured
+```
+
+### Step 5: design of the next experiment
+
+The next defensible experiment, if any, compares the material with a concurrent control in a randomised design, with
+the outcome assessed blind to group. Its size follows from a design analysis before any animal is ordered. Here the
+decision rule is: call the material better if the posterior probability that its rate exceeds the control rate is
+above 0.95 (flat priors in both arms). For each number of animals per arm, the probability that the rule declares
+success can be computed exactly by summing over all possible outcomes – no simulation is needed.
+
+```{r}
+#| label: b16-design
+prob_better <- function(x_t, x_c, n) {                     # P(p_material > p_control | data), flat priors
+  integrate(function(p) dbeta(p, 1 + x_c, 1 + n - x_c) * (1 - pbeta(p, 1 + x_t, 1 + n - x_t)), 0, 1)$value
+}
+decision_probability <- function(n, p_material, p_control, threshold = 0.95) {
+  outcomes <- expand.grid(x_t = 0:n, x_c = 0:n)
+  success <- mapply(prob_better, outcomes$x_t, outcomes$x_c, MoreArgs = list(n = n)) > threshold
+  sum(dbinom(outcomes$x_t, n, p_material) * dbinom(outcomes$x_c, n, p_control) * success)
+}
+n_per_arm <- c(6, 8, 10, 12, 15, 20)
+design <- data.frame(
+  n_per_arm = n_per_arm,
+  success_if_relevant_difference = sapply(n_per_arm, decision_probability, p_material = 0.7, p_control = 0.3),
+  success_if_no_difference = sapply(n_per_arm, decision_probability, p_material = 0.3, p_control = 0.3))
+round(design, 3)
+n_needed <- min(design$n_per_arm[design$success_if_relevant_difference >= 0.8])
+stopifnot(all(design$success_if_no_difference < 0.06),    # false-positive probability stays near 5%
+          n_needed == 20)
+```
+
+The assumed relevant difference is 30% versus 70% (*assumption*). To reach a decision probability of 80%, the binary
+end point needs `r n_needed` animals per arm. The probabilities do not rise smoothly with the number of animals
+because the outcome is discrete.
+
+**A criterion against a further experiment.** Fix it before the application, together with the animal welfare
+body. For example: *if the largest number of animals that the team considers justifiable for this question – say 12
+per arm (assumption) – gives a decision probability below 80% for the smallest relevant difference, the experiment is
+not run in this form.* Here, 12 per arm give `r cdsr_percent(design$success_if_relevant_difference[design$n_per_arm == 12])`,
+so the criterion applies. The alternatives are not "more animals" but better information per animal and fewer
+animals overall: a continuous end point such as bone volume from imaging instead of bridged yes/no (reduction),
+non-animal tests of the material's properties before any further surgery (replacement, partial), and a revised
+anaesthesia and analgesia protocol after the early death (refinement).
+
+### Step 6: planning and reporting are different tasks
+
+@tbl-b16-3rs-arrive sets the two frameworks side by side for this case.
+
+| | 3Rs | ARRIVE 2.0 |
+|---|---|---|
+| Question | Is the experiment necessary, and how can harm and numbers be minimised? | Can readers judge and repeat what was done? |
+| When | Before the experiment: design, application, ethical review | After the experiment: manuscript |
+| Basis | NC3Rs definitions [@nc3rs3rs]; Directive 2010/63/EU, Article 4 [@eu2010animals] | Essential 10 and Recommended Set [@percie2020arrive] |
+| In this case | Concurrent control, design analysis, continuous end point, refined anaesthesia | Report all 10 animals, the death and its handling, the absent control and blinding |
+
+: Planning under the 3Rs and reporting under ARRIVE 2.0. {#tbl-b16-3rs-arrive}
+
+The ARRIVE "Essential 10" are study design, sample size, inclusion and exclusion criteria, randomisation, blinding,
+outcome measures, statistical methods, experimental animals, experimental procedures and results. In a survey of
+271 publications of animal research, most studies did not use randomisation (87%) or blinding (86%), and only 59%
+stated the objective together with the number and characteristics of the animals (*published*,
+@kilkenny2009survey).
+
+### Step 7: decision exercise – a letter to the editor
+
+Assume the draft sentence was published unchanged. Write a letter to the editor of about 150 words that explains, for
+a clinical readership, the difference between the observed bridging rate and a treatment effect. Use the
+denominators, one interval and one consequence for the next study. Compare your letter with the example only after
+writing it.
+
+::: {.callout-tip collapse="true" title="Example letter"}
+The authors report bony bridging in 78% of rats treated with a new bone substitute and conclude that the material is
+effective. We would like to raise two points. First, ten animals were operated on and one died; the rate is 7/9, or
+7/10 if the death is counted. The exact 95% confidence interval for 7/9 runs from 40% to 97%. Second, and more
+important, there was no control group. Whether 78% is better than what an untreated defect achieves in this model,
+operated and assessed in the same laboratory, is unknown; historical rates from other studies cannot answer this.
+The data therefore describe how often bridging occurred, not whether the material caused it. A randomised experiment
+with a concurrent control, blinded assessment and a sample size justified in advance would be needed before any
+claim of efficacy, and before planning studies in patients.
+:::
+
+**If the result stays unclear.** A small single-arm experiment with an unclear result is still worth reporting –
+with all animals, both denominators and the absent control stated plainly – because unreported experiments lead
+others to repeat them. Its legitimate use is to inform the design of the next experiment: it suggests a plausible
+range for the treated rate, as in the sceptical-prior analysis, not a proof of effect.
+
+## Counter-check {#sec-b16-countercheck}
+
+Triple the number of animals and keep the rate: 21 bridged of 27 evaluated (*synthetic*). **Predict first:** will the
+two posteriors move closer together? Will the uncertainty about the *effect* of the material shrink?
+
+```{r}
+#| label: b16-countercheck
+posterior_27 <- do.call(rbind, Map(posterior_of, 21, 27, priors$a, priors$b))
+widths <- data.frame(prior = priors$label,
+                     width_9 = posterior$upper - posterior$lower,
+                     width_27 = posterior_27$upper - posterior_27$lower,
+                     mean_9 = posterior$mean, mean_27 = posterior_27$mean)
+round(widths[, -1], 3)
+gap_9 <- diff(posterior$mean); gap_27 <- diff(posterior_27$mean)
+stopifnot(all(widths$width_27 < widths$width_9),            # intervals narrow
+          abs(gap_27) < abs(gap_9))                         # the priors matter less
+```
+
+The intervals narrow, and the difference between the posterior means under the two priors shrinks from
+`r cdsr_number(100 * abs(gap_9), 1)` to `r cdsr_number(100 * abs(gap_27), 1)` percentage points. The uncertainty about
+the *rate* falls. The uncertainty about the *effect* does not change at all, because 27 treated animals without a
+control still contain no information about the rate without treatment. Tripling the number of animals in an
+uncontrolled design costs animals without answering the question – the opposite of reduction in the sense of the
+NC3Rs, which ties reduction to appropriately designed experiments that add to the knowledge base [@nc3rs3rs].
+
+## Consequences for patients and operations {#sec-b16-consequences}
+
+**Animals and ethics.** Each further animal needs a justification that this design cannot supply. The early death is
+a signal for refinement before any further surgery, and the criterion against a further experiment protects animals
+from a study that could not answer its question. In Germany, the Animal Welfare Act (Tierschutzgesetz, TierSchG)
+§ 7a requires that animal experiments are indispensable for their purpose and, for vertebrates and cephalopods, ethically
+justifiable with respect to the expected pain, suffering or harm [@tierschg7a].
+
+**Law: what binds whom (as of November 2026).** Directive 2010/63/EU was adopted on 22 September 2010, published in
+the Official Journal on 20 October 2010 and entered into force on 9 November 2010; Member States had to transpose it
+by 10 November 2012 and apply their rules from 1 January 2013 [@eu2010animals]. Article 4 (replacement, reduction,
+refinement) addresses Member States and reaches researchers through national law; later amendments (Regulation (EU)
+2019/1010 and Delegated Directive (EU) 2024/1262) changed reporting rules and annexes, not Article 4. The NC3Rs
+definitions of the 3Rs and the ARRIVE guidelines are guidance, not law, although journals and funders may make
+ARRIVE reporting a condition. Whether the next experiment needs a new project authorisation or an amendment, and which authority decides,
+is a local question for the animal welfare officer and the competent authority (*open*).
+
+**Patients.** A claim of efficacy from an uncontrolled animal series can travel into grant applications and early
+clinical plans. If the material were developed for patients, its preclinical evidence would become part of the
+evidence assessed under medical device rules (@sec-b22, interpretation); a misleading abstract weakens that chain
+from the start.
+
+**Data and security.** Indirect: the animal-level data, including the excluded animal, should be stored with the
+protocol so that the denominators can be reconstructed (@sec-b04, @sec-b27).
+
+## Look up and transfer {#sec-b16-lookup}
+
+**Reviewer question.** Which animals were operated, excluded and evaluated, was there a concurrent randomised control
+group, and how sensitive are the conclusions to the prior?
+
+**Self-test.** In a second fictitious model, 0 of 8 treated animals develop a wound infection. A colleague writes
+"the material prevents infection (0%)". Compute a 95% posterior interval under a flat prior and explain what the
+result can and cannot support.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The posterior is Beta(1, 9). Its 95% interval is `qbeta(c(0.025, 0.975), 1, 9)`, about 0.3% to 33.6%; with the
+one-sided "upper 95% bound", `qbeta(0.95, 1, 9)` gives about 28%. Zero events in eight animals are compatible with an
+infection rate of more than one in four. And as in the case, without a control group the data say nothing about
+prevention: infection might be rare in this model anyway.
+:::
+
+**Annotated sources.**
+
+- @spiegelhalter2004bayesian – Bayesian reasoning for trials and health-care evaluation, including the choice and
+  reporting of priors.
+- @clopper1934use – the exact binomial confidence interval used as the frequentist baseline.
+- @lazic2018n – what counts as the independent unit ("N") in animal experiments.
+- @percie2020arrive – the ARRIVE guidelines 2.0 for reporting animal research.
+- @nc3rs3rs – current definitions of replacement, reduction and refinement.
+- @eu2010animals – the binding EU framework, including Article 4 on the 3Rs.
+- @tierschg7a – the German provision on the indispensability and ethical justifiability of animal experiments.
+- @kilkenny2009survey – evidence of reporting and design gaps in published animal research.
+
+## Further reading {#sec-b16-further}
+
+- @sec-b19 – what changes when a result is transferred from one species or centre to the next.
+- @sec-b27 – reporting templates for animal studies within the model passport.
+- [Methods in R: The Beta-Binomial Model](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-beta-binomial-model) and [Prior Specification](https://r-heller.github.io/methods-in-r/sec-ch-10-bayesian.html#sec-chapters-10-bayesian-prior-specification) – the conjugate model of this chapter and how to choose and justify priors.
+- [Methods in R: ARRIVE – animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) – a reporting template for the items discussed here.
+- [CTTIR Course 3, Week 1, Session 4 – Bench and translational design](https://cttir.github.io/courses/course3_design_causal/labs/lab_week1_session4.html) – designing preclinical experiments with controls and randomisation.
+- [CTTIR Course 4, Week 3, Session 1 – Bayesian thinking; α control vs decision error](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week3_session1.html) – decision rules based on posterior probabilities.
+- [CTTIR Tutorials: Credible Intervals](https://cttir.github.io/tutorials/tutorials/bayesian/credible-intervals.html) – equal-tailed and highest-density intervals.
