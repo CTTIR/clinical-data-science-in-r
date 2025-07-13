@@ -1,0 +1,477 @@
+# Forecasting patient flow {#sec-b17}
+
+```{r}
+#| label: setup-b17
+#| include: false
+source("../R/style.R")
+set.seed(1717)
+```
+
+::: {.callout-note appearance="simple" icon=false}
+## At a glance
+
+**Guiding question:** Is the forecast interval of an emergency department usable for next week?\
+**For:** emergency department and nursing leads who plan rosters, analysts in hospital operations, clinicians who read
+forecast dashboards · **Prerequisites:** counts, denominators and how routine data arise (@sec-b03), the idea of
+calibration (@sec-b06); a first look at time series in
+[Methods in R: Time Series: Introduction](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-time-series-introduction)\
+**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
+(required reading); transfer exercise in
+[W3 · Diagnostics, prediction and external evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
+· **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
+:::
+
+## Case and decision {#sec-b17-case}
+
+On Thursday afternoon the nurse manager of a fictitious emergency department plans the roster for the coming week. A
+dashboard shows the expected number of arrivals for every hour, with a band labelled "90% interval". The manager has
+one standby nurse to place. The tempting rule is to staff each shift to the upper edge of the band and to put the
+standby nurse where the band is widest. Before following that rule, the manager asks the analyst a plain question: *if
+the band says 90%, did it in fact contain the arrivals in nine out of ten hours in past weeks, and in which shifts did
+it fail?* The answer decides where the standby nurse goes. If the band is too narrow in weekend late shifts, the cost
+of the error falls on patients who wait longer and on a late-shift team that is already stretched.
+
+## Core reading {#sec-b17-core}
+
+::: {.callout-important appearance="simple" icon=false}
+**Core reading** · required for W6 · about 10 minutes · ends before ‘Lab’
+:::
+
+```{r}
+#| label: b17-run-lab-early
+#| include: false
+#| purl: false
+#| ref.label: ["b17-data", "b17-backtest", "b17-metrics"]
+```
+
+**Two different questions.** A forecast and a simulation are often shown on the same planning screen, but they answer
+different questions (@tbl-b17-questions). A forecast says how many patients are likely to arrive if the process
+continues as before. It can be checked: wait a week and compare. A simulated capacity change, the topic of @sec-b18,
+says what would happen to waiting times if the department changed something, given an assumed stream of arrivals. It
+cannot be checked against data before the change is made; it is checked by verification and plausibility instead. A
+forecast is often the input of such a simulation, which is one more reason to know how good it is.
+
+| | Forecast (this chapter) | Simulated capacity change (@sec-b18) |
+|---|---|---|
+| Question | How many arrivals next week, if the process continues? | What happens to waiting if we add or remove a resource? |
+| Changes the system? | No | Yes, hypothetically |
+| How it is checked | Against later data (backtest, then prospectively) | Verification of the model logic, plausibility against external figures |
+| Typical failure | Interval too narrow, process changed | Wrong assumptions about service times or priorities |
+
+: What a forecast and a simulated capacity change answer. {#tbl-b17-questions}
+
+**The data and the honest benchmark.** The lab generates 26 weeks of hourly arrivals at a fictitious department with
+about `r round(b17_daily_mean)` arrivals per day. The series has a daily rhythm (quiet nights, busy late mornings), a
+weekly rhythm (busier Mondays), a change of season from week 15 (15% more arrivals, for example from leisure injuries)
+and one unusual surge: in week 21, arrivals double on the afternoons and evenings of Friday to Sunday. Every number is
+*synthetic*. Any forecasting method has to beat a simple reference that a planner could compute by hand: the arrivals
+in the *same hour of the previous week*. This seasonal naive forecast [@hyndman2021fpp3] already contains the daily and
+weekly rhythm. A more elaborate model that does not beat it in later weeks adds complexity without benefit.
+
+**Testing in later windows only.** A forecast for next week may use only data that existed before next week. The lab
+therefore uses a rolling-origin backtest [@tashman2000outofsample]: the forecast origin moves forward one week at a
+time, from week 9 to week 26, and each time the next 168 hours are forecast from the data before the origin. This
+gives 18 forecast weeks with 3,024 forecast hours. The independent denominator is closer to 18 than to 3,024, because
+all hours of one forecast week share the same origin and the same conditions. The general method is described in
+[Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv).
+
+**Two forecasts, two intervals.** The reference forecast uses last week's value with a normal-approximation interval
+from the `forecast` package [@hyndman2008forecast]. The second forecast uses the mean of the same hour over the last
+four weeks with an interval taken from a Poisson distribution, an assumption that is common for counts. A 90%
+interval should contain the observed arrivals in about 90% of hours (*calibration*, here measured as coverage) and
+should be as narrow as possible given that (*sharpness*) [@gneiting2007calibration].
+
+```{r}
+#| label: fig-b17-coverage
+#| echo: false
+#| purl: false
+#| fig-width: 7.5
+#| fig-height: 4
+#| fig-cap: "Coverage of nominal 90% forecast intervals per forecast week (share of 168 hours in which arrivals fell inside the interval). n = 18 forecast weeks (origins in weeks 9 to 26), 3,024 forecast hours per method. Dashed line: nominal 90%. Data status: synthetic."
+#| fig-alt: "Line chart with forecast week 9 to 26 on the horizontal axis and interval coverage from about 0.7 to 1.0 on the vertical axis. A horizontal dashed line marks the nominal 0.90. Two lines with different line types and point shapes: same hour last week, between about 0.83 and 0.91, and four-week mean with Poisson interval, between about 0.78 and 0.88, below the nominal line in every week. Vertical dotted lines mark the change of season at week 15 and the surge at week 21."
+library(ggplot2)
+cov_week <- aggregate(covered ~ method + week, data = bt, FUN = mean)
+ggplot(cov_week, aes(week, covered, linetype = method, shape = method, colour = method)) +
+  geom_hline(yintercept = 0.9, linetype = "dashed", colour = "grey40") +
+  geom_vline(xintercept = c(15, 21), linetype = "dotted", colour = "grey40") +
+  annotate("text", x = c(15.2, 21.2), y = 0.99, hjust = 0, size = 3.2,
+           label = c("change of season", "surge")) +
+  geom_line(linewidth = 0.7) +
+  geom_point(size = 2.2) +
+  scale_colour_manual(values = unname(cdsr_colours[c("orange", "blue")])) +
+  scale_linetype_manual(values = cdsr_linetypes[c(2, 1)]) +
+  scale_shape_manual(values = cdsr_shapes[c(2, 1)]) +
+  scale_y_continuous(limits = c(0.65, 1), labels = scales::label_percent()) +
+  labs(x = "Forecast week", y = "Coverage of 90% interval", colour = NULL, linetype = NULL, shape = NULL,
+       caption = "Synthetic emergency department, hourly arrivals; rolling origin, one forecast per week.") +
+  theme_cdsr()
+```
+
+```{r}
+#| label: tbl-b17-summary
+#| echo: false
+#| purl: false
+#| tbl-cap: "Backtest summary over 18 forecast weeks (3,024 hours per method). MAE: mean absolute error in arrivals per hour. Coverage: share of hours inside the nominal 90% interval, overall and by shift (early 06–14, late 14–22, night 22–06). Cost: weighted cost points per week (weights are an assumption, see Lab). Data status: synthetic."
+knitr::kable(b17_summary, digits = c(0, 2, 2, 2, 2, 2, 1, 0), row.names = FALSE,
+             col.names = c("Method", "MAE", "Coverage", "Early", "Late", "Night", "Mean width", "Cost per week"))
+```
+
+**What the backtest shows.** The four-week mean has the smaller point error (MAE `r round(b17_mae["mean4"], 2)` versus
+`r round(b17_mae["snaive"], 2)` arrivals per hour), but its Poisson interval contains the arrivals in only
+`r cdsr_percent(b17_cov["mean4"])` of hours, and in the late shift in only `r cdsr_percent(b17_cov_shift["mean4", "late"])`.
+The arrivals vary more than a Poisson model assumes. The reference interval reaches `r cdsr_percent(b17_cov["snaive"])`
+overall, which looks close to 90%, but the average hides a split: `r cdsr_percent(b17_cov_shift["snaive", "night"])` at
+night, where the band is needlessly wide, and `r cdsr_percent(b17_cov_shift["snaive", "late"])` in the late shift, where
+it is too narrow. Point accuracy and interval calibration are separate properties, and calibration has to be checked
+where the decision is taken, here per shift. In the four weeks after the change of season both forecasts
+under-estimate arrivals, the four-week mean more so (by `r round(-b17_bias_season["mean4"], 2)` versus
+`r round(-b17_bias_season["snaive"], 2)` arrivals per hour on average), because most of its reference weeks still come
+from the old level. During the surge both intervals fail in the weekend late shifts.
+
+**The most important assumption.** **A forecast interval describes uncertainty under the assumption that next week's
+arrivals come from the same process as the training weeks. It says nothing about events of a kind that the training
+window did not contain.** The surge in week 21 is such an event. No interval built from past weeks could have
+anticipated it; that needs a separate signal, for example an event calendar or a heat warning, and a rule for what the
+department does when the signal fires.
+
+**Errors do not cost the same at every hour.** One patient more than planned at 3 a.m., with a thin night team, has
+other consequences than one patient more at 11 a.m. The lab therefore weights errors by shift. The weights are an
+*assumption* that the department has to agree on; with other weights the ranking of the two methods can change. The
+point of writing them down is that the choice of method becomes a discussable decision instead of a by-product of a
+software default.
+
+**Question for the workshop:** Your group plans the standby nurse for next week from @tbl-b17-summary. Which shift
+would you protect, which interval would you use, and what would you tell the late-shift team about the 90% label?
+
+## Lab {#sec-b17-lab}
+
+The lab follows the order of a real backtest: generate (or import) the series, fix the forecast origins, forecast only
+from data before each origin, and evaluate per week and per shift.
+
+::: {.callout-note title="R start command"}
+From the root of the book repository, render the chapter (this runs all code, including the figures of the core
+reading):
+
+```bash
+quarto render chapters/b17-forecasting-patient-flow.qmd --to html
+```
+
+To run only the Lab code in a fresh R session, start from the `chapters/` folder:
+
+```bash
+Rscript -e 'source(knitr::purl("b17-forecasting-patient-flow.qmd", output = tempfile(fileext = ".R"), quiet = TRUE))'
+```
+
+The chapter writes the synthetic hourly series to `data/b17-ed-arrivals.csv`.
+:::
+
+### The synthetic arrival series
+
+Arrivals per hour are drawn from a negative binomial distribution around an expected value that combines a daily
+profile, a weekly profile, the change of season and the surge. A day-level factor adds variation between days. The
+negative binomial allows more variation than a Poisson distribution, which is what real arrival counts often show.
+
+```{r}
+#| label: b17-data
+set.seed(1717)
+n_weeks <- 26
+hours <- expand.grid(hour = 0:23, day = 1:7, week = 1:n_weeks)   # day 1 = Monday
+hours <- hours[order(hours$week, hours$day, hours$hour), ]
+hours$t <- seq_len(nrow(hours))                                    # running hour index
+
+simulate_arrivals <- function(hours, day_shape = 80, nb_size = 6) {
+  # expected arrivals per hour of the day (0-23 h): quiet night, busy late morning
+  daily_profile <- c(1.6, 1.3, 1.1, 1.0, 1.0, 1.2, 1.8, 2.8, 4.0, 5.0, 5.6, 5.8,
+                     5.6, 5.4, 5.2, 5.0, 5.0, 5.1, 5.0, 4.6, 4.0, 3.3, 2.6, 2.0)
+  weekly <- c(1.12, 1.02, 1.00, 0.98, 1.00, 0.96, 0.94)             # Monday to Sunday
+  season <- ifelse(hours$week >= 15, 1.15, 1.00)                     # change of season
+  surge <- ifelse(hours$week == 21 & hours$day %in% 5:7 & hours$hour >= 14, 2.0, 1.0)
+  day_key <- paste(hours$week, hours$day)
+  day_factor <- if (is.finite(day_shape)) rgamma(length(unique(day_key)), day_shape, day_shape) else
+    rep(1, length(unique(day_key)))                                  # day-to-day variation
+  names(day_factor) <- unique(day_key)
+  mu <- daily_profile[hours$hour + 1] * weekly[hours$day] * season * surge * day_factor[day_key]
+  if (is.finite(nb_size)) rnbinom(nrow(hours), size = nb_size, mu = mu) else rpois(nrow(hours), mu)
+}
+hours$arrivals <- simulate_arrivals(hours)
+
+# shifts: early 06-14, late 14-22, night 22-06 (a night shift belongs to the day on which it starts)
+hours$shift <- ifelse(hours$hour >= 6 & hours$hour < 14, "early",
+                      ifelse(hours$hour >= 14 & hours$hour < 22, "late", "night"))
+hours$shift_day <- ifelse(hours$hour < 6, (hours$day - 2) %% 7 + 1, hours$day)
+
+b17_daily <- tapply(hours$arrivals, paste(hours$week, hours$day), sum)
+b17_daily_mean <- mean(b17_daily)
+stopifnot(nrow(hours) == 26 * 168, all(hours$arrivals >= 0), !anyNA(hours$arrivals))
+head(hours[, c("week", "day", "hour", "shift", "arrivals")], 3)
+summary(as.numeric(b17_daily))
+
+if (dir.exists("../data")) {
+  write.csv(hours[, c("week", "day", "hour", "shift", "arrivals")], "../data/b17-ed-arrivals.csv", row.names = FALSE)
+}
+```
+
+### Rolling-origin backtest
+
+The function below loops over the forecast origins. The `stopifnot()` lines are the heart of the lab: every training
+hour lies before every test hour, and the seasonal naive forecast from the `forecast` package equals the hand
+computation "same hour last week".
+
+```{r}
+#| label: b17-backtest
+library(forecast)
+backtest <- function(y, origin_weeks = 9:26, m = 168, level = 0.90) {
+  out <- vector("list", length(origin_weeks))
+  for (i in seq_along(origin_weeks)) {
+    w <- origin_weeks[i]
+    train_idx <- seq_len((w - 1) * m)                 # all hours before the origin
+    test_idx <- (w - 1) * m + seq_len(m)              # the 168 hours after the origin
+    stopifnot(max(train_idx) < min(test_idx))         # no information from the future
+    y_train <- y[train_idx]
+    # reference: seasonal naive (same hour last week), normal-approximation interval
+    fc <- snaive(ts(y_train, frequency = m), h = m, level = 100 * level)
+    point_sn <- as.numeric(fc$mean)
+    stopifnot(isTRUE(all.equal(point_sn, y_train[length(y_train) - m + seq_len(m)])))
+    # alternative: mean of the same hour in the last four weeks, Poisson interval
+    lambda <- rowMeans(matrix(tail(y_train, 4 * m), nrow = m))
+    out[[i]] <- rbind(
+      data.frame(method = "Same hour last week", week = w, t = test_idx, y = y[test_idx],
+                 point = point_sn, lo = pmax(0, as.numeric(fc$lower)), hi = as.numeric(fc$upper)),
+      data.frame(method = "Four-week mean, Poisson interval", week = w, t = test_idx, y = y[test_idx],
+                 point = lambda, lo = qpois((1 - level) / 2, lambda), hi = qpois(1 - (1 - level) / 2, lambda))
+    )
+  }
+  do.call(rbind, out)
+}
+bt <- backtest(hours$arrivals)
+bt <- merge(bt, hours[, c("t", "day", "hour", "shift", "shift_day")], by = "t")
+bt$covered <- bt$y >= bt$lo & bt$y <= bt$hi       # inside the 90% interval?
+bt$abs_err <- abs(bt$y - bt$point)
+stopifnot(length(unique(bt$week)) == 18, nrow(bt) == 2 * 18 * 168)
+```
+
+### Evaluation per method, week and shift
+
+Planned capacity is taken to be the upper edge of the interval. A patient above that edge counts as an excess patient;
+an unused planned place counts as idle capacity. The weights are an *assumption* for teaching: an excess patient costs
+1 point in the early shift, 2 in the late shift and 3 at night; an idle place costs 0.25 points.
+
+```{r}
+#| label: b17-metrics
+w_excess <- c(early = 1, late = 2, night = 3)               # cost points per excess patient (assumption)
+w_idle <- 0.25                                              # cost points per idle planned place (assumption)
+bt$excess <- pmax(0, bt$y - bt$hi)
+bt$idle <- pmax(0, bt$hi - bt$y)
+bt$cost <- w_excess[bt$shift] * bt$excess + w_idle * bt$idle
+
+key <- c("Same hour last week" = "snaive", "Four-week mean, Poisson interval" = "mean4")
+b17_mae <- tapply(bt$abs_err, key[bt$method], mean)
+b17_cov <- tapply(bt$covered, key[bt$method], mean)
+b17_cov_shift <- tapply(bt$covered, list(key[bt$method], bt$shift), mean)
+b17_width <- tapply(bt$hi - bt$lo, key[bt$method], mean)
+b17_cost_week <- tapply(bt$cost, key[bt$method], sum) / 18
+b17_summary <- data.frame(
+  method = names(key), mae = b17_mae[key], coverage = b17_cov[key],
+  early = b17_cov_shift[key, "early"], late = b17_cov_shift[key, "late"], night = b17_cov_shift[key, "night"],
+  width = b17_width[key], cost_week = b17_cost_week[key]
+)
+b17_summary
+
+# statements made in the core reading
+# mean error (forecast minus observed) in the four weeks after the change of season
+b17_bias_season <- tapply((bt$point - bt$y)[bt$week %in% 15:18], key[bt$method][bt$week %in% 15:18], mean)
+# coverage in the late shifts of the surge weekend (week 21, Friday to Sunday)
+in_surge <- bt$week == 21 & bt$day %in% 5:7 & bt$shift == "late"
+b17_surge_cov <- tapply(bt$covered[in_surge], key[bt$method][in_surge], mean)
+round(b17_bias_season, 2); round(b17_surge_cov, 2)
+
+# statements made in the core reading
+stopifnot(b17_mae["mean4"] < b17_mae["snaive"],                 # smaller point error
+          b17_cov["mean4"] < 0.85,                              # Poisson interval too narrow
+          b17_cov_shift["snaive", "night"] > 0.95,              # reference too wide at night ...
+          b17_cov_shift["snaive", "late"] < 0.85,               # ... and too narrow in the late shift
+          b17_bias_season["mean4"] < b17_bias_season["snaive"], # larger under-forecast after the season change
+          b17_bias_season["snaive"] < 0,
+          all(b17_surge_cov < 0.7))                             # both intervals fail in the surge late shifts
+```
+
+The point forecasts of the two methods differ in a way that is easy to see in a single week. @fig-b17-surge shows the
+surge weekend of week 21: in its late shifts the observed arrivals stay inside the band in only
+`r cdsr_percent(b17_surge_cov["mean4"], 0)` (four-week mean) and `r cdsr_percent(b17_surge_cov["snaive"], 0)`
+(reference) of hours.
+
+```{r}
+#| label: fig-b17-surge
+#| fig-width: 7.5
+#| fig-height: 5
+#| fig-cap: "Observed arrivals per hour (points) and 90% forecast intervals (grey band, line = point forecast) for Friday to Sunday of week 21, the surge weekend. One forecast week, 72 hours; arrivals per hour. Data status: synthetic."
+#| fig-alt: "Two stacked panels, one per method, each showing 72 hours from Friday 0:00 to Sunday 23:00 of week 21. The horizontal axis is the hour since Friday 0:00, the vertical axis arrivals per hour from 0 to about 25. A grey band shows the forecast interval and a line the point forecast; both follow the daily rhythm with peaks around midday. Black points show observed arrivals. On each afternoon and evening the points rise well above the upper edge of the band in both panels, while at night and in the morning most points lie inside the band. The band of the same-hour-last-week method is wider than the Poisson band."
+library(ggplot2)
+surge <- bt[bt$week == 21 & bt$day %in% 5:7, ]
+surge$hour_since_fri <- (surge$day - 5) * 24 + surge$hour
+ggplot(surge, aes(hour_since_fri)) +
+  geom_ribbon(aes(ymin = lo, ymax = hi), fill = "grey80") +
+  geom_line(aes(y = point), linewidth = 0.5) +
+  geom_point(aes(y = y), size = 1.3) +
+  facet_wrap(~ method, ncol = 1) +
+  scale_x_continuous(breaks = seq(0, 72, by = 12)) +
+  labs(x = "Hour since Friday 00:00 (week 21)", y = "Arrivals per hour",
+       caption = "Grey band: 90% interval; line: point forecast; points: observed arrivals.") +
+  theme_cdsr()
+```
+
+### A shift map
+
+The shift map turns the hourly results into the unit of the decision. Each cell shows the coverage of the 90% interval
+for one weekday and shift, pooled over the 18 forecast weeks.
+
+```{r}
+#| label: fig-b17-shiftmap
+#| fig-width: 7.5
+#| fig-height: 4.2
+#| fig-cap: "Shift map: coverage of the nominal 90% interval by weekday and shift, pooled over 18 forecast weeks (each cell: 18 shifts of 8 hours = 144 forecast hours from 18 independent forecast weeks). Darker cells have lower coverage. Data status: synthetic."
+#| fig-alt: "Two heat maps side by side, one per method, with weekdays Monday to Sunday on the horizontal axis and the shifts early, late and night on the vertical axis. Each cell shows a percentage. For the same-hour-last-week method the night row shows 98% to 100%, the late row 74% to 85% and the early row 78% to 89%. For the four-week mean with Poisson interval the night row is around 90%, while early and late cells range from 65% to 85%. The lowest cell for both methods is the Monday late shift. Darker shading marks lower coverage."
+shiftmap <- aggregate(covered ~ method + shift_day + shift, data = bt, FUN = mean)
+shiftmap$weekday <- factor(c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")[shiftmap$shift_day],
+                           levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))
+shiftmap$shift <- factor(shiftmap$shift, levels = c("night", "late", "early"))
+ggplot(shiftmap, aes(weekday, shift, fill = covered)) +
+  geom_tile(colour = "white") +
+  geom_text(aes(label = scales::percent(covered, accuracy = 1),
+                colour = covered < 0.8), size = 3, show.legend = FALSE) +
+  scale_fill_gradient(low = "grey20", high = "grey95", limits = c(0.5, 1), breaks = c(0.5, 0.75, 1),
+                      labels = scales::label_percent(), name = "Coverage") +
+  scale_colour_manual(values = c(`TRUE` = "white", `FALSE` = "black")) +
+  facet_wrap(~ method, ncol = 2) +
+  labs(x = NULL, y = NULL, caption = "Nominal coverage 90%. Night shift is assigned to the day on which it starts.") +
+  theme_cdsr() +
+  theme(panel.grid = element_blank(), legend.key.width = grid::unit(1.5, "cm"))
+```
+
+```{r}
+#| label: b17-shift-numbers
+b17_worst <- shiftmap[order(shiftmap$covered), ][1:3, c("method", "weekday", "shift", "covered")]
+b17_worst
+stopifnot(b17_worst$weekday[1] == b17_worst$weekday[2], b17_worst$shift[1] == "late",
+          b17_worst$shift[2] == "late", b17_worst$method[1] != b17_worst$method[2])
+```
+
+The lowest cell for both methods is the
+`r c(Mon = "Monday", Tue = "Tuesday", Wed = "Wednesday", Thu = "Thursday", Fri = "Friday", Sat = "Saturday", Sun = "Sunday")[as.character(b17_worst$weekday[1])]`
+`r b17_worst$shift[1]` shift
+(`r cdsr_percent(b17_worst$covered[1], 0)` and `r cdsr_percent(b17_worst$covered[2], 0)`), the busiest shift of the
+week, where the extra variation of the counts matters most. For the manager in the case,
+this is the actionable result: the label "90%" is not a property of the dashboard but of each shift, and it holds
+neither for the late shifts nor (in the other direction) for the nights.
+
+### Weighted error cost
+
+```{r}
+#| label: b17-costs
+b17_cost_shift <- aggregate(cost ~ method + shift, data = bt, FUN = function(x) sum(x) / 18)
+b17_cost_shift
+stopifnot(all(b17_cost_shift$cost >= 0))
+```
+
+With these weights the four-week mean has the lower weekly cost (`r round(b17_cost_week["mean4"])` versus
+`r round(b17_cost_week["snaive"])` points), because the wide reference band leaves many more planned places idle; about
+half of these additional idle places fall in night shifts.
+Raise the weight of an excess night patient or of an excess late-shift patient, and the comparison moves towards the
+wider band. The weights encode a value judgement about who carries which error, which belongs in the roster discussion,
+not in the code alone.
+
+## Counter-check {#sec-b17-countercheck}
+
+Change one assumption about the process: suppose arrivals were truly Poisson, without extra variation between days or
+hours. Predict before running: will the coverage of the Poisson interval move towards 90%? Will the reference interval
+still be too wide at night and too narrow in the late shift?
+
+```{r}
+#| label: b17-countercheck
+set.seed(1718)
+y_poisson <- simulate_arrivals(hours, day_shape = Inf, nb_size = Inf)   # same rhythm, no overdispersion
+bt_p <- backtest(y_poisson)
+bt_p <- merge(bt_p, hours[, c("t", "shift")], by = "t")
+bt_p$covered <- bt_p$y >= bt_p$lo & bt_p$y <= bt_p$hi
+b17_cov_p <- tapply(bt_p$covered, list(key[bt_p$method], bt_p$shift), mean)
+round(cbind(overall = tapply(bt_p$covered, key[bt_p$method], mean), b17_cov_p), 3)
+stopifnot(mean(bt_p$covered[key[bt_p$method] == "mean4"]) > b17_cov["mean4"],
+          b17_cov_p["snaive", "night"] > b17_cov_p["snaive", "late"])
+```
+
+Under the Poisson assumption the Poisson interval covers
+`r cdsr_percent(mean(bt_p$covered[key[bt_p$method] == "mean4"]))` of hours, close to its nominal level. The reference
+interval still covers `r cdsr_percent(b17_cov_p["snaive", "night"])` at night and
+`r cdsr_percent(b17_cov_p["snaive", "late"])` in the late shift: its width is the same for every hour, while the
+variation of counts grows with the expected number. The counter-check separates two reasons for poor coverage. One is
+a wrong distributional assumption (Poisson for overdispersed counts); the other is an interval that ignores how
+uncertainty changes over the day. Both are properties of the method, not of the hospital.
+
+## Consequences for patients and operations {#sec-b17-consequences}
+
+**Ethics and distribution of burden.** A forecast used for rostering shifts errors onto concrete people. If intervals
+are systematically too narrow in weekend late shifts, the patients arriving then wait longer and the late-shift team
+absorbs the overload, often the same staff week after week. Reporting coverage per shift, not only overall, makes this
+distribution visible. The cost weights in the lab are a place to make the value judgement explicit and to involve the
+nursing team, not only the analyst.
+
+**Regulation.** Indirect. A forecast of arrival counts for staffing has no diagnostic or therapeutic purpose for an
+individual patient; whether such software falls under medical device rules is a question of its intended purpose
+(@sec-b22). The question would change if the same model were used to prioritise individual patients: the AI Act lists
+"emergency healthcare patient triage systems" among high-risk uses in Annex III, point 5(d)
+[@eu2024aiact]. As of November 2026.
+
+**Data protection.** The model needs counts per hour, not patient records. Aggregating timestamps to hourly counts
+before analysis is a direct application of data minimisation under Art. 5(1)(c) of the General Data Protection
+Regulation [@eu2016dsgvo]. Very small counts in rare categories (for example arrivals by a specific transport mode at
+night) can still point to individuals when combined with local knowledge; @sec-b20 and @sec-b26 treat small aggregates.
+
+**Security and availability.** If the forecast service fails, the department needs a fallback that works without it.
+The seasonal naive forecast is that fallback: last week's arrivals, available from any routine report.
+
+## Look up and transfer {#sec-b17-lookup}
+
+- **Reviewer question:** Which forecast origins and horizons were evaluated, was any information from after the origin
+  used (for example smoothing over the whole series or a calendar compiled later), and what is the interval coverage
+  per shift, with the number of forecast weeks as denominator?
+- **Self-test:** A smaller department has on average 1.2 arrivals per hour at night, with many hours of zero arrivals.
+  Its analyst compares two forecasts by the mean absolute percentage error (MAPE) over all hours and reports that model
+  X is "40% better". What is the problem with this metric here, and what would you report instead?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Percentage errors divide by the observed value. In hours with zero arrivals they are undefined, and in hours with one
+arrival a single extra patient is an error of 100%, so the night hours dominate the comparison. Report the mean
+absolute error in arrivals per hour, or a scaled error that divides by the error of the seasonal naive reference (the
+MASE) [@hyndman2006accuracy], separately for each shift and with the number of forecast weeks. For the interval, report
+coverage per shift.
+:::
+
+- **Annotated sources:**
+  - @hyndman2021fpp3 is the open textbook for benchmark methods, prediction intervals and time series
+    cross-validation used here ([simple methods](https://otexts.com/fpp3/toolbox.html#sec-simple-methods),
+    [time series cross-validation](https://otexts.com/fpp3/toolbox.html#sec-tscv)).
+  - @hyndman2008forecast documents the `forecast` package and its automatic methods; the lab uses its `snaive()`.
+  - @jones2008edvolumes compared several forecasting methods for daily emergency department volumes at three
+    hospitals and found that calendar-based regression was a reasonable approach, while more complex methods did not
+    give consistently better post-sample accuracy.
+  - @tashman2000outofsample reviews out-of-sample evaluation and rolling forecast origins.
+  - @gneiting2007calibration define the goal "maximise sharpness subject to calibration" for probabilistic forecasts.
+  - @hyndman2006accuracy discuss accuracy measures, including scaled errors for series with zeros.
+
+In W6 (teaching unit 21) learners compare forecasts against "same hour last week" in later windows and hand in a table
+with horizon, error measure, interval coverage and one shift with possible harm. In W3 the chapter serves as a transfer
+case: the same distinction between ranking, calibration and decision cost appears for diagnostic models in @sec-b06.
+
+## Further reading {#sec-b17-further}
+
+- @sec-b18 for the second question on the planning screen: what a capacity change would do, given arrivals.
+- @sec-b06 for calibration and decision thresholds in a diagnostic setting.
+- @sec-b20 for monitoring a deployed tool, including drift after a change of season or practice.
+- [Methods in R: Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
+  for the definitions of MAE, RMSE, MAPE and scaled errors.
+- [Methods in R: Seasonal Decomposition (STL)](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-seasonal-decomposition-stl)
+  for separating daily, weekly and seasonal components.
+- [CTTIR Tutorials: Rolling-Origin Cross-Validation](https://cttir.github.io/tutorials/tutorials/time-series/rolling-origin-cv.html)
+  for a step-by-step tutorial on the backtest design.
+- [CTTIR Courses, Course 3, Week 2 Session 5: Time series basics](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session5.html)
+  for a hands-on introduction to time series in R.
