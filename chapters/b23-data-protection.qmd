@@ -1,0 +1,378 @@
+# Data protection along the entire data flow {#sec-b23}
+
+```{r}
+#| label: setup-b23
+#| include: false
+source("../R/style.R")
+set.seed(2323)
+```
+
+::: {.callout-note appearance="simple" icon=false}
+## At a glance
+
+**Guiding question:** Who receives which data, for what purpose, and for how long?\
+**For:** clinical researchers, data stewards, teachers who want to show real examples, and reviewers; the core reading
+needs no programming. · **Prerequisites:** the gait measurement from video in @sec-b11; how data arise in @sec-b03;
+the regulatory note in @sec-b22 helps but is not required.\
+**In the course:** [W7 · Regulation, data protection and
+incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+(data flow and DPIA screening); also used in W1, W2, W4 and
+[W8](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+**Data:** synthetic (data-flow register generated in the chapter); legal status checked on 8 November 2026 ·
+**Core reading time:** about 11 minutes
+:::
+
+## Case and decision {#sec-b23-case}
+
+The rehabilitation clinic of @sec-b11 films patients walking after surgery for a tibial plateau fracture. The videos
+support treatment decisions. A research team wants to compare video-based knee angles with the marker-based reference
+method, and a lecturer wants one clip for a seminar. An external service provider offers cloud pose estimation that
+turns video into body keypoints (hip, knee, ankle and other landmarks) within minutes. By Friday the study lead has to
+decide what leaves the clinic: the raw videos, the keypoints, or only the angles. She must also say who holds the
+list linking study numbers to patients, and when each copy is deleted. She decides that keypoints are extracted on
+site, that the provider receives no video, and that the seminar uses a synthetic clip. The study starts three weeks
+later than planned, but no copy exists whose purpose and deletion date are unknown.
+
+## Core reading {#sec-b23-core}
+
+::: {.callout-important appearance="simple" icon=false}
+**Core reading** · required for W7 · about 11 minutes · ends before ‘Decision exercise’
+:::
+
+**Follow the copies, not the project.** Data protection questions become answerable when every copy of the data is
+drawn as a step with a purpose, a holder and an end. @fig-b23-flow traces a gait video from the camera to a knee angle
+in a research table. It marks where people are directly identifiable, where data are pseudonymised, where the
+boundary of the controlling institution is crossed and where each copy is deleted. All statements on law refer to the
+[GDPR (Regulation (EU) 2016/679)](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng) and German law as of
+8 November 2026 [@eu2016dsgvo].
+
+```{r}
+#| label: fig-b23-flow
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5.4
+#| fig-cap: "Data flow from gait video to knee angle in the fictional case. Boxes are copies or processing steps; the prefix gives the identifiability: D = directly identifying, P = pseudonymised (still personal data), S = synthetic. Shaded areas are organisational boundaries. Crosses mark deletion points; days are assumptions to be set locally. Fictional flow; no data."
+#| fig-alt: "Diagram with three shaded areas. The largest, the clinic as controller, contains a chain of boxes from left to right: D gait video at capture, D clinic video store, D on-site pose estimation, P keypoint series, P knee angle per stride, and P research table. Above the keypoint box sits D key table linking study number and patient, held by the data custodian. A dashed arrow leads from the video store down to a second area, external service provider as processor, with the box D cloud pose estimation, marked as the rejected alternative. A third area, seminar, contains S synthetic gait clip. Red crosses mark deletion points: raw research copy of the video after keypoint quality control, provider copies after return of results, the key table at the end of the retention period, and care videos after the care retention period."
+library(ggplot2)
+zones <- data.frame(
+  zone = c("Clinic (controller)", "Service provider (processor)", "Seminar"),
+  xmin = c(0.4, 2.3, 5.25), xmax = c(6.75, 4.95, 6.75), ymin = c(2.1, 0.3, 0.3), ymax = c(5.0, 1.75, 1.75),
+  label_y = c(4.88, 0.38, 0.38), label_vjust = c(1, 0, 0)
+)
+nodes <- data.frame(
+  id    = c("capture", "store", "onsite", "keypoints", "angles", "research", "key", "cloud", "teaching"),
+  label = c("D: gait video\nat capture", "D: clinic video\nstore (care)", "D: on-site pose\nestimation",
+            "P: keypoint series\n(study number)", "P: knee angle\nper stride", "P: research table\n(angles, age band)",
+            "D: key table\n(study no. <-> patient)", "D: cloud pose\nestimation", "S: synthetic\ngait clip"),
+  x     = c(1.0, 2.1, 3.15, 4.2, 5.2, 6.15, 4.2, 3.15, 6.0),
+  y     = c(3.2, 3.2, 3.2, 3.2, 3.2, 3.2, 4.4, 1.0, 1.0),
+  level = c("D", "D", "D", "P", "P", "P", "D", "D", "S")
+)
+edges <- data.frame(
+  from = c("capture", "store", "onsite", "keypoints", "angles", "keypoints", "store"),
+  to   = c("store", "onsite", "keypoints", "angles", "research", "key", "cloud"),
+  type = c(rep("chosen route", 6), "rejected alternative")
+)
+edges <- cbind(edges,
+               x = nodes$x[match(edges$from, nodes$id)], y = nodes$y[match(edges$from, nodes$id)],
+               xend = nodes$x[match(edges$to, nodes$id)], yend = nodes$y[match(edges$to, nodes$id)])
+# shorten arrows so that they end at the box edges
+dx <- edges$xend - edges$x; dy <- edges$yend - edges$y; len <- sqrt(dx^2 + dy^2)
+edges$x <- edges$x + 0.42 * dx / len; edges$y <- edges$y + 0.42 * dy / len
+edges$xend <- edges$xend - 0.42 * dx / len; edges$yend <- edges$yend - 0.42 * dy / len
+deletions <- data.frame(
+  x = c(1.75, 3.15, 4.95, 3.8),
+  y = c(2.72, 2.72, 4.4, 1.0),
+  hjust = c(0.5, 0.5, 0, 0), vjust = c(1, 1, 0.5, 0.5),
+  dx = c(0, 0, 0.12, 0.12), dy = c(-0.1, -0.1, 0, 0),
+  label = c("care videos: end of care\nretention period (local)", "research copy of video:\nafter keypoint QC (day 30)",
+            "key table: end of retention\nperiod (local)", "provider copies: after\nreturn of results")
+)
+fill_levels <- c(D = "#F4B6A6", P = "#FBE3A6", S = "#BFE6D6")
+ggplot() +
+  geom_rect(data = zones, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+            fill = "grey95", colour = "grey60", linetype = "dashed") +
+  geom_text(data = zones, aes(x = xmin + 0.05, y = label_y, label = zone, vjust = label_vjust), hjust = 0,
+            size = 3.2, fontface = "bold", colour = "grey30") +
+  geom_segment(data = edges, aes(x = x, y = y, xend = xend, yend = yend, linetype = type),
+               arrow = grid::arrow(length = grid::unit(0.18, "cm"), type = "closed"), colour = "grey25") +
+  geom_label(data = nodes, aes(x = x, y = y, label = label, fill = level), size = 2.7, lineheight = 0.9,
+             label.padding = grid::unit(0.2, "lines")) +
+  geom_point(data = deletions, aes(x = x, y = y), shape = 4, size = 3.5, stroke = 1.4,
+             colour = cdsr_colours[["red"]]) +
+  geom_text(data = deletions, aes(x = x + dx, y = y + dy, label = label, hjust = hjust, vjust = vjust), size = 2.4,
+            lineheight = 0.9, colour = cdsr_colours[["red"]]) +
+  scale_fill_manual(values = fill_levels, name = NULL,
+                    labels = c(D = "D: directly identifying", P = "P: pseudonymised", S = "S: synthetic")) +
+  scale_linetype_manual(values = c("chosen route" = "solid", "rejected alternative" = "22"), name = NULL) +
+  coord_cartesian(xlim = c(0.4, 6.75), ylim = c(0.1, 5.0)) +
+  labs(x = NULL, y = NULL, caption = "Fictional data flow · deletion days are assumptions · legal status 8 November 2026") +
+  theme_cdsr() +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+**Two legal questions, asked separately.** A gait video recorded for treatment shows a person's body, face and
+condition. It is personal data and, because it reveals information about health, data concerning health. Each
+processing step therefore needs two answers that must not be merged. First, a lawful basis under Art. 6(1) GDPR, for
+example the performance of a treatment contract or a task in the public interest [Law]. Second, an exception from the
+prohibition on processing special categories under Art. 9(2), for example medical diagnosis and treatment under a
+duty of professional secrecy (Art. 9(2)(h) with 9(3)) or research based on Union or Member State law with suitable
+safeguards (Art. 9(2)(j)) [Law]. A step with an Art. 6 basis but no Art. 9 exception is unlawful, and the reverse as
+well. As in @sec-b22, the labels [Law], [Guidance], [Interpretation] and [Local] mark the kind of statement.
+
+**Care, research and teaching are different purposes.** @tbl-b23-purposes compares them. Research has its own
+routes: consent (Art. 6(1)(a) with 9(2)(a)) or a statutory research provision under Art. 9(2)(j). In Germany, the
+Federal Data Protection Act (Bundesdatenschutzgesetz, BDSG),
+[§ 27](https://www.gesetze-im-internet.de/bdsg_2018/__27.html), permits processing special categories for research
+without consent if it is necessary and the controller's interest substantially outweighs the person's interest in
+exclusion, with specific safeguards [@bdsg27; Law]. The BDSG applies to federal public bodies and to private bodies;
+to public bodies of the federal states it applies only in narrow cases where state law does not regulate data
+protection (§ 1(1)) [Law]. Whether a hospital falls under § 27 BDSG, a state hospital or data protection act, or
+the Health Data Use Act (Gesundheitsdatennutzungsgesetz, GDNG),
+[§ 6](https://www.gesetze-im-internet.de/gdng/__6.html), which lets health institutions further process their own care data for
+research if the data are pseudonymised and personal data are generally not passed to third parties [@gdng6; Law], is a
+[Local] question for the data protection officer. **The key assumption: calling an activity "research" exempts
+nothing by itself; a specific legal provision with its conditions has to fit the specific step.** Teaching is not
+research, so no research provision covers the seminar clip [Interpretation].
+
+| | Care | Research | Teaching |
+|---|---|---|---|
+| Purpose | Treatment decision for this patient | Agreement of two angle measurements | Showing students what a gait pattern looks like |
+| Art. 6 GDPR | Treatment contract or legal obligation (Art. 6(1)(b), (c)) | Consent or public task (Art. 6(1)(a), (e)) | Consent (Art. 6(1)(a)) |
+| Art. 9 GDPR | Art. 9(2)(h) with professional secrecy (9(3)) | Art. 9(2)(a) consent, or 9(2)(j) with national law | Art. 9(2)(a) explicit consent |
+| National law | Professional and hospital law [Local] | § 27 BDSG, state law or § 6 GDNG – whichever applies [Local] | None that replaces consent [Interpretation] |
+| Who sees raw video | Treating team | Nobody outside the on-site extraction step | Nobody: synthetic clip |
+| Deletion | End of care retention period [Local] | Research video copy after keypoint QC; key table at end of retention period | Not applicable for synthetic data |
+
+: Care, research and teaching use of the same gait video. Fictional case; legal status 8 November 2026; bracketed labels mark interpretation and local questions. {#tbl-b23-purposes}
+
+**Pseudonymisation is not anonymisation.** The GDPR defines pseudonymisation as processing such that data can no
+longer be attributed to a specific person without additional information that is kept separately and protected
+(Art. 4(5)) [Law]. The additional information here is the key table. It needs a named holder (for example a data
+custodian outside the research team), a written rule for when re-identification is allowed (withdrawal of consent, an
+incidental finding) and a deletion date. Pseudonymised data remain personal data for the controller. The Court of
+Justice held in 2025 that pseudonymised data need not be personal data "in all cases and for every person": for a
+recipient who cannot lift the pseudonymisation and cannot identify the person by other means, including by
+cross-checking with other factors, they may not be; but the controller's duty to inform people about recipients is
+assessed at collection, from the controller's point of view [@cjeu2025srb, paras 77, 86, 111–112]. The judgment
+concerned the parallel regulation for EU institutions; its transfer to the GDPR is plausible but remains
+[Interpretation]. For gait it matters a great deal: movement itself can identify. In one study, 95% of 511 people were
+recognised from less than five minutes of virtual-reality motion tracking data [@miller2020motion; *published*]. Keypoint
+series should therefore be treated as personal data at every recipient unless the opposite has been shown.
+
+**Roles and borders.** The clinic, as the body that decides on purposes and means, is the controller (Art. 4(7))
+[Law]. A cloud service that estimates poses on its instructions is a processor; this requires a contract that, among
+other things, binds it to documented instructions and to deletion or return of data at the end (Art. 28(3)) [Law]. If
+the provider stores data or provides support from outside the European Economic Area, the transfer rules of Chapter V
+apply: an adequacy decision (Art. 45) or appropriate safeguards such as standard contractual clauses (Art. 46)
+[Law]. People keep their rights to information, access, rectification, erasure and objection (Art. 13–21); for
+research, restrictions exist only where Union or Member State law provides them (Art. 89(2); § 27(2) BDSG) [Law].
+
+**When is a DPIA needed?** A data protection impact assessment is required where processing is likely to result in a
+high risk, in particular for large-scale processing of special categories (Art. 35(1), 35(3)(b)) [Law]. "Large scale"
+has no number in the text; the supervisory authorities publish lists of processing that requires a DPIA
+(Art. 35(4)) [Law; Local]. New technology, health data and a cloud provider make a documented screening the minimum
+[Interpretation].
+
+**Question for the workshop:** Your clinic wants to keep the raw research copy of each video "in case a better pose
+model appears". Which purpose, legal basis and deletion date would you have to write down to allow this, and would you
+sign it?
+
+## Decision exercise {#sec-b23-exercise}
+
+**Role task.** Work in four roles: study lead, data protection officer, clinic IT and a patient representative. Trace
+the data flow of @fig-b23-flow step by step. For each step write down: data, identifiability, purpose, Art. 6 basis,
+Art. 9 exception, role of the holder, location, transfer mechanism (if outside the EEA), deletion point and residual
+re-identification risk. The patient representative may veto any step whose purpose cannot be explained in one sentence.
+
+**A register that checks itself.** The register can be written as a small table in R with explicit rules. This does
+not replace a legal assessment; it makes omissions visible.
+
+```{r}
+#| label: b23-register
+# Data-flow register for the fictional gait study (one row per copy or processing step)
+register <- data.frame(
+  step      = c("capture", "clinic_store", "pose_onsite", "keypoints", "angles", "research_table",
+                "key_table", "teaching_clip"),
+  level     = c("direct", "direct", "direct", "pseudonymised", "pseudonymised", "pseudonymised",
+                "direct", "synthetic"),
+  purpose   = c("care", "care", "research", "research", "research", "research", "research", "teaching"),
+  art6      = c("6(1)(b)", "6(1)(c)", "6(1)(a)", "6(1)(a)", "6(1)(a)", "6(1)(a)", "6(1)(a)", NA),
+  art9      = c("9(2)(h)", "9(2)(h)", "9(2)(a)", "9(2)(a)", "9(2)(a)", "9(2)(a)", "9(2)(a)", NA),
+  holder    = c("clinic", "clinic", "clinic", "clinic", "clinic", "clinic", "data custodian", "lecturer"),
+  processor = c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+  art28     = c(NA, NA, NA, NA, NA, NA, NA, NA),
+  location  = c("EU", "EU", "EU", "EU", "EU", "EU", "EU", "EU"),
+  chapter_v = c(NA, NA, NA, NA, NA, NA, NA, NA),
+  deletion  = c("after transfer to store", "care retention period (local)", "after keypoint QC, day 30",
+                "end of study", "end of study", "retention period (local)", "retention period (local)", NA),
+  stringsAsFactors = FALSE
+)
+
+# Rules: each returns the steps that violate it
+check_register <- function(r) {
+  personal <- r$level != "synthetic"
+  list(
+    missing_art6        = r$step[personal & is.na(r$art6)],
+    missing_art9        = r$step[personal & (is.na(r$art9) | r$art9 == "none")],
+    processor_no_art28  = r$step[r$processor & (is.na(r$art28) | r$art28 != "contract")],
+    third_country_no_v  = r$step[r$location != "EU" & is.na(r$chapter_v)],
+    personal_no_delete  = r$step[personal & is.na(r$deletion)],
+    teaching_real_data  = r$step[r$purpose == "teaching" & personal & r$art9 != "9(2)(a)"]
+  )
+}
+result <- check_register(register)
+result
+# Expected result: no rule is violated
+stopifnot(all(lengths(result) == 0))
+```
+
+**Expected result.** A register in which every personal-data step has both an Art. 6 basis and an Art. 9 exception,
+every copy has a deletion point, the key table has a named holder and the seminar uses synthetic data. Learners also
+write one sentence on the residual risk: "Keypoint series and angles remain re-identifiable through movement patterns
+and visit dates; they are shared only within the clinic."\
+**Alternative.** The cloud provider is used under an Art. 28 contract with EU-only processing and deletion after
+return of results. This is lawful in principle but adds a recipient, a contract to monitor and a possible transfer
+question if support staff work from outside the EEA.\
+**Residual question.** Who checks, a year from now, that the research copy of each video really was deleted on day 30?
+
+**The incident clock.** In the fictional incident of @sec-b24, the service provider tells the hospital on a Monday
+morning that a radiology report excerpt appeared in its support log. A processor must inform the controller without
+undue delay (Art. 33(2)); the controller notifies the supervisory authority without undue delay and, where feasible, within 72 hours of becoming
+aware, unless the breach is unlikely to result in a risk to people's rights and freedoms (Art. 33(1)) [Law]. The
+EDPB considers a controller "aware" when it has a reasonable degree of certainty that a security incident has led to
+personal data being compromised [@edpb2023breach, para. 31; Guidance].
+
+```{r}
+#| label: b23-clock
+# Fictional times (Europe/Berlin); awareness = reasonable certainty after the first check
+provider_message <- as.POSIXct("2026-11-09 07:40", tz = "Europe/Berlin")
+aware            <- as.POSIXct("2026-11-09 10:30", tz = "Europe/Berlin")
+deadline_33      <- aware + 72 * 3600
+# English day and month names regardless of the computer's locale
+fmt_time <- function(x) {
+  sprintf("%s %s %s %s, %s", c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")[as.integer(format(x, "%u"))],
+          format(x, "%d"), month.abb[as.integer(format(x, "%m"))], format(x, "%Y"), format(x, "%H:%M"))
+}
+data.frame(event = c("processor informs controller", "controller aware", "72 hours end"),
+           time = fmt_time(c(provider_message, aware, deadline_33)))
+# The 72 hours run from awareness, not from the end of the analysis: Thursday, 10:30
+stopifnot(format(deadline_33, "%u") == "4", deadline_33 - aware == as.difftime(72, units = "hours"))
+```
+
+The clock is only one part of the decision. Three further questions must be answered by named people, not by code:
+is a risk to the people affected unlikely (then no notification, but documentation under Art. 33(5)); is the risk
+likely to be high (then the people must also be informed under Art. 34(1), unless one of the conditions of Art. 34(3)
+applies, for example data rendered unintelligible by encryption); and if notification comes after 72 hours, what are
+the reasons for the delay? [Law]
+
+## Counter-check {#sec-b23-countercheck}
+
+Change one assumption and predict which rule fails before you run the code. Version 1: the clinic chooses the cloud
+provider, whose support team works from a third country, and the contract has not yet been signed. Version 2: the
+lecturer replaces the synthetic clip with a real patient video "because it is more convincing", without consent.
+
+```{r}
+#| label: b23-countercheck
+# Version 1: cloud pose estimation instead of on-site extraction
+v1 <- register
+v1$holder[3]    <- "cloud provider"
+v1$processor[3] <- TRUE
+v1$location[3]  <- "third country"
+# Version 2: real video in the seminar without consent
+v2 <- register
+v2$level[8] <- "direct"; v2$art6[8] <- "6(1)(e)"; v2$art9[8] <- "none"; v2$deletion[8] <- "end of term"
+failed <- function(r) names(Filter(length, check_register(r)))
+list(version_1 = failed(v1), version_2 = failed(v2))
+stopifnot(identical(failed(v1), c("processor_no_art28", "third_country_no_v")),
+          identical(failed(v2), c("missing_art9", "teaching_real_data")))
+```
+
+Version 1 fails twice: there is no processor contract and no Chapter V mechanism. Both can be repaired, but only
+before the first video leaves the clinic. Version 2 fails twice: the step has no Art. 9 exception, and a real patient video in teaching needs explicit
+consent; no research provision covers a seminar. A public-task basis for teaching (Art. 6(1)(e)) would still lack an
+Art. 9 exception [Interpretation]. If the rule set had only one column "legal basis", version 2 would have passed.
+This is the practical reason for keeping Art. 6 and Art. 9 apart.
+
+## Consequences for patients and operations {#sec-b23-consequences}
+
+**An open question changes the plan.** Whether keypoint series are personal data for the cloud provider cannot be
+settled without knowing what else the provider holds. The judgment of 2025 makes the answer depend on the recipient's
+actual means of identification [@cjeu2025srb], and the motion study suggests that those means may be small
+[@miller2020motion]. The study team therefore plans as if they were personal data. @tbl-b23-plan shows the effect.
+
+| Element | Plan before the review | Plan after the review |
+|---|---|---|
+| Pose estimation | Cloud service, video upload | On-site extraction; provider receives no video |
+| Raw research copy | Kept "for later models" | Deleted after keypoint quality control (day 30, assumption) |
+| Key table | In the study folder | Held by a data custodian; re-identification only for withdrawal or incidental findings |
+| Seminar | Real patient clip | Synthetic gait clip; real clips only with explicit consent and a deletion date |
+| DPIA | "Not needed for a small study" | Documented screening; full DPIA if the supervisory authority's list or the data volume requires it |
+| Information sheet | Generic | Names recipients, purposes, retention and the contact for withdrawal |
+
+: Deployment plan for the gait study before and after the data-protection review. Fictional plan. {#tbl-b23-plan}
+
+**For patients**, the change means that their face and walk do not leave the clinic and that they can find out who
+holds a copy. **Ethics** (@sec-b21): patients with rare injuries or visible impairments are easier to recognise; a
+small group needs more protection, not less. **Regulation** (@sec-b22): if the angle is used for treatment decisions,
+the software may become a medical device. **Security** (@sec-b24): the key table and the video store are the assets
+whose confidentiality matters most.
+
+::: {.callout-note title="The incident from the data-protection perspective"}
+Which personal data were accessible to whom, who assesses the risk, and who decides on notification and
+communication? The controller decides, advised by the data protection officer; the processor only reports. The
+assessment starts from facts: which report excerpts, how many people, who could read the support log, and whether the
+log has been deleted at the provider. A notification under Art. 33 is required unless a risk is unlikely; it should be
+made, where feasible, within 72 hours of awareness, and may be completed in phases (Art. 33(4)). Informing the people
+affected is a separate decision with a higher threshold – a likely high risk – and its own exceptions (Art. 34) [Law].
+The technical restart (@sec-b24) has a different trigger, a different owner and a different end point; a good
+handover names both.
+:::
+
+## Look up and transfer {#sec-b23-lookup}
+
+**Reviewer question.** Does the manuscript state which data left the institution, in which form, to whom and on which
+legal basis, and how long copies were kept? "Data were pseudonymised" without saying who held the key, and whether
+recipients could re-identify, is not a description of a safeguard.
+
+**Self-test.** The supplier of the fracture alert in @sec-b09 asks the emergency department to send "the original
+DICOM images" of 30 false alarms so that it can check the model. What do you send, and what must be in place first?
+
+::: {.callout-tip collapse="true" title="Answer"}
+First ask what the check needs. To review a false alarm the supplier needs the pixel data, the region the tool marked
+and perhaps acquisition parameters – not names, dates of birth or accession numbers, which DICOM headers usually
+contain. Data minimisation (Art. 5(1)(c)) and data protection by design (Art. 25) point to images with identifying
+header fields removed, or to a review session inside the hospital's systems [Law; Interpretation]. Burned-in text in
+the image must be checked as well. Before anything is sent, the roles must be clear: if the supplier processes the
+images on the hospital's behalf, an Art. 28 contract with deletion after the check is needed; if it wants to use them
+to improve its product, it decides on its own purposes and needs its own legal basis [Interpretation; Local]. If the
+supplier works from outside the EEA, Chapter V applies. The images remain health data even without names, because the
+hospital can re-identify them.
+:::
+
+**Annotated sources.**
+
+- @eu2016dsgvo – the GDPR, from Art. 4 definitions to Art. 33–35; the binding text for every step in the register.
+- @bdsg27 and @gdng6 – two German research provisions with different addressees and conditions; neither applies
+  automatically.
+- @cjeu2025srb – the 2025 judgment on pseudonymised data at the recipient and on the controller's duty to inform.
+- @miller2020motion – published evidence that movement data identify people.
+- @edpb2023breach – EDPB guidance on breach notification, including when a controller becomes "aware".
+- @edpb2025pseudonymisation – EDPB guidance on pseudonymisation and the "pseudonymisation domain" (version for public
+  consultation).
+
+## Further reading {#sec-b23-further}
+
+- @sec-b11 – how the knee angle is computed from keypoints and why raw video may still be needed for quality control.
+- @sec-b03 – how small, rare groups in a table make people recognisable.
+- @sec-b24 – protecting the key table, the video store and the logs.
+- @sec-b26 – secondary use, controlled access and the stepwise application of the European Health Data Space
+  Regulation, whose chapter on secondary use applies from 26 March 2029 (Art. 105) [@eu2025ehds].
+- [Methods in R: The research workflow](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-4-acquisition)
+  – where data acquisition and its documentation sit in a project.
+- [Scientometrics in R: Reproducible pipelines](https://r-heller.github.io/scientometrics-in-r/reproducible-pipelines.html)
+  – documenting each processing step so that a register can be kept up to date.
+- [CTTIR Courses: Research workflow](https://cttir.github.io/courses/appendices/research_workflow.html) – planning
+  data handling before the first measurement.
+- [CTTIR Courses: Import, joins, and missingness with dplyr](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session4.html)
+  – the joins that a key table makes possible, and therefore why it must be guarded.
