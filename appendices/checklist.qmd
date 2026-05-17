@@ -1,0 +1,13 @@
+# Checklist for contributions and revisions {#sec-checklist}
+
+For every new edition or revised chapter:
+
+- The purpose, readership and prerequisites of the chapter are stated.
+- Authorship and licences of reused sources are correct.
+- Every claim, citation, figure caption and cross-reference has been checked; DOIs resolve.
+- Every number is labelled as synthetic, published, assumption or open.
+- The examples run in a fresh R session; the software status is documented in @sec-edition-notes.
+- Legal statements distinguish publication, entry into force and date of application, and state the reference date.
+- Navigation, contrast, alternative text, print view and narrow screens have been checked.
+- HTML and EPUB output have been inspected before distribution.
+- Open issues and the exact edition are recorded in the edition notes.
