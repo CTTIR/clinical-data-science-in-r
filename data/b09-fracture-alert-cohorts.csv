@@ -1,0 +1,3 @@
+"setting","description","examined","prevalence","sensitivity","specificity","true_pos","false_pos","false_neg","true_neg"
+"A","unselected emergency department",1000,0.05,0.9,0.9,45,95,5,855
+"B","referred with clinical suspicion",1000,0.2,0.9,0.9,180,80,20,720
