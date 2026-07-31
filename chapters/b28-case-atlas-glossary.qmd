@@ -1,0 +1,733 @@
+# Case atlas, glossary and transfer {#sec-b28}
+
+```{r}
+#| label: setup-b28
+#| include: false
+source("../R/style.R")
+set.seed(2028)
+```
+
+```{r}
+#| label: b28-data
+#| include: false
+# Tables of this chapter, stored as data so that the Lab can check them (see "Lab").
+chapter_ids <- sprintf("b%02d", 1:28)
+
+course_url <- "https://r-heller.github.io/clinical-data-science-in-r-course/lessons/"
+workshops <- data.frame(
+  id = paste0("W", 1:8),
+  title = c("From clinical case to question", "Language models and evidence",
+            "Diagnostics, prediction and evidence", "Imaging, gait and tissue",
+            "Causality, trajectories and phenotypes", "Pharmacometrics, forecasting and simulation",
+            "Regulation, data protection and incident", "Colloquium and decision"),
+  slug = c("w1-from-clinical-case-to-question", "w2-language-models-and-evidence",
+           "w3-diagnostics-prediction-evidence", "w4-imaging-gait-tissue",
+           "w5-causality-trajectories-phenotypes", "w6-pharmacometrics-forecasting-simulation",
+           "w7-regulation-data-protection-incident", "w8-colloquium-and-decision")
+)
+
+# Case atlas: chapter path (in reading order) and workshops for each vignette
+atlas <- list(
+  A1 = list(path = c("b09", "b06", "b19", "b20", "b21", "b27"), ws = c("W3", "W8"),
+            population = "patients", deployment = TRUE),
+  A2 = list(path = c("b10", "b19", "b16", "b27"), ws = c("W4", "W8"),
+            population = "animals", deployment = FALSE),
+  A3 = list(path = c("b11", "b03", "b23", "b26"), ws = c("W4", "W5"),
+            population = "patients", deployment = FALSE),
+  A4 = list(path = c("b02", "b03", "b13", "b16"), ws = c("W5"),
+            population = "patients", deployment = FALSE),
+  A5 = list(path = c("b12", "b14", "b26", "b27"), ws = c("W4", "W5"),
+            population = "patients", deployment = FALSE),
+  A6 = list(path = c("b17", "b18", "b20", "b21"), ws = c("W6", "W8"),
+            population = "patients", deployment = TRUE)
+)
+
+# Navigator: three entry routes (goal, data type, risk) to chapters and workshops
+navigator <- data.frame(rbind(
+  c("goal", "State the decision, the addressee and the target population", "b01, b02", "W1"),
+  c("goal", "Describe how the data arose and which denominator applies", "b03, b04", "W1"),
+  c("goal", "Make an analysis reproducible from a fresh R session", "b04", "W1, W6"),
+  c("goal", "Build a baseline and compare a learning model with it", "b05, b06", "W3"),
+  c("goal", "Judge a published AI study", "b07, b27", "W2, W3"),
+  c("goal", "Check a generated text or a citation", "b08", "W2"),
+  c("goal", "Interpret a diagnostic alert in another setting", "b09, b06, b21", "W3"),
+  c("goal", "Compare two measurement methods", "b11", "W4"),
+  c("goal", "Ask a causal question without selection bias", "b02", "W5"),
+  c("goal", "Model repeated measurements over time", "b13", "W5"),
+  c("goal", "Decide whether clusters are subtypes", "b14", "W5"),
+  c("goal", "Fit a mechanistic or pharmacokinetic model", "b15", "W6"),
+  c("goal", "Plan the next animal experiment with few animals", "b16, b27", "W5, W6"),
+  c("goal", "Forecast demand for the next weeks", "b17", "W6"),
+  c("goal", "Compare capacity scenarios", "b18", "W6"),
+  c("goal", "Transfer a result to a new centre, period or species", "b19", "W4, W6"),
+  c("goal", "Run a pilot, monitor it and decide when to stop", "b20, b27", "W7, W8"),
+  c("goal", "Weigh harms and explain a choice to a patient", "b21", "W2, W8"),
+  c("goal", "Clarify the regulatory status of software", "b22", "W7"),
+  c("goal", "Plan a lawful data flow", "b23", "W7"),
+  c("goal", "Protect systems and restore operation", "b24, b25", "W7"),
+  c("goal", "Share code, metadata and results", "b26", "W7"),
+  c("goal", "Document evidence and decision for a review", "b27", "W8"),
+  c("goal", "Find a method or a term again", "b28", "W1, W8"),
+  c("data", "Clinical table, one row per patient", "b03, b05, b06", "W1, W3"),
+  c("data", "Diagnostic images with an alert", "b09, b07", "W3"),
+  c("data", "Hyperspectral images and grouped spectra", "b10, b19, b27", "W4"),
+  c("data", "Video, landmarks and joint angles", "b11, b23", "W4"),
+  c("data", "Tissue sections and cell coordinates", "b12, b14", "W4"),
+  c("data", "Repeated biomarker measurements", "b13, b03", "W5"),
+  c("data", "Concentration over time", "b15", "W6"),
+  c("data", "Event counts in a small animal study", "b16", "W5, W6"),
+  c("data", "Time series of arrivals", "b17", "W6"),
+  c("data", "Process events and queues", "b18", "W6"),
+  c("data", "Free text, generated text, documents", "b08, b25", "W2"),
+  c("data", "Registry extract for secondary use", "b26, b23", "W7"),
+  c("risk", "A faulty or harmful alarm, too many false alarms", "b20, b27, b21, b09, b06", "W3, W7, W8"),
+  c("risk", "Leakage between training and test in grouped data", "b19, b05, b27", "W4"),
+  c("risk", "Wrong n: repeated measurements counted as independent", "b03, b16, b10", "W1, W4"),
+  c("risk", "Poor calibration in a new setting", "b06, b19", "W3"),
+  c("risk", "Selection or collider bias", "b02", "W5"),
+  c("risk", "Clusters that are artefacts of scaling or segmentation", "b14, b12", "W5"),
+  c("risk", "Unit errors and unidentifiable parameters", "b15", "W6"),
+  c("risk", "Distribution shift after an update or a season", "b20, b17", "W6, W7"),
+  c("risk", "Errors that fall unequally on groups", "b21, b06", "W3, W8"),
+  c("risk", "Unclear intended purpose or changed use", "b22", "W7"),
+  c("risk", "Unlawful data flow or re-identification of rare groups", "b23, b26", "W7"),
+  c("risk", "Data leak, wrong model version or outage", "b24, b25, b20", "W7"),
+  c("risk", "Instructions hidden in documents", "b25", "W2, W7"),
+  c("risk", "Overstated claim in an abstract", "b27, b07", "W8")
+), stringsAsFactors = FALSE)
+names(navigator) <- c("route", "entry", "chapters", "workshops")
+
+# Glossary, English - German, with the chapter where the term is introduced
+glossary <- data.frame(rbind(
+  c("3Rs (replacement, reduction, refinement)", "3R (Vermeidung, Verminderung, Verbesserung)", "b16"),
+  c("Agent-based simulation", "agentenbasierte Simulation", "b18"),
+  c("Alert fatigue", "Alarmmüdigkeit", "b20"),
+  c("Anonymisation", "Anonymisierung", "b23"),
+  c("Area under the ROC curve (AUC)", "Fläche unter der ROC-Kurve", "b06"),
+  c("Baseline model", "Vergleichsmodell, Basismodell", "b05"),
+  c("Batch effect", "Batch-Effekt, Chargeneffekt", "b12"),
+  c("Bland–Altman plot", "Differenzdiagramm nach Bland und Altman", "b11"),
+  c("Calibration", "Kalibrierung", "b06"),
+  c("Case mix", "Fallmix", "b19"),
+  c("Checksum (hash)", "Prüfsumme (Hashwert)", "b25"),
+  c("Clearance", "Clearance", "b15"),
+  c("Cluster stability", "Clusterstabilität", "b14"),
+  c("Collider", "Collider (gemeinsame Folge zweier Variablen)", "b02"),
+  c("Confounder", "Confounder, Störgröße", "b02"),
+  c("Controlled access", "kontrollierter Zugang", "b26"),
+  c("Data dictionary", "Datenwörterbuch", "b03"),
+  c("Data leakage", "Datenleck zwischen Training und Test", "b19"),
+  c("Data minimisation", "Datenminimierung", "b23"),
+  c("Data permit", "Datengenehmigung", "b26"),
+  c("Data poisoning", "Datenvergiftung", "b25"),
+  c("Data protection impact assessment (DPIA)", "Datenschutz-Folgenabschätzung (DSFA)", "b23"),
+  c("Decision sheet", "Entscheidungsblatt", "b27"),
+  c("Decision threshold", "Entscheidungsschwelle", "b06"),
+  c("Denominator", "Nenner", "b03"),
+  c("Directed acyclic graph (DAG)", "gerichteter azyklischer Graph", "b02"),
+  c("Discrete-event simulation", "ereignisdiskrete Simulation", "b18"),
+  c("Distribution shift, drift", "Verteilungsverschiebung, Drift", "b20"),
+  c("Equivalence class", "Äquivalenzklasse", "b26"),
+  c("Estimand", "Estimand, Schätzziel", "b02"),
+  c("Excessive agency", "übermäßige Handlungsbefugnis", "b25"),
+  c("External validation", "externe Validierung", "b19"),
+  c("Fallback procedure", "Rückfallverfahren", "b20"),
+  c("False positive", "falsch positiver Befund", "b09"),
+  c("Fabricated reference", "erfundene Quellenangabe", "b08"),
+  c("Grouped split (split by individual)", "gruppierte Aufteilung (nach Individuum)", "b19"),
+  c("Health data access body", "Zugangsstelle für Gesundheitsdaten", "b26"),
+  c("High-risk AI system", "Hochrisiko-KI-System", "b22"),
+  c("Human-in-the-loop", "Mensch in der Entscheidungsschleife", "b20"),
+  c("Hyperspectral cube", "hyperspektraler Datenwürfel", "b10"),
+  c("Identifiability (of parameters)", "Identifizierbarkeit (von Parametern)", "b15"),
+  c("Indirect prompt injection", "indirekte Prompt-Injection", "b25"),
+  c("Informative dropout", "informativer Ausfall", "b13"),
+  c("Intended purpose", "Zweckbestimmung", "b22"),
+  c("k-anonymity", "k-Anonymität", "b26"),
+  c("Least privilege", "Prinzip der minimalen Rechte", "b24"),
+  c("Limits of agreement", "Übereinstimmungsgrenzen", "b11"),
+  c("Long format", "Langformat", "b04"),
+  c("Membership inference", "Rückschluss auf die Trainingsmitgliedschaft", "b25"),
+  c("Missing at random (MAR)", "zufällig fehlend", "b03"),
+  c("Missing not at random (MNAR)", "nicht zufällig fehlend", "b03"),
+  c("Mixed model, random slope", "gemischtes Modell, zufällige Steigung", "b13"),
+  c("Model passport", "Modellpass", "b27"),
+  c("Neighbourhood analysis", "Nachbarschaftsanalyse", "b12"),
+  c("Nested cross-validation", "verschachtelte Kreuzvalidierung", "b05"),
+  c("Occlusion", "Verdeckung", "b11"),
+  c("Personal data breach", "Verletzung des Schutzes personenbezogener Daten", "b23"),
+  c("Positive predictive value (PPV)", "positiver Vorhersagewert", "b09"),
+  c("Posterior distribution", "A-posteriori-Verteilung", "b16"),
+  c("Prediction interval", "Prognoseintervall", "b17"),
+  c("Prevalence", "Prävalenz", "b09"),
+  c("Prior distribution", "A-priori-Verteilung", "b16"),
+  c("Pseudonymisation", "Pseudonymisierung", "b23"),
+  c("Pseudoreplication", "Pseudoreplikation", "b03"),
+  c("Purpose limitation", "Zweckbindung", "b26"),
+  c("Quasi-identifier", "Quasi-Identifikator", "b26"),
+  c("Reader study", "Reader-Studie (Befunderstudie)", "b07"),
+  c("Recovery", "Wiederanlauf, Wiederherstellung", "b24"),
+  c("Reference standard", "Referenzstandard", "b07"),
+  c("Regularisation (elastic net)", "Regularisierung (Elastic Net)", "b05"),
+  c("Re-identification", "Reidentifizierung", "b26"),
+  c("Reporting guideline", "Berichtsleitlinie", "b27"),
+  c("Reproducible project", "reproduzierbares Projekt", "b04"),
+  c("Retrieval-augmented generation", "abrufgestützte Generierung", "b08"),
+  c("Rolling-origin evaluation (backtest)", "rollierende Prognoseprüfung", "b17"),
+  c("Secondary use", "Sekundärnutzung", "b26"),
+  c("Secure processing environment", "sichere Verarbeitungsumgebung", "b26"),
+  c("Segmentation", "Segmentierung", "b12"),
+  c("Sensitivity", "Sensitivität", "b06"),
+  c("Shadow mode", "Schattenbetrieb", "b20"),
+  c("Specificity", "Spezifität", "b06"),
+  c("Synthetic data", "synthetische Daten", "b26"),
+  c("Target population", "Zielpopulation", "b01"),
+  c("Target statement", "Zielaussage", "b27"),
+  c("Teach-back", "Teach-back-Methode (Rückversicherung durch Nacherzählen)", "b21"),
+  c("Temperature (language model)", "Temperatur (Sprachmodell)", "b08"),
+  c("Threat model", "Bedrohungsmodell", "b24"),
+  c("Time zero", "Zeitnull", "b02"),
+  c("Token", "Token", "b08"),
+  c("Translational chain", "translationale Kette", "b01"),
+  c("Trust boundary", "Vertrauensgrenze", "b25"),
+  c("UMAP island", "UMAP-Insel", "b14"),
+  c("Unit of analysis", "Analyseeinheit, unabhängige Einheit", "b03"),
+  c("Volume of distribution", "Verteilungsvolumen", "b15"),
+  c("White and dark reference", "Weiß- und Dunkelreferenz", "b10")
+), stringsAsFactors = FALSE)
+names(glossary) <- c("term", "german", "chapter")
+
+# Register of common mistakes
+mistakes <- data.frame(rbind(
+  c("Accuracy per image or spectrum, claim about individuals", "n in the abstract exceeds the number of animals or patients", "ID overlap between training and test; result per individual", "b19, b27"),
+  c("Repeated measurements counted as independent", "narrow intervals from many measurements of few individuals", "name the experimental unit before the analysis", "b03, b16"),
+  c("Predictive values carried into another setting", "same PPV quoted for a different prevalence", "recompute the 2 × 2 table at the local prevalence", "b09"),
+  c("Good ranking read as good calibration", "only the AUC is reported", "calibration plot, observed against expected", "b06"),
+  c("Tuning or preprocessing on all data", "test performance better than plausible", "nested validation; preprocessing inside the folds", "b05"),
+  c("Adjusting for a collider", "association appears after restricting to admitted patients", "draw the DAG before modelling", "b02"),
+  c("Clusters read as subtypes", "clusters change with scaling, seed or segmentation", "stability check and alternative scaling", "b14, b12"),
+  c("Unit error in a mechanistic model", "implausible clearance or volume", "units carried through; analytic solution as check", "b15"),
+  c("Forecast interval read as a guarantee", "coverage never checked on later data", "rolling-origin backtest with coverage", "b17"),
+  c("Unverified simulation", "no trace of single entities, different input streams per scenario", "event log of one entity; identical arrival streams", "b18"),
+  c("Pilot without a stop criterion", "no denominator, no named person, no date", "monitoring plan with escalation and stop rule", "b20, b27"),
+  c("Research label taken as legal basis", "no documented legal basis for the change of purpose", "legal basis per purpose; data protection officer", "b23, b26"),
+  c("Pseudonymised data taken as anonymous", "key exists; rare combinations in the release", "k-anonymity check; assessment per recipient", "b26"),
+  c("Trusting the model to ignore embedded instructions", "assistant can act on document content", "permission tests with synthetic documents", "b25"),
+  c("Version label trusted instead of checksum", "same version, different behaviour", "compare checksum with the release record", "b24, b25"),
+  c("Fabricated or misattributed citation", "reference not found or passage does not support the claim", "check DOI, title and the cited passage", "b08"),
+  c("Use drifts beyond the intended purpose", "tool used for decisions it was not meant for", "compare actual use with the stated purpose", "b22"),
+  c("Speed claim without benchmark", "one language is called faster", "benchmark on identical inputs and tolerance", "b15")
+), stringsAsFactors = FALSE)
+names(mistakes) <- c("mistake", "warning_sign", "check", "chapters")
+
+# Helpers that turn chapter IDs into cross-references and workshops into links
+as_refs <- function(ids) paste0("@sec-", trimws(unlist(strsplit(ids, ","))), collapse = ", ")
+path_text <- function(v) paste0("@sec-", atlas[[v]]$path, collapse = " → ")
+ws_links <- function(v) {
+  w <- workshops[match(atlas[[v]]$ws, workshops$id), ]
+  paste0("[", w$id, " · ", w$title, "](", course_url, w$slug, ".html)", collapse = " · ")
+}
+nav_table <- function(which) {
+  x <- navigator[navigator$route == which, c("entry", "chapters", "workshops")]
+  x$chapters <- vapply(x$chapters, as_refs, character(1))
+  x
+}
+```
+
+::: {.callout-note appearance="simple" icon=false}
+## At a glance
+
+**Guiding question:** From which decision do I find the right method again?
+
+**For:** everyone who starts a new project with this book, course participants at the start and the end of the
+course, supervisors who assign a project · **Prerequisites:** none; the chapter is an entry point and points to the
+chapters that hold the prerequisites
+
+**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
+· [W8 · Colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
+(required) · **Data:** no patient data; the atlas, navigator and glossary are stored as tables in the chapter ·
+**Core reading time:** about 9 minutes
+:::
+
+## Case and decision {#sec-b28-case}
+
+A newly appointed research coordinator in a fictitious trauma department receives three requests in her first week.
+The rehabilitation team wants to check gait after ankle fractures with tablet videos. A laboratory group asks whether
+it may publish hundreds of spectra from six animals as "a large dataset". The operating theatre manager wants to know
+whether a second weekend team is worth the cost. She has two days to send each group a first answer: which question
+they are really asking, which chapter they should read first, and which risk they must rule out before anyone writes
+code. If she routes the requests by data type alone, the gait group starts with image processing and the laboratory
+with model choice; both would miss the problem that decides their project.
+
+## Core reading {#sec-b28-core}
+
+::: {.callout-important appearance="simple" icon=false}
+**Core reading** · required for W8 (and a first orientation in W1) · about 9 minutes · ends before 'Lab'
+:::
+
+### Start from the decision, not from the data
+
+This chapter is the index of the book, organised by decisions. Most projects arrive with a data type – images,
+spectra, a registry – and a method someone has heard of. The data type is a poor guide. A tablet video can serve a
+method comparison (@sec-b11), a privacy assessment (@sec-b23) or a safety pilot (@sec-b20), and each needs a
+different first step. **The key assumption of this chapter is that a method is found again through the decision it
+supports and the risk that threatens it, not through the data it uses.** The data type narrows the choice; the
+decision and the risk make it.
+
+The chapter offers three tools for this. The *navigator* gives three entry routes to the 28 chapters: by goal, by data
+type and by risk. The *case atlas* contains six new project vignettes, from a fracture alert to operating capacity.
+Each one shows how a request turns into a target statement, a first test and a path through the chapters. The
+*glossary* translates the book's terms between English and German, so that a reader can recognise a term from
+clinical practice and find the chapter where it is introduced. A register of common mistakes and a one-page sketch for
+the next experiment close the chapter. Its tables are stored as data in the chapter source, and the Lab checks that
+every route points to an existing chapter.
+
+### The route by risk
+
+The risk route is the fastest when something has already gone wrong or is about to (@tbl-b28-risk). Each row names a
+risk, the chapters that address it and the workshops in which it is practised. The first chapter in each row is the
+one to open first.
+
+```{r}
+#| label: tbl-b28-risk
+#| tbl-cap: "Navigator by risk. Each row leads from a risk to the chapters that address it, in the order in which they are best read, and to the workshops of the course. Unit: risk; no data."
+#| echo: false
+knitr::kable(nav_table("risk"), col.names = c("Risk", "Chapters (read the first one first)", "Workshops"),
+             row.names = FALSE)
+```
+
+### Two reading routes as examples
+
+*A clinician after a faulty alarm.* An alert flagged a fracture that was not there, and the patient received an
+unnecessary CT scan. The clinician wants to know who must be told and who decides whether the alert stays on. The risk
+route "a faulty or harmful alarm" leads first to @sec-b20, where the monitoring plan names the escalation path, the
+fallback procedure and the person who may stop the pilot. The decision sheet in @sec-b27 records that person, and
+@sec-b27-faulty-alarm lists who acts next, in order; @sec-b21 helps to explain the event to the patient. The next
+responsible role is therefore the pilot lead named in the decision sheet as allowed to stop – not the developer and
+not the clinician who happened to see the alert.
+
+*A doctoral researcher with grouped spectra.* Hundreds of spectra come from a handful of animals. The data route
+"hyperspectral images and grouped spectra" leads to @sec-b10 for the measurement, to @sec-b19 for a split by animal
+with an ID overlap of zero, and to @sec-b27 for the passport and the reporting path
+(@tbl-b27-reporting-paths): ARRIVE 2.0 for the animal study, TRIPOD+AI items for the model. The fill-in templates in
+[Methods in R: ARRIVE](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) and
+[Methods in R: TRIPOD-AI](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html) complete the report.
+
+### Combining routes: the coordinator's three requests
+
+The routes work best in combination. For the gait request, the data route ("video, landmarks and joint angles")
+offers @sec-b11 and @sec-b23, and the risk route ("unlawful data flow or re-identification") offers @sec-b23 and
+@sec-b26. The chapter that appears in both, @sec-b23, is where the coordinator starts: before anyone compares
+measurement methods, the team must know whether raw video may be stored at all and when it is deleted. For the
+laboratory, the data route leads to the split by animal in @sec-b19; "a large dataset" of spectra from six animals is,
+for any statement about new animals, a dataset of six. For the operating theatre, two goal rows compete: "forecast
+demand" (@sec-b17) and "compare capacity scenarios" (@sec-b18). The decision is about staffing, so the simulation is
+the main tool and the forecast supplies its arrival assumptions. In each case the first chapter is chosen by the
+decision and the risk; the data type only narrows the list.
+
+### Working with the atlas
+
+Each vignette in the atlas follows the same form: the decision, the data and the independent unit, a first baseline,
+the main risk, a first observable test, the path through the chapters and the matching workshops. Read the vignette
+nearest to your own project, then write your own version in the same fields before you open any chapter. The formative
+model answers are kept separate and folded away, so that the attempt comes first. They are not marking schemes; they
+show what a complete first answer contains.
+
+**Question for the workshop:** Choose the vignette nearest to your project (W1) or to the project you defended (W8).
+Which field of your own brief differs most from the vignette, and which chapter does that difference send you to?
+
+## Lab {#sec-b28-lab}
+
+The navigator, the atlas, the glossary and the register of mistakes are data frames in the source of this chapter. The
+Lab checks them in the same way that a passport is checked: every route must lead to an existing chapter, every atlas
+case must point to at least two chapters and one workshop, and the glossary must cover the book.
+
+```{r}
+#| label: b28-checks
+# Size of the tables
+c(navigator_rows = nrow(navigator), atlas_cases = length(atlas),
+  glossary_terms = nrow(glossary), mistakes = nrow(mistakes))
+
+nav_ids  <- trimws(unlist(strsplit(navigator$chapters, ",")))
+mis_ids  <- trimws(unlist(strsplit(mistakes$chapters, ",")))
+atlas_ids <- unlist(lapply(atlas, `[[`, "path"))
+
+stopifnot(
+  length(atlas) == 6,
+  all(sapply(atlas, function(a) length(a$path) >= 2 && length(a$ws) >= 1)),
+  all(unlist(lapply(atlas, `[[`, "ws")) %in% workshops$id),
+  all(c(nav_ids, mis_ids, atlas_ids, glossary$chapter) %in% chapter_ids),   # no dangling references
+  nrow(glossary) >= 60, !anyDuplicated(tolower(glossary$term)),
+  all(chapter_ids %in% nav_ids)                                              # every chapter reachable
+)
+```
+
+All 28 chapters are reachable from the navigator, and no route points to a chapter that does not exist. The two
+reading routes of the Core reading can be tested as searches. The function returns the chapters of every navigator
+row whose entry contains the search term, in order of first appearance.
+
+```{r}
+#| label: b28-routes
+find_route <- function(term) {
+  rows <- navigator[grepl(term, navigator$entry, ignore.case = TRUE), ]
+  unique(trimws(unlist(strsplit(rows$chapters, ","))))
+}
+route_alarm   <- find_route("alarm")
+route_spectra <- find_route("spectra")
+route_alarm
+route_spectra
+stopifnot(route_alarm[1] == "b20", "b27" %in% route_alarm,
+          all(c("b10", "b19", "b27") %in% route_spectra))
+```
+
+The atlas map shows which chapters the six vignettes use and in which order (@fig-b28-atlas-map). Chapters that no
+vignette touches are not unimportant; they are reached through the navigator.
+
+```{r}
+#| label: fig-b28-atlas-map
+#| fig-cap: "Case atlas map: the six vignettes (rows) and the chapters on their reading path (columns). The number in a tile is the position of the chapter on the path. Unit: vignette; n = 6 vignettes, 28 chapters; no data."
+#| fig-alt: "Grid with six rows for the vignettes A1 to A6 and 28 columns for chapters B01 to B28. Filled tiles carry the step number on the reading path. A1 runs through B09, B06, B19, B20, B21 and B27; A2 through B10, B19, B16 and B27; A3 through B11, B03, B23 and B26; A4 through B02, B03, B13 and B16; A5 through B12, B14, B26 and B27; A6 through B17, B18, B20 and B21. Chapters B03, B16, B19, B20, B21, B26 and B27 are used by two or more vignettes."
+#| fig-height: 3.6
+#| fig-width: 9
+library(ggplot2)
+
+map_df <- do.call(rbind, lapply(names(atlas), function(v)
+  data.frame(vignette = v, chapter = atlas[[v]]$path, step = seq_along(atlas[[v]]$path))))
+map_df$chapter <- factor(toupper(map_df$chapter), levels = toupper(chapter_ids))
+map_df$vignette <- factor(map_df$vignette, levels = rev(names(atlas)))
+map_df$first <- ifelse(map_df$step == 1, "first chapter", "later chapter")
+
+ggplot(map_df, aes(chapter, vignette)) +
+  geom_tile(aes(fill = first), colour = "white", linewidth = 0.8) +
+  geom_text(aes(label = step), size = 3.2) +
+  scale_x_discrete(drop = FALSE) +
+  scale_fill_manual(values = c("first chapter" = unname(cdsr_colours["orange"]),
+                               "later chapter" = unname(cdsr_colours["skyblue"])), name = NULL) +
+  labs(x = NULL, y = "Vignette", caption = "Paths as listed in the case atlas; numbers give the reading order.") +
+  theme_cdsr(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1), panel.grid = element_blank())
+
+stopifnot(nrow(map_df) == length(atlas_ids))
+```
+
+## Counter-check {#sec-b28-countercheck}
+
+The path of a vignette is not fixed by its data. It changes when the target statement changes. The function below adds
+chapters to a path when the target population moves from animals to patients, and when a research result is meant to
+be used in care. Before running it, predict which chapters vignette A2 (wound perfusion in a pig model) gains if its
+target statement becomes "patients with soft-tissue wounds in a supervised clinical pilot".
+
+```{r}
+#| label: b28-countercheck
+extend_path <- function(v, population, deployment) {
+  a <- atlas[[v]]
+  extra <- character(0)
+  if (a$population == "animals" && population == "patients")
+    extra <- c(extra, "b19", "b21", "b23")            # species transfer, ethics, personal data
+  if (deployment && !a$deployment)
+    extra <- c(extra, "b22", "b20", "b24", "b25")     # purpose, pilot, security
+  unique(c(a$path, extra))
+}
+a2_moved <- extend_path("A2", population = "patients", deployment = TRUE)
+setdiff(a2_moved, atlas$A2$path)
+stopifnot(all(c("b21", "b22", "b23", "b20") %in% a2_moved),
+          length(setdiff(a2_moved, atlas$A2$path)) == 6)
+```
+
+The pig study gains six chapters: ethics with patients, regulation, data protection, the pilot and both security
+chapters. Species transfer (@sec-b19) was already on the path, now with a harder question – not new animals, but a
+new species. The data type did not change at all. This is the key assumption of the chapter in one line of code.
+
+## Consequences for patients and operations {#sec-b28-consequences}
+
+**Patients.** A wrong route costs time, but a route that skips a risk costs more. The most frequent failure is to
+treat a project as purely technical: the gait group that never asks where the raw video goes, the laboratory that never
+asks what a result per spectrum means for the next animals. The risk route exists to make these questions visible
+before anyone is affected.
+
+**Responsibility.** The atlas does not replace the people who carry responsibility: the statistician for the analysis
+plan, the data protection officer for the data flow, the ethics committee and the animal welfare body for the study,
+the regulatory function for the intended purpose, and the clinical lead for the decision to use a tool. Every vignette
+therefore ends with a decision that a named role must take (@sec-b27).
+
+**Regulation, data protection and security.** These topics enter a path through the risk route and through the
+counter-check above. A vignette that stays in research has fewer of them; the moment a result is meant to change care,
+@sec-b22 to @sec-b25 join the path.
+
+**Keeping the atlas current.** Chapter numbers are stable identifiers, but legal dates, guidelines and sister-book
+anchors change. The edition notes record the state of each edition; the Lab of this chapter is the first test to
+rerun after any change to the chapter list.
+
+## Look up and transfer {#sec-b28-lookup}
+
+**Reviewer question:** For a project you are asked to review, which row of the risk navigator would you open first,
+and does the project's own documentation answer the question of that row?
+
+**Self-test:** A pharmacy team asks whether a forecast of antibiotic consumption on the trauma wards can be used to
+order stock two weeks ahead, and whether a dashboard could later suggest switching patients to oral treatment. Which
+vignette is nearest, which part of the request changes the path, and which chapters join it?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The nearest vignette is A6: a forecast of demand with a planning decision (@sec-b17), checked by a rolling-origin
+backtest against a seasonal naive baseline. The first request stays in that path. The second request is different in
+kind: suggesting a treatment change for individual patients makes the dashboard a decision aid about patients. That
+part of the request brings in @sec-b22 (intended purpose and possible medical device status), @sec-b23 (patient-level
+data flow), @sec-b21 (who bears the harm of a wrong suggestion) and, before any use, @sec-b20 (pilot and stop
+criterion). The two requests should become two projects with two passports.
+:::
+
+### Case atlas
+
+The six vignettes are new cases, not repeats of the chapter examples. All institutions, numbers and data are
+fictitious; where a number would be needed, it is marked *open*.
+
+#### A1 · A second look at the wrist
+
+A hand-surgery outpatient clinic considers an alert, evaluated in a large emergency department, that flags possible
+scaphoid fractures on wrist radiographs. Many of its patients were referred after negative imaging elsewhere.
+
+- **Decision:** should an alert trigger a second read by a hand surgeon, and who follows up a missed fracture?
+- **Data and unit:** one radiograph examination per patient and episode; reference standard: follow-up imaging.
+- **First baseline:** current practice, a second read only on clinical suspicion.
+- **Main risk:** prevalence and case mix differ from the evaluation site, so predictive values do not transfer; alert
+  fatigue.
+- **First observable test:** recompute the 2 × 2 table at the clinic's prevalence (*open*: local prevalence), then a
+  pilot in shadow mode with a stop criterion.
+- **Chapter path:** `r path_text("A1")`
+- **Workshops:** `r ws_links("A1")`
+- **Look further:** [CTTIR Courses: Diagnostic testing – Se, Sp, PPV, NPV, LR](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html)
+
+#### A2 · Perfusion in soft-tissue wounds
+
+A translational group records hyperspectral images of experimental soft-tissue wounds in a fictitious pig model:
+several images per wound, two wounds per animal, three time points.
+
+- **Decision:** is a confirmatory experiment justified, and with how many animals?
+- **Data and unit:** spectra nested in images, wounds and animals; the independent unit is the animal.
+- **First baseline:** a simple spectral index with a threshold fixed in advance.
+- **Main risk:** leakage between images of the same animal; illumination differences between sessions.
+- **First observable test:** split by animal with an ID overlap of zero; counter-check with a changed illumination
+  reference.
+- **Chapter path:** `r path_text("A2")`
+- **Workshops:** `r ws_links("A2")`
+- **Look further:** [Methods in R: ARRIVE – animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+
+#### A3 · Walking again after an ankle fracture
+
+A rehabilitation team films patients walking along the corridor with a tablet; software estimates the knee angle.
+
+- **Decision:** can the tablet angle replace the laboratory measurement for the discharge assessment?
+- **Data and unit:** many steps per patient, two methods; the independent unit is the patient.
+- **First baseline:** the laboratory measurement as reference; a tolerance fixed clinically in advance.
+- **Main risk:** camera angle and occlusion; raw video that identifies patients and is kept longer than needed.
+- **First observable test:** difference plot per patient against the tolerance; a data flow with a deletion point for
+  the raw video.
+- **Chapter path:** `r path_text("A3")`
+- **Workshops:** `r ws_links("A3")`
+- **Look further:** [CTTIR Courses: Kappa, ICC, Bland–Altman](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session2.html)
+
+#### A4 · A serum marker after spinal cord injury
+
+A fictitious cohort has a serum marker measured at irregular times over twelve weeks after spinal cord injury. Patients
+in the worst condition are transferred or die earlier and contribute fewer measurements.
+
+- **Decision:** should the early slope of the marker enter the protocol of a prognostic study?
+- **Data and unit:** repeated measurements per patient; time zero is the injury.
+- **First baseline:** a per-patient summary (change from the first measurement) next to a mixed model.
+- **Main risk:** informative dropout; selection through intensive care admission.
+- **First observable test:** sensitivity analysis for late measurements; a DAG for the selection step.
+- **Chapter path:** `r path_text("A4")`
+- **Workshops:** `r ws_links("A4")`
+- **Look further:** [CTTIR Courses: Linear mixed models with lme4](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html)
+
+#### A5 · Cell types in a fracture callus
+
+Multiplex-stained sections from fictitious fracture callus biopsies are segmented, and the resulting clusters are
+labelled as new cell subtypes for a grant proposal.
+
+- **Decision:** may the subtype label appear in the proposal as a finding?
+- **Data and unit:** cells within sections within patients; the independent unit is the patient.
+- **First baseline:** marker thresholds set by an expert (manual gating).
+- **Main risk:** segmentation boundary, batch effects between staining runs, clusters produced by scaling; rare
+  marker combinations in shared images.
+- **First observable test:** shift the segmentation boundary and repeat the clustering on bootstrap samples; summarise
+  per patient.
+- **Chapter path:** `r path_text("A5")`
+- **Workshops:** `r ws_links("A5")`
+- **Look further:** [CTTIR Courses: Clustering – k-means, hierarchical, model-based](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session4.html)
+
+#### A6 · Weekend peaks in the trauma theatre
+
+A fictitious trauma service sees more emergency operations at weekends. Management asks whether a second weekend team
+would shorten the wait for hip fracture surgery.
+
+- **Decision:** staff a second weekend team or not.
+- **Data and unit:** daily arrivals for the forecast; waiting time per patient for the simulation.
+- **First baseline:** a seasonal naive forecast; the current one-team scenario.
+- **Main risk:** using a forecast to answer a capacity question; longer waits shifted onto lower-priority patients.
+- **First observable test:** rolling-origin backtest of arrivals; both scenarios simulated on identical arrival
+  streams, with the spread across runs.
+- **Chapter path:** `r path_text("A6")`
+- **Workshops:** `r ws_links("A6")`
+- **Look further:** [Methods in R: Rolling-origin cross-validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+
+### Formative model answers
+
+Try your own brief first. Each answer names the target statement, the first test with its expected result and the
+decision that a named role has to take.
+
+::: {.callout-tip collapse="true" title="Model answer A1"}
+Target statement: "In patients referred to this clinic after a wrist injury, an alert-triggered second read finds
+scaphoid fractures that would otherwise be missed, at an acceptable number of extra reads." First test: the 2 × 2 table
+at the local prevalence, with the number of alerts per week as the workload measure. Expected result: a lower positive
+predictive value than at the evaluation site if the local prevalence is lower – this alone is not a reason to reject
+the tool. Decision: the clinic lead approves a shadow pilot and names who may stop it (@sec-b20, @sec-b27).
+:::
+
+::: {.callout-tip collapse="true" title="Model answer A2"}
+Target statement: "In new pigs of the same strain, the index separates well from poorly perfused wound tissue." First
+test: split by animal, ID overlap zero, result reported per animal with its interval. Expected result: a wide interval
+with few animals; the passport then states which sample size the next experiment needs, justified with @sec-b16.
+Decision: the principal investigator, with the animal welfare officer, decides whether the confirmatory experiment is
+justified under the 3Rs.
+:::
+
+::: {.callout-tip collapse="true" title="Model answer A3"}
+Target statement: "For patients after ankle fracture, the tablet angle agrees with the laboratory angle within the
+clinical tolerance." First test: limits of agreement from per-patient means, compared with the tolerance fixed in
+advance. Expected result: either agreement within tolerance or a systematic offset that depends on camera position.
+Decision: the rehabilitation lead decides on use; the data protection officer approves the data flow and the deletion
+point for raw video (@sec-b23).
+:::
+
+::: {.callout-tip collapse="true" title="Model answer A4"}
+Target statement: "In patients after spinal cord injury, the marker slope over the first weeks is associated with the
+later outcome." First test: mixed model against per-patient summaries, plus an analysis that assumes worse values for
+patients who drop out. Expected result: if the slope changes materially under this assumption, the protocol must plan
+for dropout. Decision: the study steering group decides whether the marker enters the protocol as a candidate, not as
+a proven predictor.
+:::
+
+::: {.callout-tip collapse="true" title="Model answer A5"}
+Target statement: "Across patients, a cell population with this marker profile is reproducibly present in fracture
+callus." First test: clustering repeated after shifting the segmentation boundary and on bootstrap samples, summarised
+per patient. Expected result: a stable population is found again; an unstable one is reported as a hypothesis. Decision:
+the principal investigator words the proposal accordingly; shared images are checked for rare combinations before
+release (@sec-b26).
+:::
+
+::: {.callout-tip collapse="true" title="Model answer A6"}
+Target statement: "Under the stated arrival assumptions, a second weekend team reduces the waiting time for hip
+fracture surgery by an amount that justifies its cost." First test: forecast checked by backtest; both scenarios
+simulated on identical arrival streams with the spread over runs. Expected result: a difference with a range, plus the
+effect on lower-priority patients. Decision: the hospital management decides on staffing; the simulation report names
+its assumptions (STRESS, @sec-b27).
+:::
+
+### Navigator by goal and by data type
+
+```{r}
+#| label: tbl-b28-goal
+#| tbl-cap: "Navigator by goal. Unit: goal; no data."
+#| echo: false
+knitr::kable(nav_table("goal"), col.names = c("Goal", "Chapters", "Workshops"), row.names = FALSE)
+```
+
+```{r}
+#| label: tbl-b28-data
+#| tbl-cap: "Navigator by data type. Unit: data type; no data."
+#| echo: false
+knitr::kable(nav_table("data"), col.names = c("Data type", "Chapters", "Workshops"), row.names = FALSE)
+```
+
+When the question is a choice between statistical tests rather than a project decision, the decision trees of the
+sister resources are faster: [Methods in R: Find your method](https://r-heller.github.io/methods-in-r/sec-find-your-method.html),
+[CTTIR Courses: Decision tree](https://cttir.github.io/courses/appendices/decision_tree.html) and the
+[CTTIR Tutorials: Decision Tree](https://cttir.github.io/tutorials/decision-tree/index.html) with its interactive
+assistant.
+
+### Glossary (English–German)
+
+The glossary lists `r nrow(glossary)` terms with their German equivalent and the chapter in which each is introduced.
+Statistical terms that this book uses without defining them are explained in the glossaries of the sister books:
+[Methods in R](https://r-heller.github.io/methods-in-r/sec-appendices-b-glossary.html),
+[Scientometrics in R](https://r-heller.github.io/scientometrics-in-r/glossary.html),
+[Strategy in R](https://r-heller.github.io/strategy-in-r/sec-glossary.html) and
+[CTTIR Courses](https://cttir.github.io/courses/appendices/glossary.html).
+
+```{r}
+#| label: tbl-b28-glossary
+#| tbl-cap: "Glossary, English–German, with the chapter that introduces each term. Unit: term; no data."
+#| echo: false
+gl <- glossary[order(tolower(glossary$term)), ]
+gl$chapter <- paste0("@sec-", gl$chapter)
+knitr::kable(gl, col.names = c("Term", "German", "Introduced in"), row.names = FALSE)
+```
+
+### Register of common mistakes
+
+The register lists mistakes in reasoning and design, each with a warning sign and a check. Errors in software and
+builds (packages, Quarto, renv, Git) are collected in
+[Methods in R: Common errors](https://r-heller.github.io/methods-in-r/sec-appendices-c-common-errors.html) and
+[CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html). Four publications show
+how widespread some of these mistakes are: leakage in machine-learning-based science [@kapoor2023leakage], the wrong
+experimental unit in animal studies, where about half of the surveyed studies showed pseudoreplication
+[*published*, @lazic2018n], neglected calibration [@vancalster2019calibration], and methodological flaws that left none
+of 62 reviewed imaging models fit for clinical use [*published*, @roberts2021pitfalls].
+
+```{r}
+#| label: tbl-b28-mistakes
+#| tbl-cap: "Register of common mistakes in reasoning and design. Unit: mistake; no data."
+#| echo: false
+mk <- mistakes
+mk$chapters <- vapply(mk$chapters, as_refs, character(1))
+knitr::kable(mk, col.names = c("Mistake", "Warning sign", "Check", "Chapters"), row.names = FALSE)
+```
+
+### The next experiment on one page
+
+Every project ends with a next step, and the next step is best written down before the colloquium. The sketch below
+fits on one page. The right-hand column shows it filled in for vignette A2; the same form works for a security test,
+for example a rerun of the control matrix of @sec-b25 after a model update.
+
+| Field | Next validation experiment for A2 (example) |
+|---|---|
+| Target statement | Spectral index separates well from poorly perfused wound tissue in new pigs of the same strain |
+| What would change the decision | Agreement per animal above the threshold fixed in advance → confirmatory study; below → stop and revise the index |
+| Design | New animals only; split by animal; same device, protocol and illumination reference as before |
+| Independent unit and n | Animal; n justified in advance with a prior from the pilot (@sec-b16) – *open* until calculated |
+| Baseline and comparator | The fixed index from the pilot; the reference rule of @sec-b27 as a floor |
+| Primary measure with denominator | Correct classification per animal, with exact interval |
+| Counter-check | Changed illumination reference in a subset of sessions |
+| Pre-registration and stop criterion | Analysis plan filed before the first animal; stop if the interim check shows the index fails in both classes |
+| Roles | Principal investigator (decision), statistician (analysis plan), animal welfare officer (3Rs) |
+| Risks and controls | Ethics: animal numbers; data: checksum of the analysis script; no personal data |
+| Review date | After the analysis plan is approved; date set by the principal investigator |
+
+: One-page sketch of the next experiment, filled in for vignette A2. Unit: field; fictitious project. {#tbl-b28-next}
+
+**Annotated sources**
+
+- @kapoor2023leakage – survey of data leakage across 17 fields of machine-learning-based science, with a taxonomy of
+  eight leakage types; background for the first row of the register.
+- @lazic2018n – survey of animal experiments showing how often the experimental unit is chosen wrongly.
+- @vancalster2019calibration – why calibration, not only discrimination, decides whether predictions can be used.
+- @roberts2021pitfalls – systematic review of imaging models with a list of recurring methodological pitfalls.
+
+## Further reading {#sec-b28-further}
+
+- @sec-b27 – the passport and decision sheet that turn an atlas vignette into a project record.
+- @sec-b01 – the decision map with addressee, action and fallback, the starting point of every vignette.
+- [Methods in R: Find your method](https://r-heller.github.io/methods-in-r/sec-find-your-method.html) – flowchart and
+  quick lookup from research question to statistical test.
+- [Methods in R: Glossary](https://r-heller.github.io/methods-in-r/sec-appendices-b-glossary.html) – definitions of
+  statistical terms used throughout this book.
+- [CTTIR Courses: Decision tree](https://cttir.github.io/courses/appendices/decision_tree.html) – a branching guide from
+  question to lab.
+- [CTTIR Tutorials: Decision Tree](https://cttir.github.io/tutorials/decision-tree/index.html) – interactive assistant
+  and printable chart for choosing a test.
+- [CTTIR Courses: Glossary](https://cttir.github.io/courses/appendices/glossary.html) and
+  [Common errors](https://cttir.github.io/courses/appendices/common_errors.html) – plain-English definitions and fixes
+  for frequent R and Quarto errors.
+- [CTTIR Courses: Writing a report](https://cttir.github.io/courses/appendices/writing_a_report.html) – how an analysis
+  becomes a document a reviewer will trust.
