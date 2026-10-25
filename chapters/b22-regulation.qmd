@@ -1,0 +1,314 @@
+# Regulating research software and clinical AI {#sec-b22}
+
+```{r}
+#| label: setup-b22
+#| include: false
+source("../R/style.R")
+set.seed(2222)
+```
+
+::: {.callout-note appearance="simple" icon=false}
+## At a glance
+
+**Guiding question:** Which change in the intended purpose changes the regulatory question?\
+**For:** research teams, clinical IT and regulatory staff, clinicians who are asked to "just try" a tool, and
+reviewers; the core reading needs no programming. · **Prerequisites:** the fracture alert in @sec-b09; pilot operation
+and monitoring in @sec-b20; types of evidence in @sec-b07.\
+**In the course:** [W7 · Regulation, data protection and
+incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+(regulatory note), [W8 · Colloquium and
+decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+**Data:** no patient data; fictional documents; legal status checked on 8 November 2026 · **Core reading time:**
+about 11 minutes
+:::
+
+## Case and decision {#sec-b22-case}
+
+The research group behind the fracture alert of @sec-b09 has finished a retrospective evaluation on archived
+radiographs. The results look good, and the head of the emergency department wants the tool switched on for night
+shifts from next Monday, "only as a hint". The hospital's lead for clinical IT has to sign the go-live. She asks three
+questions first. What exactly does the tool claim to do, in writing? Who is the manufacturer and who is the user in
+the legal sense? Which rules apply, and from which date? Nobody can show her a written intended purpose, and the
+version on the test server has no release record. She postpones the go-live by two weeks and asks the group for a
+dated classification note. Night shifts continue without the tool. The alternative – a start without a documented
+basis – would make the hospital responsible for a product nobody has classified.
+
+## Core reading {#sec-b22-core}
+
+::: {.callout-important appearance="simple" icon=false}
+**Core reading** · required for W7 · about 11 minutes · ends before ‘Decision exercise’
+:::
+
+**Four kinds of statement.** Every regulatory note in this book separates four kinds of statement, and so should
+yours. **[Law]** is the binding text: the EU AI Act (Regulation (EU) 2024/1689, as amended by Regulation (EU)
+2026/1744), the Medical Device Regulation (MDR, Regulation (EU) 2017/745) and the In Vitro Diagnostic Medical Device
+Regulation (IVDR, Regulation (EU) 2017/746) [@eu2024aiact; @eu2026omnibus; @eu2017mdr; @eu2017ivdr]. **[Guidance]** is
+orientation without legal force, such as MDCG 2019-11 Rev. 1 on software, which states itself that only the Court of
+Justice can give binding interpretations [@mdcg2019-11]. **[Interpretation]** is the professional reading offered in
+this chapter. **[Local]** marks a question that only the responsible people in a specific institution can decide, such
+as the hospital's regulatory affairs office or legal department. A note that blurs these layers cannot be checked.
+All statements refer to the legal status of 8 November 2026.
+
+**The intended purpose is the hinge.** The MDR defines it by what the manufacturer states on the label, in the
+instructions for use, in promotional material and in the clinical evaluation (Art. 2(12)); the AI Act's definition
+adds the specific context and conditions of use (Art. 3(12)) [Law]. MDCG 2019-11 Rev. 1 adds that software needs a
+medical purpose of its own to qualify as medical device software, and that the stated intended purpose drives
+qualification and classification (Section 3.1) [Guidance]. The same code can therefore be research software, a medical device or an in vitro diagnostic device,
+depending on what is claimed for it. **The key assumption of this chapter: classification follows the intended purpose
+as written and communicated, not how cautiously a team plans to use the tool.** @tbl-b22-vignettes contrasts three
+fictional intended purposes.
+
+| | A · Research prototype | B · Clinical decision support | C · IVD context |
+|---|---|---|---|
+| Intended purpose (fictional) | Estimates sensitivity and specificity of a fracture model on archived, de-identified radiographs; outputs never reach clinicians | Marks adult wrist and hand radiographs in the emergency department to prompt a second look; every image is still reported by a radiologist | Combines routine laboratory values of inflammatory markers to estimate the risk of fracture-related infection after surgery, for review by the treating team |
+| Medical purpose for individual patients? | No [Interpretation] | Yes: computer-aided detection is qualified as medical device software [Guidance, MDCG Annex I b] | Yes, based on data from in vitro diagnostic devices only [Guidance, MDCG Section 3.4, decision steps 1–2] |
+| Regulation | MDR not applicable without a medical purpose [Interpretation]; AI Act excludes research before placing on the market (Art. 2(6), 2(8)) [Law] | MDR; classification by Rule 11 (Annex VIII) [Law] | IVDR; software independent of a device is classified in its own right (Annex VIII, rule 1.4) [Law] |
+| Case information needed for classification | Proof that no output is used for any patient; who receives results | Seriousness of the clinical situation; whether the output informs, drives or replaces a decision; consequence of a wrong output; users; excluded groups | Which markers; which decision follows (antibiotics, revision surgery); applicable IVDR rule (class B if no other rule applies, Rule 6) [Law] |
+| AI Act route | Not in scope while research [Law]; testing in real-world conditions is not excluded (Art. 2(8)) | Class IIa or higher needs a notified body (MDR Art. 52) → high-risk under Art. 6(1) and Annex I [Law] | Classes B–D need a notified body (IVDR Art. 48) → high-risk under Art. 6(1) [Law] |
+| Open point | Does a silent pilot in live care count as testing in real-world conditions (Art. 3(57))? [Local] | Is the situation "serious" and the output "informing" (class IIa) or "driving" management (class IIb)? [Interpretation, MDCG Annex III] | Which IVDR rule applies? [Local; MDCG 2020-16 would be the next guidance to read] |
+
+: Three intended purposes for related software. Fictional vignettes; legal status 8 November 2026. The bracketed labels mark binding text, guidance, interpretation and local questions. {#tbl-b22-vignettes}
+
+**Rule 11 in one paragraph.** Software intended to provide information used to take decisions with diagnostic or
+therapeutic purposes is class IIa, unless such decisions may cause a serious deterioration of health or a surgical
+intervention (class IIb) or death or an irreversible deterioration (class III); all other software is class I (MDR,
+Annex VIII, Rule 11) [Law]. MDCG 2019-11 Rev. 1 offers a table that combines the state of the healthcare situation
+(critical, serious, non-serious) with the significance of the information (treat or diagnose, drive clinical
+management, inform clinical management); in a serious situation, "inform" maps to class IIa and "treat or diagnose" to
+class IIb (Annex III) [Guidance]. For vignette B the decisive facts are therefore clinical: what happens to a patient
+whose fracture is missed, and does anyone act on the marker alone?
+
+**From device class to AI Act.** An AI system is high-risk under Art. 6(1) if it is, or is a safety component of, a
+product covered by the legislation in Annex I and that product must undergo a third-party conformity assessment [Law].
+MDR and IVDR are listed in Annex I, Section A (points 11 and 12) [Law]. Class I medical device software is normally
+self-declared (MDR Art. 52(7)), so it does not meet the second condition; class IIa and higher does. For high-risk
+systems under Art. 6(1), the requirements of Chapter III, Sections 1–3, apply from 2 August 2028; for Annex III systems
+from 2 December 2027 (Art. 113, as amended by Regulation (EU) 2026/1744) [Law]. Some duties apply to every AI system
+already: providers and deployers must take measures to support the AI literacy of their staff (Art. 4, replaced by the
+2026 amendment) [Law]. @fig-b22-timeline places these dates on one axis.
+
+```{r}
+#| label: fig-b22-timeline
+#| echo: false
+#| fig-height: 5.2
+#| fig-width: 7.5
+#| fig-cap: "Dates that matter for the fracture alert, with the reference date of this chapter (dashed line, 8 November 2026). Binding law is split into publication or entry into force and start of application; guidance and a pending proposal are shown separately because they do not create obligations. Source: legal texts on EUR-Lex and the Federal Law Gazette, checked on 8 November 2026 (published)."
+#| fig-alt: "Timeline from 2021 to 2029 with labelled points in four rows. Binding law, application: MDR applies from 26 May 2021, IVDR from 26 May 2022, AI Act chapters I and II from 2 February 2025, AI Act general application from 2 August 2026, new German product liability act from 9 December 2026, high-risk obligations for Annex III from 2 December 2027 and for Annex I, including medical devices, from 2 August 2028. Binding law, publication and entry into force: AI Act published 12 July 2024 and in force 1 August 2024; amending regulation 2026/1744 published 24 July 2026 and in force 27 July 2026. Guidance: MDCG 2019-11 revision 1 in June 2025. Proposal, not law: Commission proposal of 16 December 2025 to amend MDR and IVDR and move them to Annex I Section B of the AI Act. A dashed vertical line marks 8 November 2026."
+library(ggplot2)
+milestones <- data.frame(
+  date = as.Date(c("2021-05-26", "2022-05-26", "2024-07-12", "2024-08-01", "2025-02-02", "2025-06-15",
+                   "2025-12-16", "2026-07-24", "2026-07-27", "2026-08-02", "2026-12-09", "2027-12-02",
+                   "2028-08-02")),
+  event = c("MDR applies", "IVDR applies", "AI Act published", "AI Act in force",
+            "AI Act Ch. I–II apply (Art. 4, Art. 5)", "MDCG 2019-11 Rev. 1", "Proposal COM(2025) 1023",
+            "Reg. 2026/1744 published", "Reg. 2026/1744 in force", "AI Act general application",
+            "New German ProdHaftG", "High-risk duties: Annex III", "High-risk duties: Annex I (devices)"),
+  kind = c("Law: application", "Law: application", "Law: publication / entry into force",
+           "Law: publication / entry into force", "Law: application", "Guidance",
+           "Proposal (not law)", "Law: publication / entry into force", "Law: publication / entry into force",
+           "Law: application", "Law: application", "Law: application", "Law: application")
+)
+# Checks: dates in order; the amendment entered into force on the third day after publication
+stopifnot(!is.unsorted(milestones$date),
+          milestones$date[9] - milestones$date[8] == 3)
+milestones$kind <- factor(milestones$kind, levels = c("Law: application", "Law: publication / entry into force",
+                                                      "Guidance", "Proposal (not law)"))
+milestones$event <- factor(milestones$event, levels = rev(milestones$event))
+milestones$label <- ifelse(milestones$kind == "Guidance", "June 2025",
+                           paste(as.integer(format(milestones$date, "%d")),
+                                 month.abb[as.integer(format(milestones$date, "%m"))],
+                                 format(milestones$date, "%Y")))
+ref_date <- as.Date("2026-11-08")
+ggplot(milestones, aes(x = date, y = event, colour = kind, shape = kind)) +
+  geom_vline(xintercept = ref_date, linetype = "dashed", colour = cdsr_colours[["grey"]]) +
+  geom_point(size = 2.8) +
+  geom_text(aes(label = label), size = 3, hjust = 0, nudge_x = 60, show.legend = FALSE) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y",
+               limits = as.Date(c("2021-01-01", "2030-03-31"))) +
+  scale_colour_manual(values = unname(cdsr_colours[c("blue", "green", "orange", "red")]), name = NULL) +
+  scale_shape_manual(values = cdsr_shapes, name = NULL) +
+  labs(x = NULL, y = NULL, caption = "Published legal texts; status 8 November 2026 (dashed line)") +
+  theme_cdsr() +
+  theme(legend.location = "plot", legend.justification = "left") +
+  guides(colour = guide_legend(nrow = 2), shape = guide_legend(nrow = 2))
+```
+
+**Roles follow actions, not job titles.** The AI Act's provider places a system on the market or puts it into
+service under its own name (Art. 3(3)); the deployer uses it under its authority (Art. 3(4)) [Law]. The MDR's
+corresponding role is the manufacturer. A hospital that develops a tool and uses it only on its own patients may rely
+on the in-house exemption only if every condition of MDR Art. 5(5) is met, including a documented justification that
+no equivalent device on the market meets the patients' needs [Law]. A deployer that changes the intended purpose so
+that a system becomes high-risk, or modifies it substantially, becomes a provider (AI Act Art. 25(1)) [Law]. Who
+installed the unreleased version on the test server is therefore not a technical detail.
+
+**An open legal question.** On 16 December 2025 the European Commission proposed to amend MDR and IVDR and to move both
+from Section A to Section B of Annex I of the AI Act [@ec2025mdrproposal]. Under the amended Art. 2(2), only a few AI
+Act provisions would then apply directly to such devices [Law, as amended in 2026]. On 8 November 2026 the proposal
+was awaiting a committee decision in the European Parliament; it is not law [Local check of the procedure file needed
+before every edition]. A plan that relies on the proposal passing would be a bet.
+
+**Question for the workshop:** Rewrite the intended purpose of vignette B so that it stays class IIa under the MDCG
+table, and name one sentence in the hospital's internal guidance that would quietly turn it into something else.
+
+## Decision exercise {#sec-b22-exercise}
+
+**Source reading (30 minutes).** Read, in the English versions on EUR-Lex:
+[MDR](https://eur-lex.europa.eu/eli/reg/2017/745/oj/eng) Art. 2(1) and 2(12), Art. 5(5), Art. 52(7) and Annex VIII
+Rule 11; [IVDR](https://eur-lex.europa.eu/eli/reg/2017/746/oj/eng) Art. 2(2) and Annex VIII rules 1.4 and 6;
+the [AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng) Art. 2(6), 2(8), 3(3), 3(4), 3(12), 6(1), 14(4), 25(1)
+and 26, together with the [amending Regulation (EU) 2026/1744](https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng),
+points (5) and (40) of Article 1; and [MDCG 2019-11 Rev. 1](https://health.ec.europa.eu/system/files/2025-06/mdcg_2019_11_en.pdf),
+Sections 3.1, 3.4, 4.2.1 and Annex III.
+
+**Role task.** Work in four roles: the research group (potential manufacturer and provider), clinical IT of the
+hospital (deployer), regulatory affairs, and the emergency physician who would use the alert. Each role writes down the
+one fact it needs from another role before it can agree to go-live. Then write two dated classification notes. The
+first is worked out below as the expected result; the second is yours.
+
+::: {.callout-note title="Classification note 1 · vignette B · dated 8 November 2026 (expected result)"}
+- **Legal status checked:** AI Act as amended by Regulation (EU) 2026/1744 (in force since 27 July 2026); MDR and IVDR
+  consolidated texts on EUR-Lex; MDCG 2019-11 Rev. 1 (June 2025). Checked by: regulatory affairs (role).
+- **Intended purpose (quoted from the draft instructions for use):** "Marks adult wrist and hand radiographs in the
+  emergency department to prompt a second look; every image is still reported by a radiologist."
+- **Qualification:** medical device software [Guidance: MDCG 2019-11 Rev. 1, Annex I b, computer-aided detection].
+- **Classification:** Rule 11(a); at least class IIa [Law]. Class IIa assumes a serious situation and information that
+  informs clinical management [Guidance: MDCG Annex III]. Class IIb would follow if the output drove or replaced the
+  diagnostic decision [Interpretation].
+- **AI Act:** high-risk under Art. 6(1) because a notified body is involved; Chapter III duties from 2 August 2028
+  [Law]. Art. 4 (AI literacy) applies now [Law].
+- **Roles:** research group's university as manufacturer and provider if it supplies the tool; hospital as deployer.
+  In-house use under MDR Art. 5(5) only if every condition is documented [Law; Local].
+- **Missing documents:** written instructions for use; clinical evaluation plan; release record for the installed
+  version; justification under Art. 5(5)(c) if in-house use is intended.
+- **Decision:** no clinical go-live; silent evaluation continues as research after local review of whether it counts
+  as testing in real-world conditions [Local]. Next review: when the missing documents are available.
+:::
+
+**Your note.** Write note 2 for vignette C, or for vignette B after the emergency department adds this line to its
+night-shift guidance: "Radiographs without a marker are not reviewed by the on-call senior before the morning report."
+
+::: {.callout-tip collapse="true" title="Answer"}
+*Vignette B with the night-shift line.* The guidance changes how the output is used: the absence of a marker now
+decides who gets a senior review. The software no longer only informs clinical management; in practice it drives it.
+Under the MDCG table this points towards class IIb in a serious situation [Guidance]. More important, the hospital has
+changed the use by its own instruction, so the device is now used outside its intended purpose [Interpretation].
+Whether such a change of use, without any change to the software, would make the hospital a provider under AI Act
+Art. 25(1) once the high-risk duties apply is not settled by the text, because a "substantial modification" is defined
+as a change to the AI system (Art. 3(23)) [Interpretation; Local]. The note should say: "The guidance line is withdrawn; any change of use requires a
+new note."
+
+*Vignette C.* Qualification as IVD medical device software [Guidance: MDCG Section 3.4]. The IVDR class is open until
+the rule is determined [Local]; independent software is classified in its own right, and Rule 6 gives class B where no
+other rule applies [Law]. Any class from B upwards involves a notified body, so the system would be high-risk under AI
+Act Art. 6(1) from 2 August 2028 [Law]. If the hospital laboratory develops it in-house, Art. 5(5) IVDR requires,
+among other things, compliance with EN ISO 15189 or applicable national provisions [Law].
+:::
+
+**Alternative.** Instead of in-house development, the hospital procures a CE-marked product whose intended purpose
+matches vignette B. This shifts the manufacturer's duties to the supplier but leaves the deployer's duties with the
+hospital, including human oversight and monitoring (@sec-b20).\
+**Residual question.** Who in the hospital is entitled to change the night-shift guidance, and how does that person
+learn that a guidance line can change the legal status of a device?
+
+## Counter-check {#sec-b22-countercheck}
+
+Change one word of the intended purpose and predict the effect before you look it up. *Predict:* what happens to the
+classification of vignette B if "prompt a second look" becomes "identify radiographs that need no radiologist report"?
+And what happens if the outputs are only stored in a research database and never shown?
+
+In the first case the significance of the information rises from "inform" to "diagnose", because the tool now decides
+which images are read by a specialist. In a serious situation the MDCG table points to class IIb [Guidance]. A further
+question opens: the AI Act lists "emergency healthcare patient triage systems" in Annex III, point 5(d) [Law]. Whether
+an image worklist filter is a patient triage system is not settled by the text [Interpretation; Local]. In the second
+case the medical purpose for individual patients disappears. The MDR does not apply, and the AI Act does not apply to
+research before placing on the market (Art. 2(8)) [Law]. Data protection law still applies in full (@sec-b23). The
+same algorithm moves between three regulatory worlds without a single change of code.
+
+## Consequences for patients and operations {#sec-b22-consequences}
+
+**An open legal question changes the plan.** The pending Commission proposal, the open IVDR rule for vignette C and
+the unclear status of a silent pilot do not prevent work. They change what work is done and in which order.
+@tbl-b22-plan shows the deployment plan before and after the classification note.
+
+| Element | Plan before the note | Plan after the note |
+|---|---|---|
+| Start | Night shifts from next Monday | No clinical use; silent evaluation as research after local review |
+| Intended purpose | Oral ("only a hint") | Written, quoted in every note; changes only via a new note |
+| Version | Whatever is on the test server | Released version with a record; installed version checked against it (@sec-b24) |
+| Role | Unclear | Manufacturer, provider and deployer named; in-house route only with Art. 5(5) documentation |
+| AI Act | Ignored until 2028 | Art. 4 measures now; high-risk duties planned for 2 August 2028 under current law, reviewed if the proposal is adopted |
+| Training | None | AI literacy session for night-shift staff (Art. 4) before any clinical use |
+
+: Deployment plan for the fracture alert before and after the dated classification note. Fictional plan. {#tbl-b22-plan}
+
+**For patients**, the decisive point is that the alert is used only for what it was evaluated for. A tool tested as a
+second-look prompt in adults has no evidence for children or for deciding who need not be reviewed (@sec-b21).
+
+**Liability.** Germany's new Product Liability Act (Produkthaftungsgesetz, ProdHaftG) treats software as a product
+(§ 2(1) no. 3) and enters into force on 9 December 2026; products placed on the market or put into service up to and
+including 8 December 2026 remain under the previous act (§ 23) [@bund2026prodhaftg; Law]. It implements Directive (EU)
+2024/2853 [@eu2024pld]. Who is liable for a self-developed tool is a question for the hospital's legal department
+[Local].
+
+::: {.callout-note title="The incident from the regulatory perspective"}
+A report excerpt appears in a service provider's support log, and the installed model version differs from the
+approved one. The regulatory questions are: which intended purpose, product version and role are documented, and is
+this a possible product or vigilance matter? If the tool is a CE-marked device, the manufacturer reports serious
+incidents under MDR Art. 87 [Law]; in Germany, anyone who operates or uses a medical device professionally must report
+suspected serious incidents to the competent federal authority without undue delay (Medical Devices User Reporting and
+Information Ordinance (Medizinprodukte-Anwendermelde- und Informationsverordnung, MPAMIV), § 3) [@mpamiv3; Law]. Whether
+a wrong version or a data leak is a "serious incident" depends on its effect on patients [Interpretation; Local]. A good
+answer keeps facts, legal source and missing information apart and routes the question to the person responsible for
+medical device safety in the hospital. Under the AI Act, deployers of high-risk systems must suspend use and inform the
+provider when they have reason to consider that the system presents a risk (Art. 26(5)); for devices this applies from
+2 August 2028 [Law].
+:::
+
+## Look up and transfer {#sec-b22-lookup}
+
+**Reviewer question.** Does the manuscript state the intended purpose in the words of the instructions for use, and
+does the claimed benefit stay within it? A study that evaluates a "second look" but concludes that the tool can
+"replace" a reading has changed the intended purpose in the discussion section.
+
+**Self-test.** A physiotherapy team develops a smartphone app that measures knee flexion from video (@sec-b11) and,
+based on the angle, recommends to patients at home after knee surgery whether to progress their exercises. The team
+calls it "a research app". Which facts do you need to classify it, and what is your first assessment?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The label "research app" is irrelevant if patients use the recommendations for their own treatment. MDCG 2019-11
+Rev. 1 lists as medical device software an application that uses data of a patient with a musculoskeletal pathology to
+recommend personalised rehabilitation exercises (Section 3.2) [Guidance]. The app provides information used for
+therapeutic decisions, so Rule 11(a) gives at least class IIa [Law]; class IIb would apply if a wrong recommendation
+could cause a serious deterioration of health or surgery [Law; Interpretation]. Facts needed: the written intended
+purpose, users (laypersons), the population, the decisions that follow, the consequences of a wrong angle, and whether
+a clinician reviews the recommendation. With class IIa or higher, a notified body is involved, so the AI component
+would be high-risk under AI Act Art. 6(1) from 2 August 2028 [Law]. Until then the team needs a clinical
+investigation plan if it wants to test the app on patients, and a data-protection review for the videos (@sec-b23).
+:::
+
+**Annotated sources.**
+
+- @eu2024aiact and @eu2026omnibus – the AI Act and its 2026 amendment; used for definitions, the high-risk route,
+  human oversight, deployer duties and the new application dates.
+- @eu2017mdr and @eu2017ivdr – definitions, in-house exemption, Rule 11 and the IVDR classification rules.
+- @mdcg2019-11 – guidance on qualification and classification of software, including the IMDRF-based table; not
+  binding.
+- @ec2025mdrproposal – the pending proposal that would move MDR and IVDR to Annex I Section B of the AI Act.
+- @mpamiv3 – the German user reporting duty for suspected serious incidents.
+- @bund2026prodhaftg and @eu2024pld – the new liability regime that treats software as a product.
+
+## Further reading {#sec-b22-further}
+
+- @sec-b20 – how a pilot is monitored and stopped; the deployer's duties in practice.
+- @sec-b23 – the data-protection review that runs in parallel to the regulatory note.
+- @sec-b24 – release records and version checks that make a "documented version" verifiable.
+- @sec-b27 – the model passport and decision sheet into which the classification note is copied.
+- [Methods in R: Reporting templates](https://r-heller.github.io/methods-in-r/sec-reporting-index.html) and
+  [TRIPOD-AI](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html) – how the evidence behind an
+  intended purpose is reported.
+- [Methods in R: Writing a report](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html) –
+  structure and reproducibility of the report that a notified body or ethics committee will read.
+- [CTTIR Courses: Research workflow](https://cttir.github.io/courses/appendices/research_workflow.html) – where the
+  regulatory note fits between question, design and validation.
+- [CTTIR Courses: Writing a report](https://cttir.github.io/courses/appendices/writing_a_report.html) – a compact
+  guide to writing up methods and limitations.
