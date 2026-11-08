@@ -1,0 +1,301 @@
+% Sources for Part IV. Keys must not collide with references.bib.
+% Every DOI was checked against Crossref (title, authors, journal, volume, pages) on 8 November 2026;
+% web sources and legal texts were opened and checked on the same day.
+% Also cited in Part IV, defined elsewhere: bates2015lme4, soetaert2010desolve, rackauckas2017diffeq,
+% virtanen2020scipy, percie2020arrive, nc3rs3rs (references.bib); rubin1976inference, eu2010animals (part-1.bib);
+% lazic2018n (part-7.bib).
+
+% ---- B13 Longitudinal biomarkers ------------------------------------------------------------
+
+@article{laird1982random,
+  author  = {Laird, Nan M. and Ware, James H.},
+  title   = {Random-effects models for longitudinal data},
+  journal = {Biometrics},
+  year    = {1982},
+  volume  = {38},
+  number  = {4},
+  pages   = {963--974},
+  doi     = {10.2307/2529876}
+}
+
+@article{matthews1990serial,
+  author  = {Matthews, J. N. S. and Altman, Douglas G. and Campbell, M. J. and Royston, Patrick},
+  title   = {Analysis of serial measurements in medical research},
+  journal = {BMJ},
+  year    = {1990},
+  volume  = {300},
+  number  = {6719},
+  pages   = {230--235},
+  doi     = {10.1136/bmj.300.6719.230}
+}
+
+@article{diggle1994informative,
+  author  = {Diggle, Peter and Kenward, Michael G.},
+  title   = {Informative drop-out in longitudinal data analysis},
+  journal = {Applied Statistics},
+  year    = {1994},
+  volume  = {43},
+  number  = {1},
+  pages   = {49--93},
+  doi     = {10.2307/2986113}
+}
+
+@article{little2012missing,
+  author  = {Little, Roderick J. and D'Agostino, Ralph and Cohen, Michael L. and Dickersin, Kay and Emerson, Scott S.
+             and others},
+  title   = {The prevention and treatment of missing data in clinical trials},
+  journal = {New England Journal of Medicine},
+  year    = {2012},
+  volume  = {367},
+  number  = {14},
+  pages   = {1355--1360},
+  doi     = {10.1056/NEJMsr1203730}
+}
+
+@article{seelig2020selenium,
+  author  = {Seelig, Julian and Heller, Raban A. and Hackler, Julian and Haubruck, Patrick and Moghaddam, Arash and
+             Biglari, Bahram and Schomburg, Lutz},
+  title   = {Selenium and copper status -- potential signposts for neurological remission after traumatic spinal cord injury},
+  journal = {Journal of Trace Elements in Medicine and Biology},
+  year    = {2020},
+  volume  = {57},
+  pages   = {126415},
+  doi     = {10.1016/j.jtemb.2019.126415},
+  note    = {Cited as motivation only; no values are used}
+}
+
+% ---- B14 Cluster, gradient or artefact ------------------------------------------------------
+
+@article{hennig2007stability,
+  author  = {Hennig, Christian},
+  title   = {Cluster-wise assessment of cluster stability},
+  journal = {Computational Statistics \& Data Analysis},
+  year    = {2007},
+  volume  = {52},
+  number  = {1},
+  pages   = {258--271},
+  doi     = {10.1016/j.csda.2006.11.025}
+}
+
+@manual{hennig2026fpc,
+  author  = {Hennig, Christian},
+  title   = {fpc: Flexible Procedures for Clustering},
+  year    = {2026},
+  note    = {R package version 2.2-15; documentation of clusterboot(), accessed 8 November 2026},
+  doi     = {10.32614/CRAN.package.fpc},
+  url     = {https://CRAN.R-project.org/package=fpc}
+}
+
+@article{scrucca2016mclust,
+  author  = {Scrucca, Luca and Fop, Michael and Murphy, T. Brendan and Raftery, Adrian E.},
+  title   = {mclust 5: clustering, classification and density estimation using {G}aussian finite mixture models},
+  journal = {The R Journal},
+  year    = {2016},
+  volume  = {8},
+  number  = {1},
+  pages   = {289--317},
+  doi     = {10.32614/RJ-2016-021}
+}
+
+@article{hartigan1979kmeans,
+  author  = {Hartigan, J. A. and Wong, M. A.},
+  title   = {Algorithm {AS} 136: A {K}-means clustering algorithm},
+  journal = {Applied Statistics},
+  year    = {1979},
+  volume  = {28},
+  number  = {1},
+  pages   = {100--108},
+  doi     = {10.2307/2346830}
+}
+
+@article{rousseeuw1987silhouette,
+  author  = {Rousseeuw, Peter J.},
+  title   = {Silhouettes: A graphical aid to the interpretation and validation of cluster analysis},
+  journal = {Journal of Computational and Applied Mathematics},
+  year    = {1987},
+  volume  = {20},
+  pages   = {53--65},
+  doi     = {10.1016/0377-0427(87)90125-7}
+}
+
+@article{hubert1985comparing,
+  author  = {Hubert, Lawrence and Arabie, Phipps},
+  title   = {Comparing partitions},
+  journal = {Journal of Classification},
+  year    = {1985},
+  volume  = {2},
+  number  = {1},
+  pages   = {193--218},
+  doi     = {10.1007/BF01908075}
+}
+
+@article{tibshirani2005prediction,
+  author  = {Tibshirani, Robert and Walther, Guenther},
+  title   = {Cluster validation by prediction strength},
+  journal = {Journal of Computational and Graphical Statistics},
+  year    = {2005},
+  volume  = {14},
+  number  = {3},
+  pages   = {511--528},
+  doi     = {10.1198/106186005X59243}
+}
+
+@article{mcinnes2018umap,
+  author  = {McInnes, Leland and Healy, John and Saul, Nathaniel and Gro{\ss}berger, Lukas},
+  title   = {{UMAP}: Uniform Manifold Approximation and Projection},
+  journal = {Journal of Open Source Software},
+  year    = {2018},
+  volume  = {3},
+  number  = {29},
+  pages   = {861},
+  doi     = {10.21105/joss.00861}
+}
+
+@manual{umaplearn2026docs,
+  author  = {McInnes, Leland},
+  title   = {Using {UMAP} for clustering},
+  year    = {2026},
+  note    = {umap-learn documentation (development version 0.6.0; current release 0.5.12), accessed 8 November 2026},
+  url     = {https://umap-learn.readthedocs.io/en/latest/clustering.html}
+}
+
+@article{chari2023specious,
+  author  = {Chari, Tara and Pachter, Lior},
+  title   = {The specious art of single-cell genomics},
+  journal = {PLOS Computational Biology},
+  year    = {2023},
+  volume  = {19},
+  number  = {8},
+  pages   = {e1011288},
+  doi     = {10.1371/journal.pcbi.1011288}
+}
+
+@article{calfee2014subphenotypes,
+  author  = {Calfee, Carolyn S. and Delucchi, Kevin and Parsons, Polly E. and Thompson, B. Taylor and Ware, Lorraine B.
+             and Matthay, Michael A.},
+  title   = {Subphenotypes in acute respiratory distress syndrome: latent class analysis of data from two randomised
+             controlled trials},
+  journal = {The Lancet Respiratory Medicine},
+  year    = {2014},
+  volume  = {2},
+  number  = {8},
+  pages   = {611--620},
+  doi     = {10.1016/S2213-2600(14)70097-9}
+}
+
+% ---- B15 Mechanistic models and pharmacometrics ---------------------------------------------
+
+@article{bellman1970structural,
+  author  = {Bellman, R. and {\AA}str{\"o}m, K. J.},
+  title   = {On structural identifiability},
+  journal = {Mathematical Biosciences},
+  year    = {1970},
+  volume  = {7},
+  number  = {3--4},
+  pages   = {329--339},
+  doi     = {10.1016/0025-5564(70)90132-X}
+}
+
+@article{raue2009structural,
+  author  = {Raue, A. and Kreutz, C. and Maiwald, T. and Bachmann, J. and Schilling, M. and Klingm{\"u}ller, U. and
+             Timmer, J.},
+  title   = {Structural and practical identifiability analysis of partially observed dynamical models by exploiting
+             the profile likelihood},
+  journal = {Bioinformatics},
+  year    = {2009},
+  volume  = {25},
+  number  = {15},
+  pages   = {1923--1929},
+  doi     = {10.1093/bioinformatics/btp358}
+}
+
+@article{mould2012basic,
+  author  = {Mould, D. R. and Upton, R. N.},
+  title   = {Basic concepts in population modeling, simulation, and model-based drug development},
+  journal = {CPT: Pharmacometrics \& Systems Pharmacology},
+  year    = {2012},
+  volume  = {1},
+  number  = {9},
+  pages   = {e6},
+  doi     = {10.1038/psp.2012.4}
+}
+
+@article{mould2013pk,
+  author  = {Mould, D. R. and Upton, R. N.},
+  title   = {Basic concepts in population modeling, simulation, and model-based drug development -- part 2:
+             introduction to pharmacokinetic modeling methods},
+  journal = {CPT: Pharmacometrics \& Systems Pharmacology},
+  year    = {2013},
+  volume  = {2},
+  number  = {4},
+  pages   = {e38},
+  doi     = {10.1038/psp.2013.14}
+}
+
+@article{sale2015genetic,
+  author  = {Sale, Mark and Sherer, Eric A.},
+  title   = {A genetic algorithm based global search strategy for population pharmacokinetic/pharmacodynamic model
+             selection},
+  journal = {British Journal of Clinical Pharmacology},
+  year    = {2015},
+  volume  = {79},
+  number  = {1},
+  pages   = {28--39},
+  doi     = {10.1111/bcp.12179}
+}
+
+@article{petzold1983automatic,
+  author  = {Petzold, Linda},
+  title   = {Automatic selection of methods for solving stiff and nonstiff systems of ordinary differential equations},
+  journal = {SIAM Journal on Scientific and Statistical Computing},
+  year    = {1983},
+  volume  = {4},
+  number  = {1},
+  pages   = {136--148},
+  doi     = {10.1137/0904010}
+}
+
+% ---- B16 Bayes, small samples and the 3Rs ---------------------------------------------------
+
+@book{spiegelhalter2004bayesian,
+  author    = {Spiegelhalter, David J. and Abrams, Keith R. and Myles, Jonathan P.},
+  title     = {Bayesian Approaches to Clinical Trials and Health-Care Evaluation},
+  publisher = {Wiley},
+  address   = {Chichester},
+  year      = {2004},
+  isbn      = {9780471499756},
+  doi       = {10.1002/0470092602}
+}
+
+@article{clopper1934use,
+  author  = {Clopper, C. J. and Pearson, E. S.},
+  title   = {The use of confidence or fiducial limits illustrated in the case of the binomial},
+  journal = {Biometrika},
+  year    = {1934},
+  volume  = {26},
+  number  = {4},
+  pages   = {404--413},
+  doi     = {10.1093/biomet/26.4.404}
+}
+
+@article{kilkenny2009survey,
+  author  = {Kilkenny, Carol and Parsons, Nick and Kadyszewski, Ed and Festing, Michael F. W. and Cuthill, Innes C.
+             and Fry, Derek and Hutton, Jane and Altman, Douglas G.},
+  title   = {Survey of the quality of experimental design, statistical analysis and reporting of research using
+             animals},
+  journal = {PLoS ONE},
+  year    = {2009},
+  volume  = {4},
+  number  = {11},
+  pages   = {e7824},
+  doi     = {10.1371/journal.pone.0007824}
+}
+
+@misc{tierschg7a,
+  author = {{Federal Republic of Germany}},
+  title  = {Animal Welfare Act (Tierschutzgesetz, {TierSchG}), § 7a},
+  year   = {2006},
+  url    = {https://www.gesetze-im-internet.de/tierschg/__7a.html},
+  note   = {Version promulgated on 18 May 2006 (BGBl. I p. 1206, 1313), last amended by Article 2(20) of the Act of
+            20 December 2022 (BGBl. I p. 2752); German text, checked 8 November 2026}
+}

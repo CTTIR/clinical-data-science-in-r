@@ -1,0 +1,16 @@
+# Chapter register {#sec-chapter-register}
+
+The register lists every chapter with its guiding question, intended readers, prerequisites, learning activity,
+course workshop and primary source. It is also available as a machine-readable file:
+[`editorial/chapter-register.csv`](https://github.com/r-heller/clinical-data-science-in-r/blob/main/editorial/chapter-register.csv).
+
+```{r}
+#| label: tbl-chapter-register
+#| tbl-cap: "Chapters B01–B28 with guiding question, course workshop and lab."
+#| echo: false
+register <- utils::read.csv2("../editorial/chapter-register.csv", check.names = FALSE,
+                             encoding = "UTF-8", stringsAsFactors = FALSE)
+spalten <- intersect(c("B-ID", "Part", "Title", "Guiding question", "W-ID", "Path status", "R lab"),
+                     names(register))
+knitr::kable(register[, spalten], row.names = FALSE)
+```

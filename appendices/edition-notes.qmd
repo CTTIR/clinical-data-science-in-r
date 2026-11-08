@@ -1,0 +1,65 @@
+# Edition notes, software and imprint {#sec-edition-notes}
+
+## Edition
+
+| | |
+|---|---|
+| Edition | First public edition, November 2026 |
+| History | Cases, worked examples and chapter structure developed from February 2025, revised regularly until July 2026 |
+| Legal and literature status | November 2026 (individual reference dates are given in the chapters) |
+| Online | <https://r-heller.github.io/clinical-data-science-in-r/> |
+| Source | <https://github.com/r-heller/clinical-data-science-in-r> |
+| Companion course | <https://r-heller.github.io/clinical-data-science-in-r-course/> |
+
+Changes between editions are recorded in the repository history. Corrections are welcome as
+[issues](https://github.com/r-heller/clinical-data-science-in-r/issues).
+
+## Software
+
+All R results in this edition were computed with the versions below. The build stores the results in `_freeze/`,
+so the published version can be reproduced without re-running every chapter; a fresh run with newer package
+versions may differ in the last digits of some estimates.
+
+```{r}
+#| label: software-versions
+#| echo: false
+pakete <- c("ggplot2", "dplyr", "tidyr", "lme4", "nlme", "deSolve", "glmnet", "pROC", "dagitty",
+            "class", "cluster", "mclust", "simmer", "forecast", "digest", "knitr", "rmarkdown")
+installiert <- pakete[vapply(pakete, requireNamespace, logical(1), quietly = TRUE)]
+versionen <- data.frame(
+  Component = c("R", installiert),
+  Version = c(paste(R.version$major, R.version$minor, sep = "."),
+              vapply(installiert, function(p) as.character(utils::packageVersion(p)), character(1)))
+)
+knitr::kable(versionen, row.names = FALSE)
+```
+
+Quarto renders the book; the version used for the published build is set in the repository's GitHub Actions
+workflow.
+
+## Legal status
+
+The chapters on regulation, data protection and security (@sec-b22 to @sec-b26) give the reference date and source
+for each legal statement. Statements about dates of application refer to the version of the legal text in force in
+November 2026. Local responsibilities and national implementation must be checked for each institution.
+
+## Use of AI tools
+
+Used for support, including Chat AI (KISSKI/GWDG) and locally hosted models, some self-trained or weight-edited
+(Linux, Intel/NVIDIA; no data shared with third parties). All content and references were revised and verified by
+the author.
+
+## Imprint
+
+**Clinical Data Science in R: Methods in Clinical AI and Translational Trauma Research**
+
+© 2025–2026 Raban Heller. ORCID: [0000-0001-8006-9742](https://orcid.org/0000-0001-8006-9742).
+
+Text and figures: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Code:
+[MIT licence](https://opensource.org/licenses/MIT).
+
+This book is provided “as is”, without warranty of any kind. The author assumes no responsibility for errors or
+omissions. The content does not replace individual medical, legal or statistical advice, and no example describes a
+real patient, product or institution.
+
+Contact for corrections and suggestions: <https://github.com/r-heller/clinical-data-science-in-r/issues>

@@ -1,0 +1,134 @@
+{
+  "project": {
+    "type": "book",
+    "output-dir": "_book",
+    "resources": [
+      "data/*.csv"
+    ]
+  },
+  "book": {
+    "title": "Clinical Data Science in R",
+    "subtitle": "Methods in Clinical AI and Translational Trauma Research",
+    "site-url": "https://r-heller.github.io/clinical-data-science-in-r/",
+    "repo-url": "https://github.com/r-heller/clinical-data-science-in-r",
+    "repo-actions": [
+      "issue",
+      "source"
+    ],
+    "search": true,
+    "chapters": [
+      "index.qmd",
+      {
+        "part": "Part I · The question before the model",
+        "chapters": [
+          "chapters/b01-clinical-decision.qmd",
+          "chapters/b02-describe-predict-explain.qmd",
+          "chapters/b03-how-data-arise.qmd",
+          "chapters/b04-reconstructing-a-project-in-r.qmd"
+        ]
+      },
+      {
+        "part": "Part II · How models learn and how evidence arises",
+        "chapters": [
+          "chapters/b05-from-baseline-to-learning-model.qmd",
+          "chapters/b06-accuracy-calibration-utility.qmd",
+          "chapters/b07-reading-an-ai-study.qmd",
+          "chapters/b08-language-models.qmd"
+        ]
+      },
+      {
+        "part": "Part III · Diagnostics and measurement in four case studies",
+        "chapters": [
+          "chapters/b09-fracture-alert-emergency-department.qmd",
+          "chapters/b10-hyperspectral-imaging.qmd",
+          "chapters/b11-gait-from-video.qmd",
+          "chapters/b12-spatial-biology.qmd"
+        ]
+      },
+      {
+        "part": "Part IV · Complex models for trauma research",
+        "chapters": [
+          "chapters/b13-longitudinal-biomarkers.qmd",
+          "chapters/b14-cluster-gradient-artefact.qmd",
+          "chapters/b15-mechanistic-models-pharmacometrics.qmd",
+          "chapters/b16-bayes-small-samples-3rs.qmd"
+        ]
+      },
+      {
+        "part": "Part V · Care systems and translation into practice",
+        "chapters": [
+          "chapters/b17-forecasting-patient-flow.qmd",
+          "chapters/b18-mass-casualty-capacity-simulation.qmd",
+          "chapters/b19-transfer-across-centres-and-species.qmd",
+          "chapters/b20-pilot-operation-monitoring.qmd"
+        ]
+      },
+      {
+        "part": "Part VI · Ethics, law and the protection of data and systems",
+        "chapters": [
+          "chapters/b21-ethics.qmd",
+          "chapters/b22-regulation.qmd",
+          "chapters/b23-data-protection.qmd",
+          "chapters/b24-information-security-recovery.qmd"
+        ]
+      },
+      {
+        "part": "Part VII · Special topics and project workshop",
+        "chapters": [
+          "chapters/b25-security-risks-ai-systems.qmd",
+          "chapters/b26-secondary-use-open-science.qmd",
+          "chapters/b27-model-passport-study-report.qmd",
+          "chapters/b28-case-atlas-glossary.qmd"
+        ]
+      },
+      "references.qmd"
+    ],
+    "appendices": [
+      "appendices/edition-notes.qmd",
+      "appendices/chapter-register.qmd",
+      "appendices/checklist.qmd"
+    ],
+    "downloads": [
+      "epub"
+    ],
+    "cover-image": "images/cover.png"
+  },
+  "author": "R. Heller",
+  "lang": "en",
+  "bibliography": [
+    "references.bib",
+    "bib/part-1.bib",
+    "bib/part-2.bib",
+    "bib/part-3.bib",
+    "bib/part-4.bib",
+    "bib/part-5.bib",
+    "bib/part-6.bib",
+    "bib/part-7.bib"
+  ],
+  "format": {
+    "html": {
+      "theme": {
+        "light": "cosmo",
+        "dark": "darkly"
+      },
+      "toc": true,
+      "code-copy": true,
+      "fig-width": 7,
+      "fig-height": 4.5,
+      "fig-dpi": 150
+    },
+    "epub": {
+      "toc": true
+    }
+  },
+  "execute": {
+    "error": false,
+    "warning": true,
+    "freeze": "auto"
+  },
+  "knitr": {
+    "opts_chunk": {
+      "comment": "#>"
+    }
+  }
+}
