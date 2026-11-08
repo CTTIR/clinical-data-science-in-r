@@ -18,8 +18,13 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b
         with:
           version: '1.10.19'
-      # R results come from the committed _freeze/ directory; a changed page without an
-      # updated _freeze/ makes this build fail on purpose (no R installed here).
+      # R results come from the committed _freeze/ directory. R itself is only needed with
+      # knitr and rmarkdown for the EPUB assembly; chapter code is not re-run, and a changed
+      # chapter without an updated _freeze/ fails because its packages are missing.
+      - uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          use-public-rspm: true
+      - run: Rscript -e 'install.packages(c("knitr", "rmarkdown"))'
       - run: quarto render
       - name: Check output
         run: |
