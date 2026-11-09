@@ -392,12 +392,12 @@ the Lab.
 - @sec-b03 – how rare combinations arise in the first place and how a teaching dataset is reduced.
 - @sec-b04 – the reproducible R project that the synthetic example and the secure environment both run.
 - @sec-b25 – membership disclosure, the model-level counterpart of the small-group problem.
-- [Scientometrics in R: Open Science Indicators](https://r-heller.github.io/scientometrics-in-r/open-science-indicators.html)
+- [Scientometrics in R: Open Science Indicators](https://cttir.github.io/scientometrics-in-r/open-science-indicators.html)
   – how open access, preprints and data availability statements are measured, and the
-  [limits of such indicators](https://r-heller.github.io/scientometrics-in-r/open-science-indicators.html#openscience-limitations).
-- [Scientometrics in R: Reproducibility, RRIDs, and Badges](https://r-heller.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
+  [limits of such indicators](https://cttir.github.io/scientometrics-in-r/open-science-indicators.html#openscience-limitations).
+- [Scientometrics in R: Reproducibility, RRIDs, and Badges](https://cttir.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
   – the gap between signalling reproducibility and achieving it.
-- [Scientometrics in R: Synthetic teaching records](https://r-heller.github.io/scientometrics-in-r/case-study-4-gender-gap-in-scientific-publishing.html#synthetic-teaching-records)
+- [Scientometrics in R: Synthetic teaching records](https://cttir.github.io/scientometrics-in-r/case-study-4-gender-gap-in-scientific-publishing.html#synthetic-teaching-records)
   – a worked example of a synthetic fixture that states what it can and cannot establish.
-- [Methods in R: Writing a report – Reproducibility](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reproducibility)
+- [Methods in R: Writing a report – Reproducibility](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reproducibility)
   – what a reproducibility section of a paper should contain.

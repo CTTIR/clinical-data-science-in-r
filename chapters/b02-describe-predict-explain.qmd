@@ -246,7 +246,7 @@ delirium) = 0.075, i.e. 7.5 percentage points.
 
 A linear model with a 0/1 outcome, `lm(not_walk ~ delay + frailty)`, returns the risk difference for delay directly as
 its coefficient. This is enough for a simulation in which all effects add up; it is not a general recommendation for
-binary outcomes ([Methods in R: Multiple Linear Regression](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-multiple-linear-regression)
+binary outcomes ([Methods in R: Multiple Linear Regression](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-multiple-linear-regression)
 explains the model).
 
 ```{r}
@@ -332,7 +332,7 @@ utility (@sec-b06), not of causal structure.
 Reporting every coefficient of one adjusted model as if each were a causal effect (sometimes called the “Table 2
 fallacy”). In Step 3, the model `not_walk ~ delay + frailty` is built for the effect of delay. Its frailty coefficient
 does not estimate the effect of frailty, because part of that effect runs through delay. Each causal question needs
-its own adjustment set ([Methods in R: DAGs](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-dags)).
+its own adjustment set ([Methods in R: DAGs](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-dags)).
 :::
 
 ## Counter-check {#sec-b02-countercheck}
@@ -410,5 +410,5 @@ for such analyses is the subject of @sec-b23 and @sec-b26.
 - [CTTIR Course 3, Week 3 Session 3: DAGs with dagitty and ggdag](https://cttir.github.io/courses/course3_design_causal/labs/lab_week3_session3.html) — a full lab on drawing and testing DAGs.
 - [CTTIR Course 3, Week 3 Session 1: Time-varying covariates and immortal-time bias](https://cttir.github.io/courses/course3_design_causal/labs/lab_week3_session1.html) — what goes wrong when time zero is misplaced.
 - [CTTIR Course 2, Week 4 Session 5: Explanation vs prediction; reporting](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session5.html) — the distinction of this chapter in a regression lab.
-- [Methods in R: Explanation vs prediction (Shmueli)](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-explanation-vs-prediction-shmueli) — a one-page summary.
-- [Methods in R: Propensity scores / IPTW](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-propensity-scores-iptw) — how adjustment is done once the adjustment set is known.
+- [Methods in R: Explanation vs prediction (Shmueli)](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-explanation-vs-prediction-shmueli) — a one-page summary.
+- [Methods in R: Propensity scores / IPTW](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-propensity-scores-iptw) — how adjustment is done once the adjustment set is known.

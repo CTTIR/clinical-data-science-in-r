@@ -14,7 +14,7 @@ set.seed(1818)
 **For:** trauma surgeons, anaesthetists and nurses who write or test a hospital's mass casualty plan, emergency
 planners, analysts in hospital operations · **Prerequisites:** the difference between a forecast and a simulated
 capacity change (@sec-b17); random draws and replications, as in
-[Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)\
+[Strategy in R: Monte Carlo Methods for Games](https://cttir.github.io/strategy-in-r/sec-monte-carlo.html)\
 **In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
 (required reading, as an alternative to @sec-b15) · **Data:** synthetic (generated in the chapter) ·
 **Core reading time:** about 10 minutes
@@ -55,7 +55,7 @@ pathway of resources (here: resuscitation bay, then operating room). The clock j
 the start or end of a treatment. Queues form when a resource is busy, and a priority rule decides who goes next. The R
 package `simmer` implements this approach [@ucar2019simmer]. In an *agent-based model*, individuals follow their own
 rules and interact, for example staff who tire or clinicians who re-triage patients as they deteriorate (see
-[Strategy in R: Agent-Based Models for Strategic Interaction](https://r-heller.github.io/strategy-in-r/sec-agent-based-models.html)).
+[Strategy in R: Agent-Based Models for Strategic Interaction](https://cttir.github.io/strategy-in-r/sec-agent-based-models.html)).
 For a question about the capacity of a fixed pathway, DES is the simpler and more transparent choice.
 
 **The scenario.** After an alert at time zero, 14 casualties who need urgent surgery arrive within three hours. About
@@ -438,9 +438,9 @@ session.
 - @sec-b15 for the other simulation type in W6, a mechanistic model checked against an analytical solution.
 - @sec-b21 for the ethics of triage and of distributing waiting between patient groups.
 - @sec-b27 for reporting a simulation in a model passport.
-- [Strategy in R: Agent-Based Models for Strategic Interaction](https://r-heller.github.io/strategy-in-r/sec-agent-based-models.html)
+- [Strategy in R: Agent-Based Models for Strategic Interaction](https://cttir.github.io/strategy-in-r/sec-agent-based-models.html)
   for models in which individuals adapt their behaviour.
-- [Strategy in R: Probability Essentials, law of large numbers and Monte Carlo](https://r-heller.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo)
+- [Strategy in R: Probability Essentials, law of large numbers and Monte Carlo](https://cttir.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo)
   for why more replications narrow the estimate of a mean but not the spread between runs.
-- [Methods in R cheat sheet: Power by simulation](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-power-simulation)
+- [Methods in R cheat sheet: Power by simulation](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-power-simulation)
   for the same replicate-and-summarise pattern in study planning.

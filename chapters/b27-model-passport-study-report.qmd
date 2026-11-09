@@ -107,7 +107,7 @@ Before the colloquium, a second group receives only the passport, the code and t
 described in it. They try to reproduce one number from a fresh R session, check whether the unit of each result matches
 the target statement, and write at most three findings. The authors answer each finding with a change, a reason or a
 new open field. This is the format of W8; it also works as an internal review before submission. The checklists in
-[Methods in R: Reporting templates](https://r-heller.github.io/methods-in-r/sec-reporting-index.html) help the second
+[Methods in R: Reporting templates](https://cttir.github.io/methods-in-r/sec-reporting-index.html) help the second
 group to look for missing items quickly.
 
 **Question for the workshop:** Write the target statement of your project in one sentence. Which single field of your
@@ -465,11 +465,11 @@ can stop it, and set a review after a fixed number of alerts.
 - @sec-b19 – the split plan, ID checks and external tests behind the teaching passport.
 - @sec-b07 – how to read a published AI study with the same guidelines.
 - @sec-b16 – sample size, small denominators and the 3Rs for the next animal experiment.
-- [Methods in R: Reporting templates](https://r-heller.github.io/methods-in-r/sec-reporting-index.html), in particular
-  [TRIPOD-AI](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html) and
-  [ARRIVE](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) – fill-in templates for the two
+- [Methods in R: Reporting templates](https://cttir.github.io/methods-in-r/sec-reporting-index.html), in particular
+  [TRIPOD-AI](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html) and
+  [ARRIVE](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html) – fill-in templates for the two
   guidelines of the short report.
-- [Methods in R: Writing a report – Reporting guidelines](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reporting-guidelines)
+- [Methods in R: Writing a report – Reporting guidelines](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reporting-guidelines)
   – where guidelines fit into a manuscript.
 - [CTTIR Courses: Writing a report](https://cttir.github.io/courses/appendices/writing_a_report.html) – IMRaD, effect
   sizes with intervals and reproducibility in one page.

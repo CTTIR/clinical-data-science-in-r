@@ -408,7 +408,7 @@ with a dense aggregate can dominate. Third, the spatial arrangement itself: wher
 example near vessels or at the fracture gap, is no longer visible. Reporting the number of T cells and fields per
 patient, and the range across fields, keeps the loss transparent. Models that keep the cells but treat the patient as
 the unit, such as generalised linear mixed models, are the next step ([Methods in R: glmer: Generalised Mixed
-Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-glmer-generalized-mixed)).
+Models](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-glmer-generalized-mixed)).
 
 ::: {.callout-note title="Other implementation: Python with scikit-image and Cellpose"}
 In practice the segmentation runs in Python. [scikit-image](https://scikit-image.org/docs/stable/) (0.26.0 in
@@ -516,10 +516,10 @@ belong in the analysis plan before the data are seen.
 - @sec-b26 – controlled access and minimisation for image data linked to patients.
 - @sec-b22 – the IVD vignette and how an intended purpose changes the regulatory question.
 - [Methods in R: Spatial
-  Transcriptomics](https://r-heller.github.io/methods-in-r/sec-ch-12-bioinformatics.html#sec-chapters-12-bioinformatics-spatial-transcriptomics)
+  Transcriptomics](https://cttir.github.io/methods-in-r/sec-ch-12-bioinformatics.html#sec-chapters-12-bioinformatics-spatial-transcriptomics)
   – spatially resolved data beyond imaging.
 - [Methods in R: Batch Correction with
-  ComBat](https://r-heller.github.io/methods-in-r/sec-ch-12-bioinformatics.html#sec-chapters-12-bioinformatics-batch-correction-combat)
+  ComBat](https://cttir.github.io/methods-in-r/sec-ch-12-bioinformatics.html#sec-chapters-12-bioinformatics-batch-correction-combat)
   – what batch correction can and cannot repair.
 - [CTTIR Courses: GLMMs and GEE](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session4.html) –
   a lab on models that keep cells but use the patient as the unit.

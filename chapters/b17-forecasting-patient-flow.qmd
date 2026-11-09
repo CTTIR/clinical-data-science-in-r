@@ -14,7 +14,7 @@ set.seed(1717)
 **For:** emergency department and nursing leads who plan rosters, analysts in hospital operations, clinicians who read
 forecast dashboards · **Prerequisites:** counts, denominators and how routine data arise (@sec-b03), the idea of
 calibration (@sec-b06); a first look at time series in
-[Methods in R: Time Series: Introduction](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-time-series-introduction)\
+[Methods in R: Time Series: Introduction](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-time-series-introduction)\
 **In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
 (required reading); transfer exercise in
 [W3 · Diagnostics, prediction and external evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
@@ -73,7 +73,7 @@ therefore uses a rolling-origin backtest [@tashman2000outofsample]: the forecast
 time, from week 9 to week 26, and each time the next 168 hours are forecast from the data before the origin. This
 gives 18 forecast weeks with 3,024 forecast hours. The independent denominator is closer to 18 than to 3,024, because
 all hours of one forecast week share the same origin and the same conditions. The general method is described in
-[Methods in R: Rolling-Origin Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv).
+[Methods in R: Rolling-Origin Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv).
 
 **Two forecasts, two intervals.** The reference forecast uses last week's value with a normal-approximation interval
 from the `forecast` package [@hyndman2008forecast]. The second forecast uses the mean of the same hour over the last
@@ -467,9 +467,9 @@ case: the same distinction between ranking, calibration and decision cost appear
 - @sec-b18 for the second question on the planning screen: what a capacity change would do, given arrivals.
 - @sec-b06 for calibration and decision thresholds in a diagnostic setting.
 - @sec-b20 for monitoring a deployed tool, including drift after a change of season or practice.
-- [Methods in R: Forecast Accuracy Metrics](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
+- [Methods in R: Forecast Accuracy Metrics](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-forecast-accuracy-metrics)
   for the definitions of MAE, RMSE, MAPE and scaled errors.
-- [Methods in R: Seasonal Decomposition (STL)](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-seasonal-decomposition-stl)
+- [Methods in R: Seasonal Decomposition (STL)](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-seasonal-decomposition-stl)
   for separating daily, weekly and seasonal components.
 - [CTTIR Tutorials: Rolling-Origin Cross-Validation](https://cttir.github.io/tutorials/tutorials/time-series/rolling-origin-cv.html)
   for a step-by-step tutorial on the backtest design.

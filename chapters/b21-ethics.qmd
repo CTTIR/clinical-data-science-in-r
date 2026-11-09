@@ -119,7 +119,7 @@ Only `r groups$fracture[cast]` of them have a fracture, and the tool flags `r gr
 `r cdsr_percent(sens[cast], 0)` with an interval from `r fmt_ci(sens_ci[cast, ])` means: we
 do not know. The intervals are Wilson score intervals, which behave well with small counts
 [@wilson1927interval; @brown2001interval]; the general idea is explained in
-[Methods in R: Confidence intervals](https://r-heller.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-confidence-intervals-introduction).
+[Methods in R: Confidence intervals](https://cttir.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-confidence-intervals-introduction).
 
 ```{r}
 #| label: fig-b21-subgroups
@@ -336,7 +336,7 @@ whether patients deserve an explanation. Whether a formal notification is legall
 **Reviewer question.** Were the subgroups prespecified, and does the report give numerator, denominator and an
 interval for each error rate in each subgroup? A sentence such as "performance was similar across age groups" without
 counts cannot be checked
-([Methods in R: Subgroup analyses](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-subgroup-analysis)).
+([Methods in R: Subgroup analyses](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-subgroup-analysis)).
 
 **Self-test.** A paediatric emergency department wants to use the same tool for children aged 6–15. Growth plates
 can look like fracture lines. A local check finds 18 false alarms among 60 children without fracture and 3 missed
@@ -378,11 +378,11 @@ of the intended population in the setting A data; using the tool for them is a c
 - @sec-b20 – how group-specific error rates enter a monitoring plan with escalation and stop criteria.
 - @sec-b22 and @sec-b23 – when a change in the patient group changes the intended purpose, and how group data may be
   processed.
-- [Scientometrics in R: Ethics and responsible metrics](https://r-heller.github.io/scientometrics-in-r/ethics-and-responsible-metrics.html)
+- [Scientometrics in R: Ethics and responsible metrics](https://cttir.github.io/scientometrics-in-r/ethics-and-responsible-metrics.html)
   – why a single indicator should not decide about people; transferable to alert metrics.
-- [Scientometrics in R: Gender and equity analysis](https://r-heller.github.io/scientometrics-in-r/gender-and-equity-analysis.html#gender-pitfalls)
+- [Scientometrics in R: Gender and equity analysis](https://cttir.github.io/scientometrics-in-r/gender-and-equity-analysis.html#gender-pitfalls)
   – pitfalls when comparing groups, including small groups and inferred attributes.
 - [CTTIR Courses: TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
   – a lab that audits model errors by group.
-- [Strategy in R: Fairness in machine learning](https://r-heller.github.io/strategy-in-r/sec-fairness-ml.html) – formal
+- [Strategy in R: Fairness in machine learning](https://cttir.github.io/strategy-in-r/sec-fairness-ml.html) – formal
   fairness criteria and why they cannot all hold at once.

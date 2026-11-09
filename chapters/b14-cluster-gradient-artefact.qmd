@@ -447,8 +447,8 @@ effect in randomised data.
 
 - @sec-b12 – phenotypes from segmented tissue images, where cluster boundaries also depend on upstream choices.
 - @sec-b19 – how to plan the external cohort that the test plan needs.
-- [Methods in R: Gaussian Mixture Models](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-gaussian-mixture-models) and [k-Means Clustering](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering) – assumptions, diagnostics and warning signs of both methods.
-- [Methods in R: UMAP and t-SNE – Overview](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-umap-tsne-overview) – what two-dimensional embeddings preserve and what they do not.
-- [Methods in R: Centring and Scaling Predictors](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-centered-scaled-predictors) – why the scale of a variable changes its weight.
+- [Methods in R: Gaussian Mixture Models](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-gaussian-mixture-models) and [k-Means Clustering](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-kmeans-clustering) – assumptions, diagnostics and warning signs of both methods.
+- [Methods in R: UMAP and t-SNE – Overview](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-umap-tsne-overview) – what two-dimensional embeddings preserve and what they do not.
+- [Methods in R: Centring and Scaling Predictors](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-centered-scaled-predictors) – why the scale of a variable changes its weight.
 - [CTTIR Course 4, Week 1, Session 4 – Clustering: k-means, hierarchical, model-based](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session4.html) and [Session 5 – UMAP and t-SNE](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session5.html) – hands-on labs with the same methods.
 - [CTTIR Tutorials: Cluster Validation – Silhouette](https://cttir.github.io/tutorials/tutorials/multivariate/cluster-validation-silhouette.html) – interpreting silhouette widths.

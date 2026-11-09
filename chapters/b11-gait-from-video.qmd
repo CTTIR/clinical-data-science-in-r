@@ -159,7 +159,7 @@ steps with both methods and looks at the differences. The Bland–Altman approac
 against their mean, estimates the average difference (bias) and the limits of agreement, within which about 95% of
 differences are expected [@bland1986agreement]. A high correlation would say nothing useful: two methods can correlate
 perfectly while one reads 10° lower. Details are in [Methods in R: Bland-Altman Limits of
-Agreement](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis).
+Agreement](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-bland-altman-analysis).
 
 **Set the tolerance before looking.** Whether the limits of agreement are good enough is a clinical judgement, not a
 statistical one, and it has to be made before the data are seen. In the fictitious protocol the progression criteria
@@ -438,7 +438,7 @@ an assumption to check.
 - @sec-b23 – the data flow from gait video to angle, service provider and deletion point.
 - @sec-b13 – repeated measurements over time and the person as the unit of analysis.
 - @sec-b10 – the measurement chain of a second imaging method, where the first error is the light.
-- [Methods in R: Bland-Altman Plots](https://r-heller.github.io/methods-in-r/sec-ch-06-visualisation.html#sec-chapters-06-visualisation-bland-altman-plots)
+- [Methods in R: Bland-Altman Plots](https://cttir.github.io/methods-in-r/sec-ch-06-visualisation.html#sec-chapters-06-visualisation-bland-altman-plots)
   – how to draw and read the difference plot.
 - [CTTIR Courses: Kappa, ICC,
   Bland–Altman](https://cttir.github.io/courses/course2_regression/labs/lab_week4_session2.html) – a lab that sets
@@ -447,5 +447,5 @@ an assumption to check.
   Agreement](https://cttir.github.io/tutorials/tutorials/clinical-biostatistics/bland-altman-analysis.html) – a short
   tutorial for revision.
 - [Methods in R: Power for Bland-Altman
-  Studies](https://r-heller.github.io/methods-in-r/sec-ch-05-power.html#sec-chapters-05-power-power-bland-altman) –
+  Studies](https://cttir.github.io/methods-in-r/sec-ch-05-power.html#sec-chapters-05-power-power-bland-altman) –
   how many patients an agreement study needs.

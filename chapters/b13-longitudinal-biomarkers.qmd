@@ -130,7 +130,7 @@ so MAR holds by construction. In a real cohort, it is an assumption that no anal
 When leaving depends on what was not observed (missing not at random, MNAR), every estimate in
 @tbl-b13-estimates can be biased, and the honest response is a sensitivity analysis
 [@diggle1994informative; @little2012missing]. The mechanisms are explained in more depth in the
-[Methods in R lab on MCAR, MAR and MNAR](https://r-heller.github.io/methods-in-r/sec-ch-16-design.html#sec-chapters-16-design-labs-lab-mcar-mar-mnar).
+[Methods in R lab on MCAR, MAR and MNAR](https://cttir.github.io/methods-in-r/sec-ch-16-design.html#sec-chapters-16-design-labs-lab-mcar-mar-mnar).
 
 **What to say in the meeting.** A defensible sentence would be: "In 36 people, selenium rose by about
 `r cdsr_number(-est_lmm, 1)` µg/L per week less after a complete injury (mixed model, 95% CI
@@ -373,7 +373,7 @@ Change the dropout mechanism and keep everything else. **Predict first:** (1) If
 approaches agree? (2) Under MAR dropout, which approach is unbiased on average? (3) If leaving depends on the
 unmeasured current level and on the person's own recovery rate (MNAR), in which direction will the mixed-model
 estimate move? Then run one hundred cohorts per mechanism. The simulation follows the logic of Monte Carlo experiments
-with explicit assumptions (see [Strategy in R: law of large numbers and Monte Carlo](https://r-heller.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo)).
+with explicit assumptions (see [Strategy in R: law of large numbers and Monte Carlo](https://cttir.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo)).
 
 ```{r}
 #| label: b13-countercheck
@@ -472,8 +472,8 @@ report the δ at which the conclusion changes. Recording the reason "discharged 
 
 - @sec-b03 – how missing values and denominators arise in clinical data, before any model.
 - @sec-b16 – how much a small sample can say, and how to state the remaining uncertainty.
-- [Methods in R: Random-Slope Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes) – model formulation, diagnostics and warning signs.
-- [Methods in R: Sensitivity Analyses in Clinical Trials](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-sensitivity-analysis-clinical) – the wider family of sensitivity analyses for missing outcomes.
+- [Methods in R: Random-Slope Models](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-random-slopes) – model formulation, diagnostics and warning signs.
+- [Methods in R: Sensitivity Analyses in Clinical Trials](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-sensitivity-analysis-clinical) – the wider family of sensitivity analyses for missing outcomes.
 - [CTTIR Course 2, Week 2, Session 3 – RCBD and repeated measures → mixed models](https://cttir.github.io/courses/course2_regression/labs/lab_week2_session3.html) – a step-by-step lab from repeated measures to mixed models.
 - [CTTIR Course 3, Week 2, Session 1 – MCAR, MAR, MNAR](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session1.html) and [Session 3 – Linear mixed models with lme4](https://cttir.github.io/courses/course3_design_causal/labs/lab_week2_session3.html) – missing-data mechanisms and their consequences for longitudinal models.
 - [CTTIR Tutorials: Mixed-Effects Models – Introduction](https://cttir.github.io/tutorials/tutorials/regression-modelling/mixed-models-intro.html) – a short refresher on random effects and shrinkage.

@@ -459,13 +459,13 @@ detects a calibration problem before any animal is analysed.
 - @sec-b16 – how much uncertainty remains with four animals per group.
 - @sec-b27 – the model passport, where the index belongs as the reference method.
 - [Methods in R: Principal Component
-  Analysis](https://r-heller.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-principal-component-analysis)
+  Analysis](https://cttir.github.io/methods-in-r/sec-ch-08-multivariate.html#sec-chapters-08-multivariate-principal-component-analysis)
   – the method behind the features of the learning model.
 - [CTTIR Courses: PCA, factor analysis, CCA,
   LDA](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session3.html) – a lab on dimension reduction
   for many correlated variables such as spectral bands.
 - [Methods in R: Repeated-Measures
-  Designs](https://r-heller.github.io/methods-in-r/sec-ch-16-design.html#sec-chapters-16-design-repeated-measures-design)
+  Designs](https://cttir.github.io/methods-in-r/sec-ch-16-design.html#sec-chapters-16-design-repeated-measures-design)
   – how repeated acquisitions per animal enter the design.
 - [CTTIR Courses: Data types, tidy data, accuracy and
   precision](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session3.html) – the difference between

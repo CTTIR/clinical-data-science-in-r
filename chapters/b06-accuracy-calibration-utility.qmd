@@ -52,7 +52,7 @@ model can be good at one and poor at the other.
 probability that a randomly chosen patient who develops delirium receives a higher predicted risk than a randomly
 chosen patient who does not. For our model on the `r nrow(test)` test patients it is
 `r sprintf("%.2f", auc_test)`. The AUC uses only the order of the predictions; multiplying every risk by two would not
-change it ([Methods in R: ROC and AUC for Logistic Models](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-roc-auc-for-logistic)).
+change it ([Methods in R: ROC and AUC for Logistic Models](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-roc-auc-for-logistic)).
 It therefore cannot tell whether a predicted risk of 20% means that about one in five such patients develops
 delirium, and it does not involve any threshold.
 
@@ -120,7 +120,7 @@ benefit answers “is acting on the model better than treating everybody or nobo
 errors?” A report that gives only the first answer leaves the clinical team to guess the other three. Overall
 measures such as the Brier score, the mean squared difference between predicted risk and outcome, combine ranking
 and calibration in one number and are useful for comparing models, but they do not replace the others
-[@steyerberg2010performance] ([Methods in R: Diagnostic Test Accuracy](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)).
+[@steyerberg2010performance] ([Methods in R: Diagnostic Test Accuracy](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)).
 
 **The most important assumption of this chapter is that the predicted risks are calibrated in the population and
 setting where the threshold is applied.** A threshold on the probability scale is only meaningful if the probability
@@ -256,7 +256,7 @@ ggplot(cal, aes(x = predicted, y = observed)) +
 
 A smooth calibration curve is an alternative to grouped points but needs larger samples to be stable
 [@vancalster2019calibration]; with 400 patients the grouped version with intervals is the more honest display
-([Methods in R: Calibration Plots](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-calibration-plots)).
+([Methods in R: Calibration Plots](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-calibration-plots)).
 
 ### Step 6 · From one threshold to many
 
@@ -401,7 +401,7 @@ patients aged 65–79 who will develop delirium are missed far more often than o
 calibrated in both groups. Lowering the threshold for the younger group would find more of their cases at the cost of
 more consultations without delirium; it is a value decision that should be made openly, with the affected clinicians
 and, where possible, patient representatives, and not hidden in code (@sec-b21;
-[Strategy in R: Fairness in Machine Learning](https://r-heller.github.io/strategy-in-r/sec-fairness-ml.html)). A
+[Strategy in R: Fairness in Machine Learning](https://cttir.github.io/strategy-in-r/sec-fairness-ml.html)). A
 patient who is not flagged must still receive the usual clinical attention; the threshold allocates an additional
 offer, it does not withdraw care.
 
@@ -460,7 +460,7 @@ intercept) on local data, and a table of flagged, found and missed patients per 
 - @sec-b05 — how the model, the split and the test patients used here were built.
 - @sec-b09 — the same 2 × 2 logic for a diagnostic alert at two different prevalences.
 - @sec-b21 — who bears the consequences of missed cases and false alarms, and how to discuss them with patients.
-- [Methods in R: Week 3, Session 5 — Calibration, discrimination, ROC/AUC, Brier score](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-labs-lab-calibration-discrimination-roc-auc-brier-score)
+- [Methods in R: Week 3, Session 5 — Calibration, discrimination, ROC/AUC, Brier score](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-labs-lab-calibration-discrimination-roc-auc-brier-score)
   — a complete lab on the measures of Steps 3 to 5.
 - [CTTIR Courses, Course 2 · Calibration, discrimination, ROC/AUC, Brier score](https://cttir.github.io/courses/course2_regression/labs/lab_week3_session5.html)
   — the same topic as a course session with exercises.
@@ -468,5 +468,5 @@ intercept) on local data, and a table of flagged, found and missed patients per 
   — performance measures for external validation.
 - [CTTIR Tutorials: Platt Scaling](https://cttir.github.io/tutorials/tutorials/machine-learning/platt-scaling.html)
   — recalibration methods beyond the intercept update of the counter-check.
-- [Methods in R: Cutpoint Selection](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-cutpoint-selection)
+- [Methods in R: Cutpoint Selection](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-cutpoint-selection)
   — why data-driven “optimal” cut-offs need the same caution as data-driven model choice.

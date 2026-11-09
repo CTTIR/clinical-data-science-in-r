@@ -46,7 +46,7 @@ resident is entitled to use none of them.
 from very large collections of text, how likely each token is to follow the tokens before it. To write, it repeatedly
 picks a next token from this probability distribution and appends it. Modern models compute these probabilities with
 the transformer architecture [@vaswani2017attention], which lets every token draw on a long stretch of preceding text
-([Methods in R: Transformers](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-transformer-overview)).
+([Methods in R: Transformers](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-transformer-overview)).
 The principle can be seen in a model that is tiny by comparison: a *bigram model*, which predicts the next word
 only from the current word, using counts from a corpus [@jurafsky2026slp, chapter 3]. The lab builds one from twelve
 synthetic sentences about delirium. One of them states that melatonin does *not* prevent delirium after hip surgery;
@@ -339,7 +339,7 @@ studies were resolved through Crossref and their abstracts read in PubMed
 “not found” at doi.org and Crossref, and neither the paper nor a journal of that name was found in Crossref or the NLM
 Catalog (checked 8 November 2026). Support: the numbers in the card come from the abstracts' results sections. Tools for
 the existence check at scale — DOI lookups, retraction databases — are covered in
-[Scientometrics in R: Retraction Analysis](https://r-heller.github.io/scientometrics-in-r/retraction-analysis.html);
+[Scientometrics in R: Retraction Analysis](https://cttir.github.io/scientometrics-in-r/retraction-analysis.html);
 the support check cannot be automated away, because it requires reading.
 
 ### Step 5 · Check the patient letter for readability
@@ -530,13 +530,13 @@ report what the review found — and the decision to drop the generated sentence
 - @sec-b07 — how to trace a statement from a brief or brochure back to the original study.
 - @sec-b25 — prompt injection, data leakage and other security risks of generative systems.
 - @sec-b21 — teach-back and shared decisions when explaining uncertainty to patients.
-- [Scientometrics in R: Text Mining Bibliographic Corpora](https://r-heller.github.io/scientometrics-in-r/text-mining-bibliographic-corpora.html)
+- [Scientometrics in R: Text Mining Bibliographic Corpora](https://cttir.github.io/scientometrics-in-r/text-mining-bibliographic-corpora.html)
   — tokens, n-grams and word counts on real literature corpora.
-- [Scientometrics in R: Embeddings for Scientometrics](https://r-heller.github.io/scientometrics-in-r/embeddings-for-scientometrics.html)
+- [Scientometrics in R: Embeddings for Scientometrics](https://cttir.github.io/scientometrics-in-r/embeddings-for-scientometrics.html)
   — the vector representations that retrieval systems use to find documents.
 - [CTTIR Tutorials: Transformers: Overview](https://cttir.github.io/tutorials/tutorials/machine-learning/transformer-overview.html)
   — the architecture behind current language models.
-- [Strategy in R: LLM Agents and Strategic Reasoning](https://r-heller.github.io/strategy-in-r/sec-llm-agents.html)
+- [Strategy in R: LLM Agents and Strategic Reasoning](https://cttir.github.io/strategy-in-r/sec-llm-agents.html)
   — what changes when language models act rather than only write.
-- [Methods in R: Use of LLM tools](https://r-heller.github.io/methods-in-r/sec-00-acknowledgments.html#sec-00-acknowledgments-use-of-llm-tools)
+- [Methods in R: Use of LLM tools](https://cttir.github.io/methods-in-r/sec-00-acknowledgments.html#sec-00-acknowledgments-use-of-llm-tools)
   — an example of a disclosure statement that names tools, tasks and the checks applied.

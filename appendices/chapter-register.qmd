@@ -2,7 +2,7 @@
 
 The register lists every chapter with its guiding question, intended readers, prerequisites, learning activity,
 course workshop and primary source. It is also available as a machine-readable file:
-[`editorial/chapter-register.csv`](https://github.com/r-heller/clinical-data-science-in-r/blob/main/editorial/chapter-register.csv).
+[`editorial/chapter-register.csv`](https://github.com/CTTIR/clinical-data-science-in-r/blob/main/editorial/chapter-register.csv).
 
 ```{r}
 #| label: tbl-chapter-register

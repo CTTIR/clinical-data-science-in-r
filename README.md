@@ -7,7 +7,7 @@ chapters and seven parts, from the clinical case through model evaluation and co
 regulation, data protection and information security. Every computational chapter contains a complete R lab with
 synthetic data and verified target values.
 
-Read online: <https://r-heller.github.io/clinical-data-science-in-r/>
+Read online: <https://cttir.github.io/clinical-data-science-in-r/>
 
 Companion course (eight workshops, 32 teaching units): <https://cttir.github.io/clinical-data-science-in-r-course/>
 
@@ -26,9 +26,9 @@ Companion course (eight workshops, 32 teaching units): <https://cttir.github.io/
 The chapter number is the fixed identifier (chapter 9 = B09) used by the course and by teaching teams. The chapter
 register is in [`editorial/chapter-register.csv`](editorial/chapter-register.csv).
 
-Companion books: [Methods in R](https://r-heller.github.io/methods-in-r/) ·
-[Scientometrics in R](https://r-heller.github.io/scientometrics-in-r/) ·
-[Strategy in R](https://r-heller.github.io/strategy-in-r/). Further courses:
+Companion books: [Methods in R](https://cttir.github.io/methods-in-r/) ·
+[Scientometrics in R](https://cttir.github.io/scientometrics-in-r/) ·
+[Strategy in R](https://cttir.github.io/strategy-in-r/). Further courses:
 [CTTIR Courses](https://cttir.github.io/courses/) · [CTTIR Tutorials](https://cttir.github.io/tutorials/).
 
 ## Building locally
@@ -56,7 +56,7 @@ The repository contains no patient data and no unpublished project results.
 ## Citation
 
 > Heller, R. (2026). *Clinical Data Science in R: Methods in Clinical AI and Translational Trauma
-> Research.* <https://r-heller.github.io/clinical-data-science-in-r/>
+> Research.* <https://cttir.github.io/clinical-data-science-in-r/>
 
 ## Use of LLM tools
 

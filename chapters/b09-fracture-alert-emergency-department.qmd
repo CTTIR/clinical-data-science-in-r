@@ -102,7 +102,7 @@ value (NPV) moves in the other direction, from `r cdsr_percent(npv[1])` in A to 
 missing alert is therefore not an all-clear: in B, `r fn[2]` of 1,000 patients have a fracture that the tool did not
 flag. The general relationship between prevalence and predictive values is worked through in [Methods in R:
 Predictive Values and
-Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)
+Prevalence](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)
 and in the CTTIR lab [Diagnostic testing: Se, Sp, PPV, NPV,
 LR](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html) [@altman1994predictive].
 
@@ -430,10 +430,10 @@ missed, and whether the specificity of 80% reflects a local equipment problem th
 - @sec-b20 – alerts per shift as a monitoring signal during a pilot.
 - @sec-b21 – the same alert from the perspectives of patient, nurse and researcher.
 - [Methods in R: Diagnostic Test
-  Accuracy](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)
+  Accuracy](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-diagnostic-accuracy)
   – sensitivity, specificity and their confidence intervals.
 - [Methods in R: Power for Diagnostic
-  Accuracy](https://r-heller.github.io/methods-in-r/sec-ch-05-power.html#sec-chapters-05-power-power-diagnostic-accuracy)
+  Accuracy](https://cttir.github.io/methods-in-r/sec-ch-05-power.html#sec-chapters-05-power-power-diagnostic-accuracy)
   – how many patients a local accuracy study would need.
 - [CTTIR Courses: Diagnostic testing: Se, Sp, PPV, NPV,
   LR](https://cttir.github.io/courses/course1_foundations/labs/lab_week2_session3.html) – a lab with likelihood

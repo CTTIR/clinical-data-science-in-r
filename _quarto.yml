@@ -9,8 +9,8 @@
   "book": {
     "title": "Clinical Data Science in R",
     "subtitle": "Methods in Clinical AI and Translational Trauma Research",
-    "site-url": "https://r-heller.github.io/clinical-data-science-in-r/",
-    "repo-url": "https://github.com/r-heller/clinical-data-science-in-r",
+    "site-url": "https://cttir.github.io/clinical-data-science-in-r/",
+    "repo-url": "https://github.com/CTTIR/clinical-data-science-in-r",
     "repo-actions": [
       "issue",
       "source"

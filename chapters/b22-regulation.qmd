@@ -303,10 +303,10 @@ investigation plan if it wants to test the app on patients, and a data-protectio
 - @sec-b23 – the data-protection review that runs in parallel to the regulatory note.
 - @sec-b24 – release records and version checks that make a "documented version" verifiable.
 - @sec-b27 – the model passport and decision sheet into which the classification note is copied.
-- [Methods in R: Reporting templates](https://r-heller.github.io/methods-in-r/sec-reporting-index.html) and
-  [TRIPOD-AI](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html) – how the evidence behind an
+- [Methods in R: Reporting templates](https://cttir.github.io/methods-in-r/sec-reporting-index.html) and
+  [TRIPOD-AI](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html) – how the evidence behind an
   intended purpose is reported.
-- [Methods in R: Writing a report](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html) –
+- [Methods in R: Writing a report](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html) –
   structure and reproducibility of the report that a notified body or ethics committee will read.
 - [CTTIR Courses: Research workflow](https://cttir.github.io/courses/appendices/research_workflow.html) – where the
   regulatory note fits between question, design and validation.

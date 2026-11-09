@@ -7,12 +7,12 @@
 | Edition | First public edition, November 2026 |
 | History | Cases, worked examples and chapter structure developed from February 2025, revised regularly until July 2026 |
 | Legal and literature status | November 2026 (individual reference dates are given in the chapters) |
-| Online | <https://r-heller.github.io/clinical-data-science-in-r/> |
-| Source | <https://github.com/r-heller/clinical-data-science-in-r> |
+| Online | <https://cttir.github.io/clinical-data-science-in-r/> |
+| Source | <https://github.com/CTTIR/clinical-data-science-in-r> |
 | Companion course | <https://cttir.github.io/clinical-data-science-in-r-course/> |
 
 Changes between editions are recorded in the repository history. Corrections are welcome as
-[issues](https://github.com/r-heller/clinical-data-science-in-r/issues).
+[issues](https://github.com/CTTIR/clinical-data-science-in-r/issues).
 
 ## Software
 
@@ -62,4 +62,4 @@ This book is provided “as is”, without warranty of any kind. The author assu
 omissions. The content does not replace individual medical, legal or statistical advice, and no example describes a
 real patient, product or institution.
 
-Contact for corrections and suggestions: <https://github.com/r-heller/clinical-data-science-in-r/issues>
+Contact for corrections and suggestions: <https://github.com/CTTIR/clinical-data-science-in-r/issues>

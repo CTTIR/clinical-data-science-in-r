@@ -385,7 +385,7 @@ decides on further clinical use.
 **Reviewer question.** Which exact model version produced the results in the paper, and how could a reader verify it?
 A version number without a checksum or release record, or code without the trained model's fingerprint, does not
 allow an independent check
-([Methods in R: Writing a report – reproducibility](https://r-heller.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reproducibility)).
+([Methods in R: Writing a report – reproducibility](https://cttir.github.io/methods-in-r/sec-appendices-d-writing-a-report.html#sec-appendices-d-writing-a-report-reproducibility)).
 
 **Self-test.** A research group keeps its trained model as `model_final.rds` on a shared drive. A colleague retrains
 the model with corrected labels and saves it under the same name. Three months later the group cannot reproduce the
@@ -418,11 +418,11 @@ not a security attack, but for integrity it has the same effect.
 - @sec-b20 – stop criteria, fallback and restart in the monitoring plan.
 - @sec-b23 – the data-protection side of the same incident.
 - @sec-b25 – attacks specific to learning and generative systems, from prompt injection to poisoned artefacts.
-- [Scientometrics in R: Reproducible pipelines](https://r-heller.github.io/scientometrics-in-r/reproducible-pipelines.html)
+- [Scientometrics in R: Reproducible pipelines](https://cttir.github.io/scientometrics-in-r/reproducible-pipelines.html)
   – pipelines that record inputs and outputs, the basis of any release record.
-- [Scientometrics in R: Reproducibility, RRIDs, and badges](https://r-heller.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
+- [Scientometrics in R: Reproducibility, RRIDs, and badges](https://cttir.github.io/scientometrics-in-r/reproducibility-rrids-and-badges.html)
   – persistent identifiers that make artefacts citable and checkable.
 - [CTTIR Courses: R, RStudio, Quarto, and renv toolchain](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session2.html)
   – pinning software versions so that a restored model runs in the same environment.
-- [Methods in R: Common errors – Git](https://r-heller.github.io/methods-in-r/sec-appendices-c-common-errors.html#sec-appendices-c-common-errors-git)
+- [Methods in R: Common errors – Git](https://cttir.github.io/methods-in-r/sec-appendices-c-common-errors.html#sec-appendices-c-common-errors-git)
   – version control mistakes that make the "approved version" impossible to find.

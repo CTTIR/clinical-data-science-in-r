@@ -48,10 +48,10 @@ with delirium in the development data. It cannot rank anybody, but it sets the f
 has learned nothing useful. A *points rule* adds one point per risk factor, in our case age 85 or older, pre-existing
 cognitive impairment and an anaesthetic risk class (ASA) of 3 or higher. Clinicians can apply it at the bedside.
 *Logistic regression* estimates a weight for each of a small set of prespecified predictors and returns a probability
-(details in [Methods in R: Logistic Regression](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-logistic-regression)).
+(details in [Methods in R: Logistic Regression](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-logistic-regression)).
 *Regularised regression* such as the elastic net offers the same model many more candidate predictors but shrinks
 their weights towards zero and can drop some entirely [@zou2005elasticnet]; the amount of shrinkage is a tuning
-parameter ([Methods in R: Elastic Net](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-elastic-net)).
+parameter ([Methods in R: Elastic Net](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-elastic-net)).
 *Tree ensembles and boosting* build many small decision trees in sequence and can capture thresholds, curved
 relationships and interactions without being told about them [@chen2016xgboost]. They have several tuning
 parameters. The top rung, *representation learning* with neural networks, learns its own features from raw signals
@@ -69,7 +69,7 @@ here the replacement of missing laboratory values by a median — is learned fro
 applied unchanged to anybody else. *Tuning* — the choice of shrinkage for the elastic net and of the number of
 boosting rounds — uses an inner cross-validation within the development data: the 800 development patients are
 divided into five folds, each fold is predicted once by a model trained on the other four, and the setting with the
-best average performance is kept ([Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)).
+best average performance is kept ([Methods in R: Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)).
 The *independent test* uses 400 patients who were set aside before anything else happened and who are predicted
 once, by every candidate, at the very end.
 
@@ -89,7 +89,7 @@ The validation in this chapter is therefore exactly this: **a single random spli
 model family.** It is not nested cross-validation, not temporal validation and not external validation. A nested
 cross-validation would repeat the tuning inside each of several outer folds and so estimate the performance of the
 whole procedure without a separate test set [@varma2006nestedcv]
-([Methods in R: Nested Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)).
+([Methods in R: Nested Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)).
 Temporal and external validation ask a different question — does the model hold in a later period or another
 hospital? — and are the subject of @sec-b19.
 
@@ -588,9 +588,9 @@ would describe new patients from the same hospital and period, not another hospi
 
 - @sec-b06 — the same test patients, now with calibration, thresholds and consequences for two groups.
 - @sec-b19 — what changes when the test patients come from another centre or a later period.
-- [Methods in R: Nested Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
+- [Methods in R: Nested Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
   — how to estimate the performance of a tuned procedure without a separate test set.
-- [Methods in R: Gradient Boosting](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-gradient-boosting)
+- [Methods in R: Gradient Boosting](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-gradient-boosting)
   — the tuning parameters fixed in Step 6 and their effect.
 - [CTTIR Courses, Course 4 · Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)
   — a full lab on resampling designs.

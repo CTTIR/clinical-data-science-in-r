@@ -442,8 +442,8 @@ shape of the curve, for example an early concentration or the terminal slope.
 
 - @sec-b16 – how little data constrain a parameter, from a Bayesian angle.
 - @sec-b18 – simulation with explicit assumptions for a different question: capacity rather than concentration.
-- [Methods in R: Fisher Information](https://r-heller.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-fisher-information) – the quantity behind the expected standard errors of Step 4.
-- [Methods in R: Non-linear regression with nls (lab)](https://r-heller.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-labs-lab-non-linear-regression-with-nls) – fitting curves like the one in Step 5, with diagnostics.
+- [Methods in R: Fisher Information](https://cttir.github.io/methods-in-r/sec-ch-01-foundations.html#sec-chapters-01-foundations-fisher-information) – the quantity behind the expected standard errors of Step 4.
+- [Methods in R: Non-linear regression with nls (lab)](https://cttir.github.io/methods-in-r/sec-ch-07-regression.html#sec-chapters-07-regression-labs-lab-non-linear-regression-with-nls) – fitting curves like the one in Step 5, with diagnostics.
 - [CTTIR Course 3, Week 4, Session 4 – SIR and SEIR models with deSolve](https://cttir.github.io/courses/course3_design_causal/labs/lab_week4_session4.html) – another mechanistic model solved with the same package.
 - [CTTIR Tutorials: The Delta Method](https://cttir.github.io/tutorials/tutorials/statistical-foundations/delta-method.html) – why log-scale standard errors approximate relative errors.
-- [Strategy in R: law of large numbers and Monte Carlo](https://r-heller.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo) – the simulation logic used to check the linearised standard errors.
+- [Strategy in R: law of large numbers and Monte Carlo](https://cttir.github.io/strategy-in-r/sec-probability.html#law-of-large-numbers-and-monte-carlo) – the simulation logic used to check the linearised standard errors.

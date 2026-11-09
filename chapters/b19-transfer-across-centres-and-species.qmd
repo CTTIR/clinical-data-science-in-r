@@ -47,7 +47,7 @@ new case *before* choosing the split, and then to check that the split really pr
 **Five levels of "new".** It helps to list the levels explicitly (@tbl-b19-levels). Each row needs its own test,
 and a positive result on an upper row says nothing about the rows below it. The general idea of keeping training and
 test data apart is covered in @sec-b05 and in
-[Methods in R: Train-Test Splits](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-train-test-split);
+[Methods in R: Train-Test Splits](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-train-test-split);
 here the point is which *unit* must be new.
 
 | Intended new case | Split that produces it | Independent denominator |
@@ -252,7 +252,7 @@ knitr::kable(split_plan, col.names = c("Fold", "Training animals", "Test animals
 
 The next block runs on its own in a fresh R session. It generates synthetic reflectance spectra for the same IDs T1 to
 T4 and classifies them with a one-nearest-neighbour model (`class::knn`, @venables2002mass; method background in
-[Methods in R: k-Nearest Neighbours Classification](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-knn-classification)).
+[Methods in R: k-Nearest Neighbours Classification](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-knn-classification)).
 Each animal has its own level and slope of reflectance (an individual "signature"), and class B adds a weak dip in the
 near infrared. **These spectra are an assumption made for teaching: the animal signature is deliberately stronger
 than the class signal.** All results are stored with the prefix `knn_`, so they cannot be confused with the hand
@@ -568,12 +568,12 @@ cohort, time or species", and in W8 groups defend which new case their model ref
 - @sec-b05 for baselines and the order of preprocessing, tuning and testing that the group split must respect.
 - @sec-b20 for what happens after a successful external test: shadow operation, drift and monitoring.
 - @sec-b27 for reporting the split plan and the tested new case in a model passport.
-- [Methods in R: Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
-  and [Nested Cross-Validation](https://r-heller.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
+- [Methods in R: Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-cross-validation)
+  and [Nested Cross-Validation](https://cttir.github.io/methods-in-r/sec-ch-13-ml.html#sec-chapters-13-ml-nested-cv)
   for the general resampling schemes.
-- [Methods in R cheat sheet: External validation](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-external-validation)
+- [Methods in R cheat sheet: External validation](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-external-validation)
   for a one-page checklist.
 - [CTTIR Courses, Course 4, Week 1 Session 1: Cross-validation, nested CV, bootstrap .632+](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week1_session1.html)
   for a hands-on lab on resampling.
-- [Methods in R: ARRIVE reporting template](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) for
+- [Methods in R: ARRIVE reporting template](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html) for
   writing up the animal study.

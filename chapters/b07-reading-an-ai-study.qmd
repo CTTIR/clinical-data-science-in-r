@@ -252,7 +252,7 @@ The positive predictive value rises to about `r cdsr_percent(cc$ppv[2], 0)` and 
 about `r sprintf("%.1f", cc$alerts_per_case[2])`. The calculation, however, assumes that sensitivity and specificity
 carry over unchanged to intensive care. That is rarely true: patients there are sicker, measured more often and treated
 earlier, so the score's behaviour can change in either direction. The counter-check therefore yields a hypothesis for
-a local evaluation, not a result ([Methods in R: Predictive Values and Prevalence](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)).
+a local evaluation, not a result ([Methods in R: Predictive Values and Prevalence](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-predictive-values-prevalence)).
 
 ## Consequences for patients and operations {#sec-b07-consequences}
 
@@ -315,13 +315,13 @@ needed. An early clinical evaluation reported according to DECIDE-AI would descr
 - @sec-b06 — the measures (discrimination, calibration, net benefit) that the checks in @tbl-b07-tools ask for.
 - @sec-b20 — how a silent phase, a pilot and monitoring turn an accuracy result into evidence about use.
 - @sec-b27 — the model passport that collects these answers for one's own model.
-- [Methods in R: TRIPOD-AI — prediction models](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html)
+- [Methods in R: TRIPOD-AI — prediction models](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html)
   — a reporting template to compare a paper against.
-- [Methods in R: CONSORT — randomised trials](https://r-heller.github.io/methods-in-r/sec-reporting-consort.html)
+- [Methods in R: CONSORT — randomised trials](https://cttir.github.io/methods-in-r/sec-reporting-consort.html)
   — the core items that CONSORT-AI extends.
 - [CTTIR Courses, Course 4 · TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
   — a lab that applies TRIPOD-AI to a model.
 - [CTTIR Tutorials: Diagnostic Test Accuracy](https://cttir.github.io/tutorials/tutorials/clinical-biostatistics/diagnostic-accuracy.html)
   — the accuracy measures behind Part A.
-- [Scientometrics in R: Retraction Analysis](https://r-heller.github.io/scientometrics-in-r/retraction-analysis.html)
+- [Scientometrics in R: Retraction Analysis](https://cttir.github.io/scientometrics-in-r/retraction-analysis.html)
   — checking corrections and retractions before a paper is cited.

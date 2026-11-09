@@ -310,8 +310,8 @@ not the clinician who happened to see the alert.
 "hyperspectral images and grouped spectra" leads to @sec-b10 for the measurement, to @sec-b19 for a split by animal
 with an ID overlap of zero, and to @sec-b27 for the passport and the reporting path
 (@tbl-b27-reporting-paths): ARRIVE 2.0 for the animal study, TRIPOD+AI items for the model. The fill-in templates in
-[Methods in R: ARRIVE](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) and
-[Methods in R: TRIPOD-AI](https://r-heller.github.io/methods-in-r/sec-reporting-tripod-ai.html) complete the report.
+[Methods in R: ARRIVE](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html) and
+[Methods in R: TRIPOD-AI](https://cttir.github.io/methods-in-r/sec-reporting-tripod-ai.html) complete the report.
 
 ### Combining routes: the coordinator's three requests
 
@@ -510,7 +510,7 @@ several images per wound, two wounds per animal, three time points.
   reference.
 - **Chapter path:** `r path_text("A2")`
 - **Workshops:** `r ws_links("A2")`
-- **Look further:** [Methods in R: ARRIVE – animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html)
+- **Look further:** [Methods in R: ARRIVE – animal research](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html)
 
 #### A3 · Walking again after an ankle fracture
 
@@ -569,7 +569,7 @@ would shorten the wait for hip fracture surgery.
   streams, with the spread across runs.
 - **Chapter path:** `r path_text("A6")`
 - **Workshops:** `r ws_links("A6")`
-- **Look further:** [Methods in R: Rolling-origin cross-validation](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
+- **Look further:** [Methods in R: Rolling-origin cross-validation](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-rolling-origin-cv)
 
 ### Formative model answers
 
@@ -641,7 +641,7 @@ knitr::kable(nav_table("data"), col.names = c("Data type", "Chapters", "Workshop
 ```
 
 When the question is a choice between statistical tests rather than a project decision, the decision trees of the
-sister resources are faster: [Methods in R: Find your method](https://r-heller.github.io/methods-in-r/sec-find-your-method.html),
+sister resources are faster: [Methods in R: Find your method](https://cttir.github.io/methods-in-r/sec-find-your-method.html),
 [CTTIR Courses: Decision tree](https://cttir.github.io/courses/appendices/decision_tree.html) and the
 [CTTIR Tutorials: Decision Tree](https://cttir.github.io/tutorials/decision-tree/index.html) with its interactive
 assistant.
@@ -650,9 +650,9 @@ assistant.
 
 The glossary lists `r nrow(glossary)` terms with their German equivalent and the chapter in which each is introduced.
 Statistical terms that this book uses without defining them are explained in the glossaries of the sister books:
-[Methods in R](https://r-heller.github.io/methods-in-r/sec-appendices-b-glossary.html),
-[Scientometrics in R](https://r-heller.github.io/scientometrics-in-r/glossary.html),
-[Strategy in R](https://r-heller.github.io/strategy-in-r/sec-glossary.html) and
+[Methods in R](https://cttir.github.io/methods-in-r/sec-appendices-b-glossary.html),
+[Scientometrics in R](https://cttir.github.io/scientometrics-in-r/glossary.html),
+[Strategy in R](https://cttir.github.io/strategy-in-r/sec-glossary.html) and
 [CTTIR Courses](https://cttir.github.io/courses/appendices/glossary.html).
 
 ```{r}
@@ -668,7 +668,7 @@ knitr::kable(gl, col.names = c("Term", "German", "Introduced in"), row.names = F
 
 The register lists mistakes in reasoning and design, each with a warning sign and a check. Errors in software and
 builds (packages, Quarto, renv, Git) are collected in
-[Methods in R: Common errors](https://r-heller.github.io/methods-in-r/sec-appendices-c-common-errors.html) and
+[Methods in R: Common errors](https://cttir.github.io/methods-in-r/sec-appendices-c-common-errors.html) and
 [CTTIR Courses: Common errors](https://cttir.github.io/courses/appendices/common_errors.html). Four publications show
 how widespread some of these mistakes are: leakage in machine-learning-based science [@kapoor2023leakage], the wrong
 experimental unit in animal studies, where about half of the surveyed studies showed pseudoreplication
@@ -718,9 +718,9 @@ for example a rerun of the control matrix of @sec-b25 after a model update.
 
 - @sec-b27 – the passport and decision sheet that turn an atlas vignette into a project record.
 - @sec-b01 – the decision map with addressee, action and fallback, the starting point of every vignette.
-- [Methods in R: Find your method](https://r-heller.github.io/methods-in-r/sec-find-your-method.html) – flowchart and
+- [Methods in R: Find your method](https://cttir.github.io/methods-in-r/sec-find-your-method.html) – flowchart and
   quick lookup from research question to statistical test.
-- [Methods in R: Glossary](https://r-heller.github.io/methods-in-r/sec-appendices-b-glossary.html) – definitions of
+- [Methods in R: Glossary](https://cttir.github.io/methods-in-r/sec-appendices-b-glossary.html) – definitions of
   statistical terms used throughout this book.
 - [CTTIR Courses: Decision tree](https://cttir.github.io/courses/appendices/decision_tree.html) – a branching guide from
   question to lab.

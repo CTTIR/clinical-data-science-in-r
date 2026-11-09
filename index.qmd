@@ -65,11 +65,11 @@ decision in @sec-b20.
 General statistics is repeated here only as far as a case requires. For the methods themselves, the chapters link to
 the relevant sections of:
 
-- [Methods in R](https://r-heller.github.io/methods-in-r/) – a method reference for researchers and reviewers, with
+- [Methods in R](https://cttir.github.io/methods-in-r/) – a method reference for researchers and reviewers, with
   diagnostics, red flags and reporting templates (including TRIPOD-AI and ARRIVE);
-- [Scientometrics in R](https://r-heller.github.io/scientometrics-in-r/) – case studies, labs and reference material
+- [Scientometrics in R](https://cttir.github.io/scientometrics-in-r/) – case studies, labs and reference material
   on research literature, reproducible pipelines and responsible metrics;
-- [Strategy in R](https://r-heller.github.io/strategy-in-r/) – simulation with explicit assumptions and decisions
+- [Strategy in R](https://cttir.github.io/strategy-in-r/) – simulation with explicit assumptions and decisions
   under uncertainty;
 - [CTTIR Courses](https://cttir.github.io/courses/) – a four-part biostatistics curriculum in R whose progression the
   course for this book follows;
@@ -94,10 +94,10 @@ regularly until July 2026. This edition reflects the legal, literature and softw
 ## Citation and licence
 
 > Heller, R. (2026). *Clinical Data Science in R: Methods in Clinical AI and Translational Trauma
-> Research.* <https://r-heller.github.io/clinical-data-science-in-r/>
+> Research.* <https://cttir.github.io/clinical-data-science-in-r/>
 
 Text and figures are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), code under the
 [MIT licence](https://opensource.org/licenses/MIT). Please report corrections through the
-[repository issues](https://github.com/r-heller/clinical-data-science-in-r/issues).
+[repository issues](https://github.com/CTTIR/clinical-data-science-in-r/issues).
 
 This book does not replace individual medical, legal or statistical advice.

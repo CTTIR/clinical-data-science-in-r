@@ -417,9 +417,9 @@ keyword filter on PDFs would not be an acceptable test, because it depends on th
 - @sec-b23 – data flow, recipients and the assessment of a personal data breach.
 - @sec-b08 – how language models generate text, and why a fluent answer is not a checked one.
 - @sec-b20 – monitoring, stop criteria and re-testing after updates in a running pilot.
-- [Scientometrics in R: Reproducible Pipelines](https://r-heller.github.io/scientometrics-in-r/reproducible-pipelines.html)
+- [Scientometrics in R: Reproducible Pipelines](https://cttir.github.io/scientometrics-in-r/reproducible-pipelines.html)
   – renv and targets for keeping track of which code and package versions produced an artefact.
-- [Methods in R: Reproducibility at scale with targets](https://r-heller.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-reproducibility-at-scale-with-targets)
+- [Methods in R: Reproducibility at scale with targets](https://cttir.github.io/methods-in-r/sec-appendices-e-cheatsheets.html#sec-appendices-e-cheatsheets-reproducibility-at-scale-with-targets)
   – a short cheatsheet for dependency-tracked pipelines.
 - [CTTIR Courses: TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
   – a lab that combines reporting items with a reproducible analysis pipeline.

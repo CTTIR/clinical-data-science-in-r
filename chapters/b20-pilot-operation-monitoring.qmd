@@ -453,11 +453,11 @@ monitoring sheet to state an override or stop condition for their own model.
 - @sec-b21 for the ethics of shifting burdens between patients and staff.
 - @sec-b24 for version control, signed releases and recovery after a faulty update.
 - @sec-b26 for small aggregates and responsible sharing of monitoring results.
-- [Methods in R: Changepoint Detection](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-changepoint-detection)
+- [Methods in R: Changepoint Detection](https://cttir.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-changepoint-detection)
   for detecting when a monitored series has shifted.
-- [Methods in R: Subgroup Analyses](https://r-heller.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-subgroup-analysis)
+- [Methods in R: Subgroup Analyses](https://cttir.github.io/methods-in-r/sec-ch-14-clinical.html#sec-chapters-14-clinical-subgroup-analysis)
   for the limits of conclusions from small groups.
 - [CTTIR Courses, Course 4, Week 4 Session 5: TRIPOD-AI, fairness auditing, reproducibility at scale](https://cttir.github.io/courses/course4_ml_highdim/labs/lab_week4_session5.html)
   for a lab on auditing model performance across groups.
-- [Strategy in R: Fairness in Machine Learning](https://r-heller.github.io/strategy-in-r/sec-fairness-ml.html) for
+- [Strategy in R: Fairness in Machine Learning](https://cttir.github.io/strategy-in-r/sec-fairness-ml.html) for
   formal fairness criteria and their trade-offs.

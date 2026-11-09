@@ -368,9 +368,9 @@ hospital can re-identify them.
 - @sec-b24 – protecting the key table, the video store and the logs.
 - @sec-b26 – secondary use, controlled access and the stepwise application of the European Health Data Space
   Regulation, whose chapter on secondary use applies from 26 March 2029 (Art. 105) [@eu2025ehds].
-- [Methods in R: The research workflow](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-4-acquisition)
+- [Methods in R: The research workflow](https://cttir.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-4-acquisition)
   – where data acquisition and its documentation sit in a project.
-- [Scientometrics in R: Reproducible pipelines](https://r-heller.github.io/scientometrics-in-r/reproducible-pipelines.html)
+- [Scientometrics in R: Reproducible pipelines](https://cttir.github.io/scientometrics-in-r/reproducible-pipelines.html)
   – documenting each processing step so that a register can be kept up to date.
 - [CTTIR Courses: Research workflow](https://cttir.github.io/courses/appendices/research_workflow.html) – planning
   data handling before the first measurement.

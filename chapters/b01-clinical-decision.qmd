@@ -349,9 +349,9 @@ radiographs or registry data leave the treating hospital (@sec-b23).
 - @sec-b02 — the same pathway seen as three different questions: describe, predict, explain.
 - @sec-b09 — what the fracture flag means in counts of alarms per shift at different prevalences.
 - @sec-b19 — when a result from one centre or one species may be transferred to the next.
-- [Methods in R: The research workflow — 1. Question](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-1-question)
-  and [9. Knowledge / decisions](https://r-heller.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-9-knowledge-decisions) — the two ends of the chain in this chapter.
+- [Methods in R: The research workflow — 1. Question](https://cttir.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-1-question)
+  and [9. Knowledge / decisions](https://cttir.github.io/methods-in-r/sec-appendices-a-research-workflow.html#sec-appendices-a-research-workflow-9-knowledge-decisions) — the two ends of the chain in this chapter.
 - [CTTIR Course 1, Week 1 Session 1: Scientific process and research workflow](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session1.html) — a lab on turning a question into a plan.
 - [CTTIR Course 3, Week 1 Session 4: Bench and translational design](https://cttir.github.io/courses/course3_design_causal/labs/lab_week1_session4.html) — design of the preclinical link of the chain.
-- [Methods in R: ARRIVE — animal research](https://r-heller.github.io/methods-in-r/sec-reporting-arrive.html) — a reporting template for the rat study.
+- [Methods in R: ARRIVE — animal research](https://cttir.github.io/methods-in-r/sec-reporting-arrive.html) — a reporting template for the rat study.
 - [CTTIR Course 1, Week 1 Session 5: ggplot2 grammar](https://cttir.github.io/courses/course1_foundations/labs/lab_week1_session5.html) — the next step after the first graphic.
