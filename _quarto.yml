@@ -113,7 +113,12 @@
       "code-copy": true,
       "fig-width": 7,
       "fig-height": 4.5,
-      "fig-dpi": 150
+      "fig-dpi": 150,
+      "include-in-header": [
+        {
+          "text": "<script defer data-domain=\"cttir.github.io/clinical-data-science-in-r\" src=\"https://analytics.hellebo.de/js/script.file-downloads.outbound-links.js\"></script>"
+        }
+      ]
     },
     "epub": {
       "toc": true
