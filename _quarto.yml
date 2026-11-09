@@ -88,9 +88,7 @@
       "appendices/chapter-register.qmd",
       "appendices/checklist.qmd"
     ],
-    "downloads": [
-      "epub"
-    ],
+    "downloads": [],
     "cover-image": "images/cover.png"
   },
   "author": "R. Heller",

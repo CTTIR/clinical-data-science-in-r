@@ -31,6 +31,15 @@ jobs:
           test -f _book/index.html
           test -f _book/chapters/b09-fracture-alert-emergency-department.html
           if grep -rl '?@sec\|?@tbl\|?@fig' _book --include=*.html; then exit 1; fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and verify every book and chapter download
+        run: bash scripts/build-downloads-ci.sh _book clinical-data-science-in-r https://cttir.github.io/clinical-data-science-in-r/
+
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
