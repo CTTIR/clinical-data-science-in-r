@@ -15,7 +15,7 @@ set.seed(909)
 reading needs no programming. · **Prerequisites:** the fourfold table from @sec-b06; the idea of a target population
 from @sec-b01.\
 **In the course:** [W3 · Diagnostics, prediction and external
-evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
+evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

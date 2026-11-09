@@ -15,8 +15,8 @@ set.seed(2606)
 action · **Prerequisites:** @sec-b05 (the delirium cohort and its validation design); the 2 × 2 table is introduced
 here and applied again in @sec-b09
 
-**In the course:** [W3 · Diagnostics, prediction and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
-and [W8 · Colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+**In the course:** [W3 · Diagnostics, prediction and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
+and [W8 · Colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
 **Data:** synthetic (the 400 test patients of @sec-b05, read from `data/b05-delirium-cohort.csv`) ·
 **Core reading time:** about 11 minutes
 :::

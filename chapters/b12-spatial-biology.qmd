@@ -15,9 +15,9 @@ set.seed(1212)
 images, and reviewers of spatial analyses. · **Prerequisites:** the unit of analysis from @sec-b03; the measurement
 chain and pseudoreplication from @sec-b10.\
 **In the course:** [W4 · What imaging, gait and tissue models
-measure](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html) (tissue
+measure](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html) (tissue
 station) and [W5 · Causal questions, trajectories and
-phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
+phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

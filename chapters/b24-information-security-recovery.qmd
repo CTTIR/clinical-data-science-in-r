@@ -15,9 +15,9 @@ set.seed(2424)
 stays on; the core reading needs no programming. · **Prerequisites:** a reproducible R project from @sec-b04; monitoring
 and restart in @sec-b20; the data flow in @sec-b23.\
 **In the course:** [W7 · Regulation, data protection and
-incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 (control matrix and table-top exercise), [W8 · Colloquium and
-decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
 **Data:** synthetic (model file, logs and test cases generated in the chapter) · **Core reading time:** about 11
 minutes
 :::

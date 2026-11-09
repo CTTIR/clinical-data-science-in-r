@@ -15,11 +15,11 @@ set.seed(2121)
 needs no programming. · **Prerequisites:** the fracture alert and its predictive values in @sec-b09; absolute
 frequencies and thresholds from @sec-b06.\
 **In the course:** [W2 · Language models and
-evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
+evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
 (conversation card), [W3 · Diagnostics, prediction and external
-evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
+evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
 (errors by group), [W8 · Colloquium and
-decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
 **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

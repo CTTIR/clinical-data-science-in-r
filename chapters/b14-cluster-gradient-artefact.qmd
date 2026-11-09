@@ -14,7 +14,7 @@ set.seed(1414)
 **For:** translational researchers, doctoral students and reviewers who meet cluster maps of patients ·
 **Prerequisites:** denominators and units (@sec-b03), the person as independent unit (@sec-b13), basic idea of
 distances between observations\
-**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
 **Data:** synthetic (generated in the chapter) ·
 **Core reading time:** about 10 minutes
 :::

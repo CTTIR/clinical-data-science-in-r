@@ -14,11 +14,11 @@ set.seed(1104)
 **For:** anyone who hands over, reviews or reuses an analysis; readers taking their first steps in R ·
 **Prerequisites:** @sec-b03 (the fracture cohort tables); the Lab of @sec-b01
 
-**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
+**In the course:** [W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
 (a script that rebuilds the table in a fresh session),
-[W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
+[W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
 (another group checks one number) and
-[W8 · Colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html);
+[W8 · Colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html);
 recommended reading · **Data:** synthetic (built in the chapter; compared with [b03-visits.csv](../data/b03-visits.csv)) ·
 **Core reading time:** about 10 minutes
 :::

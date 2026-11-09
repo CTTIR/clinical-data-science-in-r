@@ -15,9 +15,9 @@ set.seed(1717)
 forecast dashboards · **Prerequisites:** counts, denominators and how routine data arise (@sec-b03), the idea of
 calibration (@sec-b06); a first look at time series in
 [Methods in R: Time Series: Introduction](https://r-heller.github.io/methods-in-r/sec-ch-09-timeseries.html#sec-chapters-09-timeseries-time-series-introduction)\
-**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
+**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
 (required reading); transfer exercise in
-[W3 · Diagnostics, prediction and external evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
+[W3 · Diagnostics, prediction and external evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

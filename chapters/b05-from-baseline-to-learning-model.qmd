@@ -15,8 +15,8 @@ set.seed(2605)
 **Prerequisites:** @sec-b02 (prediction versus explanation), @sec-b03 (missing values and denominators), @sec-b04
 (a reproducible R project)
 
-**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
-and [W3 · Diagnostics, prediction and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) ·
+**In the course:** [W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
+and [W3 · Diagnostics, prediction and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) ·
 **Data:** synthetic (generated in this chapter; teaching file `data/b05-delirium-cohort.csv`, reused in @sec-b06) ·
 **Core reading time:** about 10 minutes
 :::

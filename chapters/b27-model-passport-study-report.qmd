@@ -16,10 +16,10 @@ set.seed(2027)
 about the next step · **Prerequisites:** accuracy, calibration and denominators (@sec-b06), reading an AI study
 (@sec-b07), grouped splits and transfer (@sec-b19); for the decision sheet @sec-b21 to @sec-b25
 
-**In the course:** [W8 · Colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
+**In the course:** [W8 · Colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
 (required); project milestones from
-[W3](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) to
-[W7](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+[W3](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) to
+[W7](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 · **Data:** synthetic (the teaching case of @sec-b19, rebuilt in the chapter) · **Core reading time:** about 10 minutes
 :::
 

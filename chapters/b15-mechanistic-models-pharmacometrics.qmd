@@ -15,7 +15,7 @@ set.seed(1515)
 pharmacokinetic analyses ·
 **Prerequisites:** exponential functions and logarithms, the idea of a likelihood (@sec-b16 uses it as well),
 repeated measurements per person (@sec-b13)\
-**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html) ·
+**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html) ·
 **Data:** synthetic, virtual parameters only (generated in the chapter) ·
 **Core reading time:** about 11 minutes
 :::

@@ -13,7 +13,7 @@ set.seed(1313)
 **Guiding question:** Whose course does the estimated slope describe?\
 **For:** clinical researchers, doctoral students and reviewers who work with repeated laboratory values ·
 **Prerequisites:** estimands (@sec-b02), missing values and denominators (@sec-b03), simple linear regression\
-**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
 **Data:** synthetic (generated in the chapter; [download as CSV](../data/b13-selenium-synthetic.csv)) ·
 **Core reading time:** about 10 minutes
 :::

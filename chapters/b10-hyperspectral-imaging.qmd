@@ -14,7 +14,7 @@ set.seed(1010)
 **For:** doctoral researchers and preclinical teams who analyse spectral images, and reviewers of such studies. ·
 **Prerequisites:** analysis units and denominators from @sec-b03; baseline thinking from @sec-b05.\
 **In the course:** [W4 · What imaging, gait and tissue models
-measure](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html) ·
+measure](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html) ·
 **Data:** synthetic (generated in the chapter; fictitious animals) · **Core reading time:** about 10 minutes
 :::
 

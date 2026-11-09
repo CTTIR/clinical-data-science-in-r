@@ -13,7 +13,7 @@ set.seed(2028)
 # Tables of this chapter, stored as data so that the Lab can check them (see "Lab").
 chapter_ids <- sprintf("b%02d", 1:28)
 
-course_url <- "https://r-heller.github.io/clinical-data-science-in-r-course/lessons/"
+course_url <- "https://cttir.github.io/clinical-data-science-in-r-course/lessons/"
 workshops <- data.frame(
   id = paste0("W", 1:8),
   title = c("From clinical case to question", "Language models and evidence",
@@ -243,8 +243,8 @@ nav_table <- function(which) {
 course, supervisors who assign a project · **Prerequisites:** none; the chapter is an entry point and points to the
 chapters that hold the prerequisites
 
-**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
-· [W8 · Colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
+**In the course:** [W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
+· [W8 · Colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
 (required) · **Data:** no patient data; the atlas, navigator and glossary are stored as tables in the chapter ·
 **Core reading time:** about 9 minutes
 :::

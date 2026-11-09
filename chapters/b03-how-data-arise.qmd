@@ -14,8 +14,8 @@ set.seed(1103)
 **For:** students and clinical researchers who collect data in routine care or experiments, or receive them as an
 export · **Prerequisites:** @sec-b01 (the two teaching datasets and the first R steps)
 
-**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
-(required core reading) and [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
+**In the course:** [W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html)
+(required core reading) and [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) ·
 **Data:** synthetic (generated in the chapter; download [b03-visits.csv](../data/b03-visits.csv),
 [b03-patients.csv](../data/b03-patients.csv), [b03-dictionary.csv](../data/b03-dictionary.csv)) ·
 **Core reading time:** about 11 minutes

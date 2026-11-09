@@ -15,7 +15,7 @@ set.seed(1818)
 planners, analysts in hospital operations · **Prerequisites:** the difference between a forecast and a simulated
 capacity change (@sec-b17); random draws and replications, as in
 [Strategy in R: Monte Carlo Methods for Games](https://r-heller.github.io/strategy-in-r/sec-monte-carlo.html)\
-**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
+**In the course:** [W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
 (required reading, as an alternative to @sec-b15) · **Data:** synthetic (generated in the chapter) ·
 **Core reading time:** about 10 minutes
 :::

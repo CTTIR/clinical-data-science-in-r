@@ -14,9 +14,9 @@ set.seed(1102)
 **For:** clinicians and researchers who plan an analysis of routine or registry data ·
 **Prerequisites:** @sec-b01 (decision map, first steps in R)
 
-**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
 (required core reading); the three questions are first drafted in
-[W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html) ·
+[W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html) ·
 **Data:** synthetic (generated in the chapter) · **Core reading time:** about 11 minutes
 :::
 

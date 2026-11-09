@@ -15,9 +15,9 @@ set.seed(2222)
 reviewers; the core reading needs no programming. · **Prerequisites:** the fracture alert in @sec-b09; pilot operation
 and monitoring in @sec-b20; types of evidence in @sec-b07.\
 **In the course:** [W7 · Regulation, data protection and
-incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 (regulatory note), [W8 · Colloquium and
-decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
 **Data:** no patient data; fictional documents; legal status checked on 8 November 2026 · **Core reading time:**
 about 11 minutes
 :::

@@ -9,7 +9,7 @@ synthetic data and verified target values.
 
 Read online: <https://r-heller.github.io/clinical-data-science-in-r/>
 
-Companion course (eight workshops, 32 teaching units): <https://r-heller.github.io/clinical-data-science-in-r-course/>
+Companion course (eight workshops, 32 teaching units): <https://cttir.github.io/clinical-data-science-in-r-course/>
 
 ## Structure
 

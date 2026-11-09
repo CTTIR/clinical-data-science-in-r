@@ -9,7 +9,7 @@
 | Legal and literature status | November 2026 (individual reference dates are given in the chapters) |
 | Online | <https://r-heller.github.io/clinical-data-science-in-r/> |
 | Source | <https://github.com/r-heller/clinical-data-science-in-r> |
-| Companion course | <https://r-heller.github.io/clinical-data-science-in-r-course/> |
+| Companion course | <https://cttir.github.io/clinical-data-science-in-r-course/> |
 
 Changes between editions are recorded in the repository history. Corrections are welcome as
 [issues](https://github.com/r-heller/clinical-data-science-in-r/issues).

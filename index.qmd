@@ -45,7 +45,7 @@ No number in this book describes a commercial product, a real hospital or unpubl
 
 ## Reading paths in the course
 
-The course [Clinical Data Science in R](https://r-heller.github.io/clinical-data-science-in-r-course/) uses selected
+The course [Clinical Data Science in R](https://cttir.github.io/clinical-data-science-in-r-course/) uses selected
 chapters of this book as required reading. Readers working through the book on their own do not need the course.
 
 | Course stage | Required reading per workshop | Supplementary |

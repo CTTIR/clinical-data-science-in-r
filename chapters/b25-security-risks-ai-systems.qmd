@@ -16,8 +16,8 @@ set.seed(2025)
 security officers and reviewers · **Prerequisites:** how language models produce text (@sec-b08), the data flow of a
 project (@sec-b23), threat model, least privilege and signed artefacts (@sec-b24)
 
-**In the course:** [W2 · Language models and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
-· [W7 · Regulation, data protection and incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+**In the course:** [W2 · Language models and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
+· [W7 · Regulation, data protection and incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 9 minutes
 :::
 

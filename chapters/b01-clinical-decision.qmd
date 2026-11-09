@@ -14,7 +14,7 @@ set.seed(1101)
 **For:** medical students, clinical researchers and doctoral candidates who are new to data analysis ·
 **Prerequisites:** basic clinical knowledge; no programming experience
 
-**In the course:** [W1 · From clinical case to question](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html) ·
+**In the course:** [W1 · From clinical case to question](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w1-from-clinical-case-to-question.html) ·
 **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

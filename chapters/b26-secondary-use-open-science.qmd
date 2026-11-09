@@ -16,8 +16,8 @@ set.seed(2026)
 data access committees, reviewers · **Prerequisites:** rare combinations and denominators (@sec-b03), a reproducible R
 project (@sec-b04), legal basis, pseudonymisation and recipients (@sec-b23)
 
-**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
-· [W7 · Regulation, data protection and incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html)
+· [W7 · Regulation, data protection and incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

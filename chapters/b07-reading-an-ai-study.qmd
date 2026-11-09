@@ -15,8 +15,8 @@ set.seed(2607)
 researchers and peer reviewers · **Prerequisites:** @sec-b05 (validation designs) and @sec-b06 (2 × 2 table,
 calibration, thresholds)
 
-**In the course:** [W2 · Language models and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
-and [W3 · Diagnostics, prediction and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) ·
+**In the course:** [W2 · Language models and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html)
+and [W3 · Diagnostics, prediction and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w3-diagnostics-prediction-evidence.html) ·
 **Data:** *published* figures from one external validation study and a *synthetic* (fictitious) abstract; no patient
 data · **Core reading time:** about 11 minutes
 :::

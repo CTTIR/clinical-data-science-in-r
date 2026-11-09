@@ -14,10 +14,10 @@ set.seed(1919)
 **For:** doctoral researchers in preclinical imaging, clinical research teams planning a validation, reviewers of
 prediction and imaging studies · **Prerequisites:** units of analysis and denominators (@sec-b03), training and test
 data with a baseline (@sec-b05), spectra and the hyperspectral measurement chain (@sec-b10)\
-**In the course:** [W4 · What imaging, gait and tissue models measure](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html)
+**In the course:** [W4 · What imaging, gait and tissue models measure](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w4-imaging-gait-tissue.html)
 (required reading), also used in
-[W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
-and [W8 · Model colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
+[W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html)
+and [W8 · Model colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
 · **Data:** synthetic (generated in the chapter) · **Core reading time:** about 10 minutes
 :::
 

@@ -22,8 +22,8 @@ set.seed(2020)
 safety officers, reviewers of early clinical evaluations · **Prerequisites:** what a validation did and did not test
 (@sec-b19), positive predictive value and thresholds (@sec-b06), alerts per shift (@sec-b09), reporting per shift
 (@sec-b17)\
-**In the course:** [W7 · Regulation, data protection and a security incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
-and [W8 · Model colloquium and decision](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
+**In the course:** [W7 · Regulation, data protection and a security incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+and [W8 · Model colloquium and decision](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html)
 (recommended reading; used for the restart decision) · **Data:** synthetic (generated in the chapter) ·
 **Core reading time:** about 11 minutes
 :::

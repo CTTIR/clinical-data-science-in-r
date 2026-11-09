@@ -15,8 +15,8 @@ set.seed(1616)
 experiments ·
 **Prerequisites:** proportions and denominators (@sec-b03), the difference between describing and explaining
 (@sec-b02)\
-**In the course:** [W5 · Causality, trajectories and phenotypes](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) and
-[W6 · Pharmacometrics, forecasting and simulation](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html) ·
+**In the course:** [W5 · Causality, trajectories and phenotypes](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w5-causality-trajectories-phenotypes.html) and
+[W6 · Pharmacometrics, forecasting and simulation](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w6-pharmacometrics-forecasting-simulation.html) ·
 **Data:** synthetic, fictitious animals (generated in the chapter) ·
 **Core reading time:** about 10 minutes
 :::

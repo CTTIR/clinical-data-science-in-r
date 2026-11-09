@@ -15,7 +15,7 @@ set.seed(2608)
 models · **Prerequisites:** @sec-b07 (tracing a statement to its source); no programming experience is needed for the
 core reading
 
-**In the course:** [W2 · Language models and evidence](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html) ·
+**In the course:** [W2 · Language models and evidence](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w2-language-models-and-evidence.html) ·
 **Data:** synthetic (two stored answers and a twelve-sentence corpus written for this book; teaching file
 `data/b08-stored-answers.csv`); *published* findings only where cited · **Core reading time:** about 11 minutes
 :::

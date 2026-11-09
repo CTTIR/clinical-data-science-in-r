@@ -15,9 +15,9 @@ set.seed(2323)
 needs no programming. · **Prerequisites:** the gait measurement from video in @sec-b11; how data arise in @sec-b03;
 the regulatory note in @sec-b22 helps but is not required.\
 **In the course:** [W7 · Regulation, data protection and
-incident](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
+incident](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w7-regulation-data-protection-incident.html)
 (data flow and DPIA screening); also used in W1, W2, W4 and
-[W8](https://r-heller.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
+[W8](https://cttir.github.io/clinical-data-science-in-r-course/lessons/w8-colloquium-and-decision.html) ·
 **Data:** synthetic (data-flow register generated in the chapter); legal status checked on 8 November 2026 ·
 **Core reading time:** about 11 minutes
 :::
