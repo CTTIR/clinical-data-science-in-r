@@ -1,5 +1,11 @@
 # Data protection along the entire data flow {#sec-b23}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-10-19 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b23
 #| include: false

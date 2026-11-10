@@ -1,5 +1,11 @@
 # Preface {.unnumbered}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-11-08 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 A clinical team receives a fracture alert. A research group measures hundreds of spectra from a handful of animals.
 An emergency department plans its next shift. This book follows the decision that each of these situations is meant
 to support. Readers should find three things in every chapter: a calculation they can retrace, a way to try to

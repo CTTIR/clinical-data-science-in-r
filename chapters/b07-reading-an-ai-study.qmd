@@ -1,5 +1,11 @@
 # Reading an AI study critically {#sec-b07}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-07-26 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b07
 #| include: false

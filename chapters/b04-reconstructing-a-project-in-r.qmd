@@ -1,5 +1,11 @@
 # Reconstructing a research project in R {#sec-b04}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-06-28 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b04
 #| include: false

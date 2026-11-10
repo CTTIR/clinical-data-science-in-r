@@ -1,5 +1,11 @@
 # How data arise: missingness and denominators {#sec-b03}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-04-21 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b03
 #| include: false

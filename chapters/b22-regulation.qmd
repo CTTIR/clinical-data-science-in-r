@@ -1,5 +1,11 @@
 # Regulating research software and clinical AI {#sec-b22}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-10-25 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b22
 #| include: false

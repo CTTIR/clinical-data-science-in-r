@@ -1,5 +1,11 @@
 # From baseline to learning model {#sec-b05}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-02-08 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b05
 #| include: false

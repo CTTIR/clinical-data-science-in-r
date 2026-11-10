@@ -1,5 +1,11 @@
 # Measuring gait from video {#sec-b11}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-05-18 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b11
 #| include: false

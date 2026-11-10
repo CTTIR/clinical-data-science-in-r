@@ -1,5 +1,11 @@
 # Accuracy, calibration and clinical utility {#sec-b06}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-09-07 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b06
 #| include: false

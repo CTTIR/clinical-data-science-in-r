@@ -1,5 +1,11 @@
 # Mechanistic models and pharmacometrics {#sec-b15}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-04-12 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b15
 #| include: false

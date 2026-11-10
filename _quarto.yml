@@ -89,7 +89,8 @@
       "appendices/checklist.qmd"
     ],
     "downloads": [],
-    "cover-image": "images/cover.png"
+    "cover-image": "images/cover.png",
+    "output-file": "clinical-data-science-in-r"
   },
   "author": "R. Heller",
   "lang": "en",
@@ -118,10 +119,18 @@
         {
           "text": "<script defer data-domain=\"cttir.github.io/clinical-data-science-in-r\" src=\"https://analytics.hellebo.de/js/script.file-downloads.outbound-links.js\"></script>"
         }
-      ]
+      ],
+      "css": "styles.css"
     },
     "epub": {
       "toc": true
+    },
+    "pdf": {
+      "documentclass": "scrbook",
+      "pdf-engine": "xelatex",
+      "toc": true,
+      "keep-tex": true,
+      "include-in-header": "style/provenance.tex"
     }
   },
   "execute": {

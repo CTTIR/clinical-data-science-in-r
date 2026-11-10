@@ -1,4 +1,10 @@
 # References {.unnumbered}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-05-17 · Last changed: 2026-05-17*
+:::
+<!-- page-provenance:end -->
+
 ::: {#refs}
 :::

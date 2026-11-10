@@ -1,5 +1,11 @@
 # Model passport, study report and decision {#sec-b27}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-11-16 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b27
 #| include: false

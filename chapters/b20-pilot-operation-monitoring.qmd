@@ -1,5 +1,11 @@
 # Pilot operation, impact and monitoring {#sec-b20}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-07-28 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b20
 #| include: false

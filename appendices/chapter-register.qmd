@@ -1,5 +1,11 @@
 # Chapter register {#sec-chapter-register}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-11-08 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 The register lists every chapter with its guiding question, intended readers, prerequisites, learning activity,
 course workshop and primary source. It is also available as a machine-readable file:
 [`editorial/chapter-register.csv`](https://github.com/CTTIR/clinical-data-science-in-r/blob/main/editorial/chapter-register.csv).

@@ -1,5 +1,11 @@
 # From one centre or species to the next {#sec-b19}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-09-28 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b19
 #| include: false

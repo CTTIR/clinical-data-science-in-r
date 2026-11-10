@@ -36,12 +36,17 @@ Companion books: [Methods in R](https://cttir.github.io/methods-in-r/) ·
 The project was created with [bookgen](https://github.com/r-heller/bookgen) and keeps its structure
 (`_quarto.yml`, `index.qmd`, `chapters/`, `appendices/`, `references.bib`).
 
+Install Python 3 with `pypdf` for PDF validation, and a TeX distribution for PDF output.
+
 Requirements: [Quarto](https://quarto.org/) ≥ 1.10.19 and R ≥ 4.5 with ggplot2, dplyr, tidyr, lme4, deSolve,
-glmnet, pROC, dagitty, class, cluster, mclust, simmer, forecast, digest and knitr/rmarkdown (exact versions in the
+glmnet, pROC, dagitty, class, cluster, mclust, simmer, forecast, xgboost, fpc, patchwork, digest and knitr/rmarkdown (exact versions in the
 appendix “Edition notes”).
 
 ```sh
-quarto render          # HTML and EPUB into _book/
+python3 scripts/update-page-provenance.py
+quarto render          # HTML, PDF and EPUB into _book/
+python3 scripts/finalize-book.py _book
+python3 scripts/check-book.py _book
 quarto preview
 ```
 

@@ -1,5 +1,11 @@
 # Spatial biology and image analysis {#sec-b12}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-01-11 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b12
 #| include: false

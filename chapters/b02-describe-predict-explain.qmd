@@ -1,5 +1,11 @@
 # Describe, predict, explain {#sec-b02}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-03-09 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b02
 #| include: false

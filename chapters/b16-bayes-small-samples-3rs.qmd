@@ -1,5 +1,11 @@
 # Bayes, small samples and the 3Rs {#sec-b16}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-06-15 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b16
 #| include: false

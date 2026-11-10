@@ -1,5 +1,11 @@
 # Clinical decisions and the translational chain {#sec-b01}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-07-25 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b01
 #| include: false

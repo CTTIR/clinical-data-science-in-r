@@ -37,3 +37,8 @@ cdsr_percent <- function(x, digits = 1) {
 cdsr_number <- function(x, digits = 0) {
   formatC(x, format = "f", digits = digits, big.mark = ",")
 }
+
+# Cairo preserves Greek labels in PDF figures.
+if (requireNamespace("knitr", quietly = TRUE) && knitr::is_latex_output()) {
+  knitr::opts_chunk$set(dev = "cairo_pdf")
+}

@@ -1,5 +1,11 @@
 # A fracture alert in the emergency department {#sec-b09}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-07-26 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b09
 #| include: false

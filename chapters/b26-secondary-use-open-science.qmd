@@ -1,5 +1,11 @@
 # Secondary use and responsible open science {#sec-b26}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-12-14 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b26
 #| include: false

@@ -1,5 +1,11 @@
 # Edition notes, software and imprint {#sec-edition-notes}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-11-08 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ## Edition
 
 | | |

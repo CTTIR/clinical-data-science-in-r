@@ -1,5 +1,11 @@
 # Mass casualty incidents, operating capacity and simulation {#sec-b18}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2025-08-17 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b18
 #| include: false

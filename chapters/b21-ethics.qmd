@@ -1,5 +1,11 @@
 # Ethics at the bedside and in study design {#sec-b21}
 
+<!-- page-provenance:start -->
+::: {.page-provenance}
+*R. Heller · Date: 2026-07-29 · Last changed: 2026-11-09*
+:::
+<!-- page-provenance:end -->
+
 ```{r}
 #| label: setup-b21
 #| include: false

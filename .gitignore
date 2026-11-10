@@ -3,3 +3,11 @@
 /.DS_Store
 
 **/*.quarto_ipynb
+
+# Temporary knitr output; reproducible results are in _freeze/.
+**/*_files/
+**/__pycache__/
+
+# LaTeX source kept by the PDF build and site libraries from a local render.
+/clinical-data-science-in-r.tex
+/site_libs/
