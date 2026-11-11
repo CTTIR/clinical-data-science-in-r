@@ -46,6 +46,10 @@ jobs:
           test -f _book/index.html
           test -f _book/chapters/b09-fracture-alert-emergency-department.html
           if grep -rl '?@sec\|?@tbl\|?@fig' _book --include=*.html; then exit 1; fi
+      # keep-tex leaves the LaTeX source in the project root; it is a build
+      # intermediate and never part of the site.
+      - name: Keep the LaTeX source off the site
+        run: find _book -name '*.tex' -print -delete
       - name: Verify page notes and downloadable formats
         run: |
           python3 tests/test_page_provenance.py
