@@ -51,7 +51,12 @@ quarto preview
 ```
 
 R results are stored with `freeze: auto` in `_freeze/`, which is committed; the GitHub Actions build therefore does
-not need R. After changing a chapter, render it locally and commit the updated `_freeze/`.
+not re-run chapter code. R with knitr and rmarkdown is still installed for EPUB assembly.
+After changing a chapter, render it locally and commit the updated `_freeze/`.
+
+Pull requests run the same format, provenance and download checks with read-only repository
+permissions. Only successful main-branch builds can deploy to GitHub Pages. These publication
+checks do not replace fresh execution of the scientific labs.
 
 ## Data
 

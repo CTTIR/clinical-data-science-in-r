@@ -2,13 +2,12 @@ name: Render and publish book
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: pages
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
   build:
@@ -66,16 +65,22 @@ jobs:
       - name: Build and verify every book and chapter download
         run: bash scripts/build-downloads-ci.sh _book clinical-data-science-in-r https://cttir.github.io/clinical-data-science-in-r/
 
-      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         with:
           path: _book
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
       - id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e
