@@ -253,7 +253,7 @@ effect is negligible; for steps that learn more from the data, such as selecting
 ```{r}
 #| label: b05-simple-candidates
 auc <- function(p, y) {                       # rank formula (Mann-Whitney), equals the ROC area
-  r <- rank(p); n1 <- sum(y); n0 <- length(y) - n1
+  r <- rank(p); n1 <- as.double(sum(y)); n0 <- length(y) - n1
   (sum(r[y == 1]) - n1 * (n1 + 1) / 2) / (n1 * n0)
 }
 brier <- function(p, y) mean((p - y)^2)       # mean squared error of the predicted risk

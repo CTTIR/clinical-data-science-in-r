@@ -2,9 +2,9 @@ name: Fresh chapter labs
 on:
   push:
     branches: [main]
-    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', '.github/workflows/labs.yaml']
+    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', 'tests/**', '.github/workflows/labs.yaml']
   pull_request:
-    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', '.github/workflows/labs.yaml']
+    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', 'tests/**', '.github/workflows/labs.yaml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -59,6 +59,8 @@ jobs:
           install-quarto: false
           install-pandoc: false
           cache-version: clinical-book-labs-1
+      - name: Verify AUC reference calculations
+        run: Rscript --vanilla tests/auc-ranks.R
       - name: Execute chapters without committed result caches
         shell: bash
         run: |
