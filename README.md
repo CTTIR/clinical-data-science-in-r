@@ -85,3 +85,9 @@ ISBN or official source.
 
 Text and figures: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see
 [`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)). Code: MIT (see [`LICENSE`](LICENSE)).
+
+A separate **Fresh chapter labs** workflow removes the committed result cache in
+its disposable checkout and executes all 28 numbered chapters on R 4.5.0 and
+4.6.1. It records source/result hashes, package versions and logs without
+committing regenerated outputs. Deliberately unevaluated conceptual examples
+remain unevaluated; passing teaching targets is not clinical validation.

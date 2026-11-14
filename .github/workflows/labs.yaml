@@ -1,0 +1,80 @@
+name: Fresh chapter labs
+on:
+  push:
+    branches: [main]
+    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', '.github/workflows/labs.yaml']
+  pull_request:
+    paths: ['chapters/**', 'R/**', 'data/**', '_quarto.yml', 'scripts/check-fresh-labs.py', '.github/workflows/labs.yaml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: fresh-labs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  labs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        r: ['4.5.0', '4.6.1']
+    env:
+      OPENBLAS_NUM_THREADS: 1
+      OMP_NUM_THREADS: 1
+      VECLIB_MAXIMUM_THREADS: 1
+      MKL_NUM_THREADS: 1
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b
+        with:
+          version: '1.10.19'
+      - uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          r-version: ${{ matrix.r }}
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05
+        with:
+          packages: |
+            any::ggplot2
+            any::glmnet
+            any::dagitty
+            any::lme4
+            any::deSolve
+            any::simmer
+            any::patchwork
+            any::mclust
+            any::forecast
+            any::pROC
+            any::xgboost
+            any::fpc
+            any::digest
+            any::jsonlite
+            any::scales
+            any::knitr
+            any::rmarkdown
+          dependencies: 'NA'
+          install-quarto: false
+          install-pandoc: false
+          cache-version: clinical-book-labs-1
+      - name: Execute chapters without committed result caches
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p lab-evidence
+          git rev-parse HEAD > lab-evidence/revision.txt
+          rm -rf _freeze
+          quarto render --to html 2>&1 | tee lab-evidence/render.log
+          python3 scripts/check-fresh-labs.py
+          Rscript --vanilla -e 'sessionInfo(); write.csv(installed.packages()[,c("Package","Version")],"lab-evidence/packages.csv",row.names=FALSE)' > lab-evidence/session-info.log
+      - name: Preserve fresh result evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: fresh-labs-R-${{ matrix.r }}
+          path: |
+            lab-evidence
+            _freeze
+          if-no-files-found: error
